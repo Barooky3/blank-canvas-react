@@ -77,6 +77,8 @@ export type Database = {
           id: string
           order_items: Json
           order_number: number
+          proof_url: string | null
+          rejection_notes: string | null
           rejection_seen: boolean
           shipping_address: Json | null
           status: string
@@ -97,6 +99,8 @@ export type Database = {
           id?: string
           order_items?: Json
           order_number?: number
+          proof_url?: string | null
+          rejection_notes?: string | null
           rejection_seen?: boolean
           shipping_address?: Json | null
           status?: string
@@ -117,6 +121,8 @@ export type Database = {
           id?: string
           order_items?: Json
           order_number?: number
+          proof_url?: string | null
+          rejection_notes?: string | null
           rejection_seen?: boolean
           shipping_address?: Json | null
           status?: string
