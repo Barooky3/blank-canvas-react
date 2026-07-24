@@ -439,7 +439,7 @@ export const products: Product[] = [
       'Patchouli': '/scent-notes/patchouli.png',
     },
     accentColor: '#DAA520',
-    image: '/__l5e/assets-v1/e9d208c4-944f-4522-ab7d-1a44c443d32f/aventus-absolu-bottle.png',
+    image: aventusAbsoluProduct.url,
     imagePadding: 'p-[1.2rem] md:p-[2.7rem]',
     affiliateUrl: '/product/1-million-elixir',
     inStock: true,
