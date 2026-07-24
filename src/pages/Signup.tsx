@@ -195,20 +195,20 @@ const Signup = () => {
           <form onSubmit={handleSubmit} className="border border-border p-8">
             <div className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground">
-                  Full Name
+                <Label htmlFor="username" className="text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground">
+                  Username
                 </Label>
                 <div className="relative">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    id="name"
+                    id="username"
                     type="text"
-                    placeholder="Your name"
+                    placeholder="yourusername"
                     required
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={e => setName(e.target.value.replace(/\s+/g, ''))}
                     className="pl-11 h-12 bg-background border-border rounded-none focus:border-foreground"
-                    maxLength={100}
+                    maxLength={30}
                   />
                 </div>
               </div>
