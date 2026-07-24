@@ -177,7 +177,7 @@ const PaypalEneba = () => {
             <div className="mt-2 pt-3 border-t border-border">
               <p className="text-xs text-muted-foreground">
                 Confused or need help?{' '}
-                <a href="https://www.tiktok.com/@fragranceprofs" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">
+                <a href="https://www.tiktok.com/@professor_pfm" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">
                   Contact us on TikTok
                 </a>
               </p>
