@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      banned_users: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          reason: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          reason?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          reason?: string | null
+        }
+        Relationships: []
+      }
       email_otps: {
         Row: {
           code: string
@@ -38,6 +59,69 @@ export type Database = {
           expires_at?: string
           id?: string
           used?: boolean
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          approval_token: string | null
+          checkout_reference: string | null
+          created_at: string
+          customer_email: string
+          customer_name: string | null
+          discount_code: string | null
+          discount_percent: number | null
+          email_sent: boolean
+          first_visit_at: string | null
+          gift_card_code: string | null
+          id: string
+          order_items: Json
+          order_number: number
+          rejection_seen: boolean
+          shipping_address: Json | null
+          status: string
+          total_amount: number
+          updated_at: string
+        }
+        Insert: {
+          approval_token?: string | null
+          checkout_reference?: string | null
+          created_at?: string
+          customer_email: string
+          customer_name?: string | null
+          discount_code?: string | null
+          discount_percent?: number | null
+          email_sent?: boolean
+          first_visit_at?: string | null
+          gift_card_code?: string | null
+          id?: string
+          order_items?: Json
+          order_number?: number
+          rejection_seen?: boolean
+          shipping_address?: Json | null
+          status?: string
+          total_amount?: number
+          updated_at?: string
+        }
+        Update: {
+          approval_token?: string | null
+          checkout_reference?: string | null
+          created_at?: string
+          customer_email?: string
+          customer_name?: string | null
+          discount_code?: string | null
+          discount_percent?: number | null
+          email_sent?: boolean
+          first_visit_at?: string | null
+          gift_card_code?: string | null
+          id?: string
+          order_items?: Json
+          order_number?: number
+          rejection_seen?: boolean
+          shipping_address?: Json | null
+          status?: string
+          total_amount?: number
+          updated_at?: string
         }
         Relationships: []
       }
