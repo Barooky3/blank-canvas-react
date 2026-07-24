@@ -41,6 +41,33 @@ export type Database = {
         }
         Relationships: []
       }
+      product_attributes: {
+        Row: {
+          gender_tendency: number
+          longevity: number
+          product_id: string
+          season: number
+          uniqueness: number
+          updated_at: string
+        }
+        Insert: {
+          gender_tendency?: number
+          longevity?: number
+          product_id: string
+          season?: number
+          uniqueness?: number
+          updated_at?: string
+        }
+        Update: {
+          gender_tendency?: number
+          longevity?: number
+          product_id?: string
+          season?: number
+          uniqueness?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
