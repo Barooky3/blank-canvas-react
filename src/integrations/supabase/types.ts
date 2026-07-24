@@ -68,6 +68,36 @@ export type Database = {
         }
         Relationships: []
       }
+      product_padding_overrides: {
+        Row: {
+          padding_bottom: number
+          padding_left: number
+          padding_right: number
+          padding_top: number
+          product_id: string
+          scale: number
+          updated_at: string
+        }
+        Insert: {
+          padding_bottom?: number
+          padding_left?: number
+          padding_right?: number
+          padding_top?: number
+          product_id: string
+          scale?: number
+          updated_at?: string
+        }
+        Update: {
+          padding_bottom?: number
+          padding_left?: number
+          padding_right?: number
+          padding_top?: number
+          product_id?: string
+          scale?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
