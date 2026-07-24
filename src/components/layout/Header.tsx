@@ -72,7 +72,7 @@ export const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center shrink-0">
             <span className="text-base sm:text-[1.35rem] md:text-xl font-semibold tracking-[0.15em] text-foreground uppercase">
-              Parfinity
+              Parfinitys
             </span>
           </Link>
 
