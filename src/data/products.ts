@@ -36,6 +36,9 @@ import sleekAndCleanGallery from '@/assets/products/sleek-and-clean-gallery.png.
 import youngPlayboyGallery from '@/assets/products/young-playboy-gallery-ai.png.asset.json';
 import jpgBundleGalleryAi from '@/assets/products/jpg-bundle-gallery-ai.png.asset.json';
 import jpgBundleGalleryAiV2 from '@/assets/products/jpg-bundle-gallery-ai-v2.png.asset.json';
+import jpgElixirBottle from '@/assets/products/jpg-elixir.png.asset.json';
+import jpgParfumBottle from '@/assets/products/jpg-parfum.png.asset.json';
+import jpgBeauBottle from '@/assets/products/jpg-beau.png.asset.json';
 import naxosGallery from '@/assets/products/naxos-gallery.webp.asset.json';
 import blackOpiumGallery from '@/assets/products/black-opium-gallery.webp.asset.json';
 import symphonyGallery from '@/assets/products/symphony-gallery.webp.asset.json';
@@ -194,9 +197,9 @@ export const products: Product[] = [
     description: 'The ultimate Jean Paul Gaultier trio – three iconic scents that cover every mood and occasion.',
     image: '',
     bundleImages: [
-      '/__l5e/assets-v1/e4dff361-e02c-43a6-9a18-c0876933c5cc/f5db0f17-85a7-4892-bb9e-f7be8d91b966-converted-1.png',
-      '/__l5e/assets-v1/817ab087-4466-497e-a09d-2eafb7b02489/jean-paul-gaultier-le-male-le-parfum-9203208.png',
-      '/__l5e/assets-v1/807ffe41-fb70-4b63-9421-7c3d4f0cb6b1/cd9d450b-b45d-4ab9-9750-9bd6ad00db2f-png-only-1.png',
+      jpgElixirBottle.url,
+      jpgParfumBottle.url,
+      jpgBeauBottle.url,
     ],
     additionalImages: [jpgBundleGalleryAiV2.url],
     affiliateUrl: '/product/jpg-bundle',
@@ -439,7 +442,7 @@ export const products: Product[] = [
       'Patchouli': '/scent-notes/patchouli.png',
     },
     accentColor: '#DAA520',
-    image: '/__l5e/assets-v1/e9d208c4-944f-4522-ab7d-1a44c443d32f/aventus-absolu-bottle.png',
+    image: aventusAbsoluProduct.url,
     imagePadding: 'p-[1.2rem] md:p-[2.7rem]',
     affiliateUrl: '/product/1-million-elixir',
     inStock: true,
@@ -1138,7 +1141,7 @@ export const products: Product[] = [
       'Amber': '/scent-notes/amber.png',
     },
     accentColor: '#003B5C',
-    image: '/__l5e/assets-v1/76703be7-32d7-426f-b94e-19602ccd8daa/le-beau-le-parfum-bottle.png',
+    image: jpgBeauBottle.url,
     additionalImages: [leBeauLeParfumLifestyle],
     affiliateUrl: '/product/le-beau-le-parfum',
     inStock: true,
@@ -1309,7 +1312,7 @@ export const products: Product[] = [
       'Tobacco': '/scent-notes/tobacco.png',
     },
     accentColor: '#C58917',
-    image: '/__l5e/assets-v1/cc2d9d21-be25-46da-bb84-061d40ab4ea3/le-male-elixir-bottle.png',
+    image: jpgElixirBottle.url,
     additionalImages: [leMaleElixirLifestyle2],
     affiliateUrl: '/product/le-male-elixir',
     inStock: true,
@@ -1406,7 +1409,7 @@ export const products: Product[] = [
       'Woody Notes': '/scent-notes/woody-notes.png',
     },
     accentColor: '#000000',
-    image: '/__l5e/assets-v1/c4f53487-ae79-4b0f-9734-072bc0f1ced7/le-male-le-parfum-bottle.png',
+    image: jpgParfumBottle.url,
     additionalImages: [leMaleLeParfumLifestyle],
     affiliateUrl: '/product/le-male-le-parfum',
     inStock: true,
