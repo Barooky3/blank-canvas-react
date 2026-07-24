@@ -36,6 +36,9 @@ import sleekAndCleanGallery from '@/assets/products/sleek-and-clean-gallery.png.
 import youngPlayboyGallery from '@/assets/products/young-playboy-gallery-ai.png.asset.json';
 import jpgBundleGalleryAi from '@/assets/products/jpg-bundle-gallery-ai.png.asset.json';
 import jpgBundleGalleryAiV2 from '@/assets/products/jpg-bundle-gallery-ai-v2.png.asset.json';
+import jpgElixirBottle from '@/assets/products/jpg-elixir.png.asset.json';
+import jpgParfumBottle from '@/assets/products/jpg-parfum.png.asset.json';
+import jpgBeauBottle from '@/assets/products/jpg-beau.png.asset.json';
 import naxosGallery from '@/assets/products/naxos-gallery.webp.asset.json';
 import blackOpiumGallery from '@/assets/products/black-opium-gallery.webp.asset.json';
 import symphonyGallery from '@/assets/products/symphony-gallery.webp.asset.json';
