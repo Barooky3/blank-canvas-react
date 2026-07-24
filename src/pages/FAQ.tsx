@@ -73,13 +73,13 @@ const FAQ = () => {
                   ) : faq.answer === "tiktok-help" ? (
                     <span>
                       Message us on our{' '}
-                      <a href="https://www.tiktok.com/@fragranceprofs" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">TikTok</a>
+                      <a href="https://www.tiktok.com/@professor_pfm" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">TikTok</a>
                       {' '}and we'll help you choose based on your goals and intended purpose!
                     </span>
                   ) : faq.answer === "packaging-video" ? (
                     <span>
                       As an optional service, we allow customers to see a video of their items being packaged in real time and their name visible, with bonus samples and gifts added if you consent to it being posted. If you{' '}
-                      <a href="https://www.tiktok.com/@fragranceprofs" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">message us on TikTok</a>
+                      <a href="https://www.tiktok.com/@professor_pfm" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">message us on TikTok</a>
                       {' '}and give us your order number and email as soon as you order, we'll send you a video of us packing your exact items with your name showing in the background for authenticity, it will only be posted with your consent.
                     </span>
                   ) : (
@@ -94,12 +94,12 @@ const FAQ = () => {
             <p className="text-sm text-muted-foreground">
               Still have questions? Contact us on{' '}
               <a
-                href="https://www.tiktok.com/@fragranceprofs"
+                href="https://www.tiktok.com/@professor_pfm"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-accent font-semibold hover:underline"
               >
-                TikTok @fragranceprofs
+                TikTok @professor_pfm
               </a>
             </p>
           </div>
