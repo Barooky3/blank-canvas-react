@@ -61,6 +61,7 @@ import erbaGoldGalleryAi from '@/assets/products/erba-gold-gallery-ai.png.asset.
 import oneMillionParfumGalleryAi from '@/assets/products/one-million-parfum-gallery-ai.png.asset.json';
 import diorHommeIntenseGalleryAi from '@/assets/products/dior-homme-intense-gallery-ai.png.asset.json';
 import oneMillionElixirGalleryAi from '@/assets/products/one-million-elixir-gallery-ai.png.asset.json';
+import oneMillionElixirBottle from '@/assets/products/one-million-elixir-bottle.png.asset.json';
 import invictusVictoryElixirImage from '@/assets/products/invictus-victory-elixir.png.asset.json';
 import invictusVictoryElixirGallery from '@/assets/products/invictus-victory-elixir-gallery.webp.asset.json';
 import baccaratRouge540ExtraitImage from '@/assets/products/baccarat-rouge-540-extrait.png.asset.json';
@@ -442,7 +443,7 @@ export const products: Product[] = [
       'Patchouli': '/scent-notes/patchouli.png',
     },
     accentColor: '#DAA520',
-    image: aventusAbsoluProduct.url,
+    image: oneMillionElixirBottle.url,
     imagePadding: 'p-[1.2rem] md:p-[2.7rem]',
     affiliateUrl: '/product/1-million-elixir',
     inStock: true,
