@@ -65,7 +65,11 @@ const Signup = () => {
       });
 
       if (error || data?.error) {
-        throw new Error(data?.error || error?.message || 'Failed to send code');
+        let detail = data?.error || error?.message || 'Failed to send code';
+        if (error && (error as any).context?.text) {
+          try { detail = await (error as any).context.text() || detail; } catch {}
+        }
+        throw new Error(detail);
       }
 
       setShowOtp(true);
