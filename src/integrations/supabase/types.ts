@@ -14,6 +14,126 @@ export type Database = {
   }
   public: {
     Tables: {
+      bancontact_live_counter: {
+        Row: {
+          ad_spend: number
+          contributing_orders: Json
+          gross: number
+          id: number
+          net: number
+          order_count: number
+          reset_at: string
+          reset_history: Json
+          updated_at: string
+        }
+        Insert: {
+          ad_spend?: number
+          contributing_orders?: Json
+          gross?: number
+          id?: number
+          net?: number
+          order_count?: number
+          reset_at?: string
+          reset_history?: Json
+          updated_at?: string
+        }
+        Update: {
+          ad_spend?: number
+          contributing_orders?: Json
+          gross?: number
+          id?: number
+          net?: number
+          order_count?: number
+          reset_at?: string
+          reset_history?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      bancontact_orders: {
+        Row: {
+          approval_token: string
+          approved_at: string | null
+          country: string | null
+          created_at: string
+          customer_email: string
+          customer_name: string
+          id: string
+          order_items: Json
+          rejected_at: string | null
+          source: string
+          split_first_at: string | null
+          split_second_at: string | null
+          split_second_due_at: string | null
+          status: string
+          total_amount: number
+          updated_at: string
+        }
+        Insert: {
+          approval_token: string
+          approved_at?: string | null
+          country?: string | null
+          created_at?: string
+          customer_email: string
+          customer_name: string
+          id?: string
+          order_items?: Json
+          rejected_at?: string | null
+          source?: string
+          split_first_at?: string | null
+          split_second_at?: string | null
+          split_second_due_at?: string | null
+          status?: string
+          total_amount: number
+          updated_at?: string
+        }
+        Update: {
+          approval_token?: string
+          approved_at?: string | null
+          country?: string | null
+          created_at?: string
+          customer_email?: string
+          customer_name?: string
+          id?: string
+          order_items?: Json
+          rejected_at?: string | null
+          source?: string
+          split_first_at?: string | null
+          split_second_at?: string | null
+          split_second_due_at?: string | null
+          status?: string
+          total_amount?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      bancontact_timer_state: {
+        Row: {
+          enabled: boolean
+          id: number
+          last_send_at: string | null
+          mode: string
+          next_send_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          enabled?: boolean
+          id?: number
+          last_send_at?: string | null
+          mode?: string
+          next_send_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          enabled?: boolean
+          id?: number
+          last_send_at?: string | null
+          mode?: string
+          next_send_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       banned_users: {
         Row: {
           created_at: string
