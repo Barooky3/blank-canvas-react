@@ -1,0 +1,1 @@
+ALTER TABLE public.orders ADD COLUMN IF NOT EXISTS gift_card_code TEXT DEFAULT NULL;

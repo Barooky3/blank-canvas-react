@@ -1,0 +1,1 @@
+ALTER TABLE public.product_padding_overrides ADD COLUMN scale numeric NOT NULL DEFAULT 1;

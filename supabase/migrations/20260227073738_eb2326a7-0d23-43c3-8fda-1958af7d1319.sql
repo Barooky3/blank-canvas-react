@@ -1,0 +1,1 @@
+DELETE FROM visitor_sessions WHERE user_email IN ('ewhz3384@gmail.com', 'mubarak.elkhabir@gmail.com');

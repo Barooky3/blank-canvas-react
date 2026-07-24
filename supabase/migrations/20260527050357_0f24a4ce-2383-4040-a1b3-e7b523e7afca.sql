@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Review images are publicly accessible" ON storage.objects;

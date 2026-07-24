@@ -1,0 +1,1 @@
+ALTER TABLE public.orders ADD COLUMN rejection_seen boolean NOT NULL DEFAULT false;

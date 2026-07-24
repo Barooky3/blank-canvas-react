@@ -1,0 +1,1 @@
+ALTER TABLE public.admin_live_counter REPLICA IDENTITY FULL;

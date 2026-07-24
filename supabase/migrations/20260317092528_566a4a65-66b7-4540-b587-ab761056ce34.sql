@@ -1,0 +1,1 @@
+ALTER TABLE public.chat_conversations ADD COLUMN customer_last_seen_at timestamp with time zone DEFAULT null;

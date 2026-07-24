@@ -1,0 +1,1 @@
+ALTER TABLE public.visitor_sessions ADD COLUMN IF NOT EXISTS user_email text DEFAULT NULL;

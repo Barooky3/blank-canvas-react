@@ -1,0 +1,1 @@
+ALTER TABLE public.fake_chat_auto_state ADD COLUMN enabled boolean NOT NULL DEFAULT true;
