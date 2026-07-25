@@ -1,0 +1,13 @@
+import { Client } from "pg";
+let conn = process.env.POSTGRES_URL_NON_POOLING.replace(/([?&])(sslmode|ssl)=[^&]*/g,"$1").replace(/[?&]$/,"");
+const c = new Client({ connectionString: conn, ssl:{rejectUnauthorized:false} });
+await c.connect();
+const b = await c.query("select id, public from storage.buckets order by id");
+console.log("BUCKETS:", b.rows);
+const t = await c.query("select tgname from pg_trigger where tgrelid='auth.users'::regclass and not tgisinternal");
+console.log("AUTH.USERS TRIGGERS:", t.rows.map(r=>r.tgname));
+const tables = await c.query("select count(*) from information_schema.tables where table_schema='public'");
+console.log("PUBLIC TABLE COUNT:", tables.rows[0].count);
+const op = await c.query("select policyname from pg_policies where schemaname='public' and tablename='orders'");
+console.log("ORDERS POLICIES NOW:", op.rows.map(r=>r.policyname));
+await c.end();
