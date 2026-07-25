@@ -14,7 +14,7 @@ const PASSWORD_RULES = [
 
 const Signup = () => {
   const { toast } = useToast();
-  const { signIn, signUp } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,35 +60,21 @@ const Signup = () => {
     setIsSubmitting(true);
 
     try {
-      // Create the account using Supabase native auth.
-      const { error: signUpError } = await signUp(email, password, name);
-      if (signUpError) {
-        // Friendly message for the common "already registered" case.
-        const msg = /already registered|already exists|user already/i.test(signUpError)
-          ? 'An account with this email already exists. Please sign in instead.'
-          : signUpError;
-        throw new Error(msg);
+      const { data, error } = await supabase.functions.invoke('send-signup-otp', {
+        body: { email, name },
+      });
+
+      if (error || data?.error) {
+        let detail = data?.error || error?.message || 'Failed to send code';
+        if (error && (error as any).context?.text) {
+          try { detail = await (error as any).context.text() || detail; } catch {}
+        }
+        throw new Error(detail);
       }
 
-      // Try to sign in immediately. This succeeds when email confirmation is
-      // disabled; otherwise Supabase requires the user to confirm via email.
-      const { error: signInError } = await signIn(email, password);
-
-      // Fire-and-forget welcome email (only works once edge functions are deployed).
-      supabase.functions
-        .invoke('send-welcome-email', { body: { email, name } })
-        .catch(() => {});
-
-      if (signInError) {
-        toast({
-          title: 'Account created!',
-          description: 'Check your email to confirm your account, then sign in.',
-        });
-        navigate('/login');
-      } else {
-        toast({ title: 'Welcome to Parfumistry! 🎉' });
-        navigate('/');
-      }
+      setShowOtp(true);
+      setResendCooldown(600);
+      toast({ title: 'Verification code sent!', description: 'Check your email for the 6-digit code.' });
     } catch (err: any) {
       toast({ title: 'Error', description: err.message, variant: 'destructive' });
     } finally {
@@ -323,7 +309,7 @@ const Signup = () => {
                 className="w-full h-14 text-xs font-medium tracking-[0.15em] uppercase rounded-none"
                 disabled={isSubmitting || !allRulesPass || password !== confirmPassword}
               >
-                {isSubmitting ? 'Creating account...' : 'Create Account'}
+                {isSubmitting ? 'Sending code...' : 'Create Account'}
               </Button>
             </div>
           </form>
