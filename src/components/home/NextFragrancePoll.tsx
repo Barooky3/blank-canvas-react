@@ -10,6 +10,8 @@ import acquaDiGioImg from '@/assets/products/acqua-di-gio-parfum.png.asset.json'
 
 const POLL_ID = 'next-arrival-2026-12-i';
 const ADMIN_EMAILS = ['ewhz3384@gmail.com', 'elkhabirmalik@gmail.com'];
+// Non-admins can only see the live results once the poll reaches this many total votes.
+const REVEAL_THRESHOLD = 50;
 
 const OPTIONS = [
   {
@@ -42,14 +44,24 @@ const NextFragrancePoll = () => {
   const { user } = useAuth();
   const isAdmin = !!user && ADMIN_EMAILS.includes(user.email || '');
   const [counts, setCounts] = useState<Record<string, number>>({});
+  const [total, setTotal] = useState(0);
   const [voted, setVoted] = useState<string | null>(
     typeof window !== 'undefined' ? localStorage.getItem(`poll_voted_${POLL_ID}`) : null
   );
   const [loading, setLoading] = useState(false);
 
-  const total = Object.values(counts).reduce((s, n) => s + n, 0);
-  const showResults = !!voted || isAdmin;
+  // Results (the per-choice breakdown / percentages) are only revealed to
+  // non-admins once the poll has reached REVEAL_THRESHOLD total votes.
+  const canSeeResults = isAdmin || total >= REVEAL_THRESHOLD;
+  const votesRemaining = Math.max(0, REVEAL_THRESHOLD - total);
 
+  // Total votes is safe to load for everyone — it never exposes the breakdown.
+  const loadTotal = async () => {
+    const { data } = await (supabase as any).rpc('get_poll_total', { _poll_id: POLL_ID });
+    if (data != null) setTotal(Number(data) || 0);
+  };
+
+  // The per-choice breakdown is only fetched when the viewer is allowed to see it.
   const loadCounts = async () => {
     const { data } = await (supabase as any).rpc('get_poll_counts', { _poll_id: POLL_ID });
     if (Array.isArray(data)) {
@@ -62,8 +74,12 @@ const NextFragrancePoll = () => {
   };
 
   useEffect(() => {
-    if (showResults) loadCounts();
-  }, [showResults]);
+    loadTotal();
+  }, []);
+
+  useEffect(() => {
+    if (canSeeResults) loadCounts();
+  }, [canSeeResults]);
 
   const vote = async (key: string) => {
     if (voted || loading) return;
@@ -77,12 +93,14 @@ const NextFragrancePoll = () => {
     if (!error) {
       localStorage.setItem(`poll_voted_${POLL_ID}`, key);
       setVoted(key);
+      setTotal((t) => t + 1);
       setCounts((c) => ({ ...c, [key]: (c[key] || 0) + 1 }));
     }
     setLoading(false);
   };
 
-  const pct = (n: number) => (total === 0 ? 0 : Math.round((n / total) * 100));
+  const countsTotal = Object.values(counts).reduce((s, n) => s + n, 0);
+  const pct = (n: number) => (countsTotal === 0 ? 0 : Math.round((n / countsTotal) * 100));
 
   return (
     <section className="pt-6 md:pt-10 pb-2 md:pb-4 bg-background">
@@ -95,7 +113,13 @@ const NextFragrancePoll = () => {
           Which should we add next?
         </h2>
         <p className="text-[10px] md:text-xs text-muted-foreground text-center mb-4 md:mb-5">
-          {voted ? 'Thanks for voting — here are the live results' : 'Tap your pick to reveal the results'}
+          {canSeeResults
+            ? voted
+              ? 'Thanks for voting — here are the live results'
+              : 'Live results so far'
+            : voted
+              ? `Thanks for voting! Results unlock at ${REVEAL_THRESHOLD} votes${votesRemaining > 0 ? ` — ${votesRemaining} to go` : ''}`
+              : `Tap your pick to vote — results unlock at ${REVEAL_THRESHOLD} votes`}
         </p>
 
         <div className="relative flex items-center justify-center gap-2.5 md:gap-4 mb-5 md:mb-8">
@@ -127,7 +151,7 @@ const NextFragrancePoll = () => {
                     </div>
                   )}
                   <AnimatePresence>
-                    {showResults && (
+                    {canSeeResults && (
                       <motion.div
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -136,11 +160,9 @@ const NextFragrancePoll = () => {
                         <div className="text-sm md:text-base font-semibold text-foreground">
                           {percent}%
                         </div>
-                        {(isAdmin || total > 200) && (
-                          <div className="text-[9px] tracking-wider uppercase text-muted-foreground">
-                            {count} vote{count === 1 ? '' : 's'}
-                          </div>
-                        )}
+                        <div className="text-[9px] tracking-wider uppercase text-muted-foreground">
+                          {count} vote{count === 1 ? '' : 's'}
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -191,10 +213,24 @@ const NextFragrancePoll = () => {
           </div>
         </div>
 
-        {showResults && (isAdmin || total > 200) && (
+        {canSeeResults ? (
           <p className="text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-4">
             {isAdmin ? 'Admin · ' : ''}{total} total vote{total === 1 ? '' : 's'}
           </p>
+        ) : (
+          voted && (
+            <div className="mt-4 max-w-[240px] mx-auto">
+              <div className="h-1 rounded-full bg-secondary overflow-hidden">
+                <div
+                  className="h-full bg-accent transition-all duration-500"
+                  style={{ width: `${Math.min(100, Math.round((total / REVEAL_THRESHOLD) * 100))}%` }}
+                />
+              </div>
+              <p className="text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-2">
+                {total} / {REVEAL_THRESHOLD} votes · {votesRemaining} until results
+              </p>
+            </div>
+          )
         )}
       </div>
     </section>

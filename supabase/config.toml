@@ -1,1 +1,92 @@
-project_id = "tiwnmtrlefahkgsgxovl"
+project_id = "kolnekutwubdwqpgzaob"
+
+[functions.admin-orders]
+verify_jwt = false
+
+[functions.admin-padding]
+verify_jwt = false
+
+[functions.ban-user]
+verify_jwt = false
+
+[functions.bancontact-action]
+verify_jwt = false
+
+[functions.bancontact-generate]
+verify_jwt = false
+
+[functions.bancontact-timer-tick]
+verify_jwt = false
+
+[functions.capture-order]
+verify_jwt = false
+
+[functions.chat-auto-reply]
+verify_jwt = false
+
+[functions.check-rejected-orders]
+verify_jwt = false
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.create-sumup-checkout]
+verify_jwt = false
+
+[functions.get-paypal-client-id]
+verify_jwt = false
+
+[functions.get-review-display]
+verify_jwt = false
+
+[functions.get-user-orders]
+verify_jwt = false
+
+[functions.handle-order-action]
+verify_jwt = false
+
+[functions.mark-rejection-seen]
+verify_jwt = false
+
+[functions.request-order-approval]
+verify_jwt = false
+
+[functions.request-proof-of-payment]
+verify_jwt = false
+
+[functions.send-oneoff-email]
+verify_jwt = false
+
+[functions.send-order-confirmation]
+verify_jwt = false
+
+[functions.send-signup-otp]
+verify_jwt = false
+
+[functions.send-welcome-email]
+verify_jwt = false
+
+[functions.social-proof-names]
+verify_jwt = false
+
+[functions.track-order]
+verify_jwt = false
+
+[functions.track-visitor]
+verify_jwt = false
+
+[functions.translate-text]
+verify_jwt = false
+
+[functions.upload-proof]
+verify_jwt = false
+
+[functions.validate-discount]
+verify_jwt = false
+
+[functions.verify-signup-otp]
+verify_jwt = false
+
+[functions.verify-sumup-payment]
+verify_jwt = false
+
