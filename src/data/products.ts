@@ -32,6 +32,7 @@ import strongerWithYouParfumGallery from '@/assets/products/stronger-with-you-pa
 import strongerWithYouParfum50mlGallery from '@/assets/products/stronger-with-you-parfum-50ml-gallery.png.asset.json';
 import theMostWantedEdpIntenseGallery from '@/assets/products/the-most-wanted-edp-intense-gallery.png.asset.json';
 import eveningSweetheartGallery from '@/assets/products/evening-sweetheart-gallery.png.asset.json';
+import eveningSweetheartBundleImage from '@/assets/products/evening-sweetheart-bundle-bottles.png';
 import sleekAndCleanGallery from '@/assets/products/sleek-and-clean-gallery.png.asset.json';
 import youngPlayboyGallery from '@/assets/products/young-playboy-gallery-ai.png.asset.json';
 import jpgBundleGalleryAi from '@/assets/products/jpg-bundle-gallery-ai.png.asset.json';
@@ -119,8 +120,8 @@ export const products: Product[] = [
     price: 64.99,
     category: 'bundle',
     description: '"Evening Sweetheart" Bundle – top-tier sweet bangers for the night. Got a date? A party? These fragrances will make you unforgettable.',
-    image: '/__l5e/assets-v1/94e13a19-11e6-4985-9a12-26b3a08a7cfc/evening-sweetheart-bundle-bottle.png',
-    affiliateUrl: '/product/evening-sweetheart-bundle',
+  image: eveningSweetheartBundleImage,
+  affiliateUrl: '/product/evening-sweetheart-bundle',
     inStock: true,
     featured: true,
     isBundle: true,
