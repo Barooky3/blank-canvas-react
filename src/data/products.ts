@@ -32,7 +32,9 @@ import strongerWithYouParfumGallery from '@/assets/products/stronger-with-you-pa
 import strongerWithYouParfum50mlGallery from '@/assets/products/stronger-with-you-parfum-50ml-gallery.png.asset.json';
 import theMostWantedEdpIntenseGallery from '@/assets/products/the-most-wanted-edp-intense-gallery.png.asset.json';
 import eveningSweetheartGallery from '@/assets/products/evening-sweetheart-gallery.png.asset.json';
-import eveningSweetheartBundleImage from '@/assets/products/evening-sweetheart-bundle-bottles.png';
+import eveningSweetheartBundleImage from '@/assets/products/evening-sweetheart-bundle-official.png';
+import youngPlayboyBundleImage from '@/assets/products/young-playboy-bundle-official.png';
+import sleekAndCleanBundleImage from '@/assets/products/sleek-and-clean-bundle-official.png';
 import sleekAndCleanGallery from '@/assets/products/sleek-and-clean-gallery.png.asset.json';
 import youngPlayboyGallery from '@/assets/products/young-playboy-gallery-ai.png.asset.json';
 import jpgBundleGalleryAi from '@/assets/products/jpg-bundle-gallery-ai.png.asset.json';
@@ -146,7 +148,7 @@ export const products: Product[] = [
     price: 67.99,
     category: 'bundle',
     description: '"Young Playboy" Bundle – 5 legendary fragrances in one package. Looking for a set that delivers fresh, bold, and versatile scents.',
-    image: '/__l5e/assets-v1/9ac3e092-ed45-453a-a265-737abfddea81/young-playboy-bundle-bottle.png',
+    image: youngPlayboyBundleImage,
     affiliateUrl: '/product/young-playboy-bundle',
     inStock: true,
     featured: true,
@@ -172,7 +174,7 @@ export const products: Product[] = [
     price: 60.99,
     category: 'bundle',
     description: 'Looking for fragrances that work anytime, anywhere? This set is your daily go-to – fresh, masculine, and clean.',
-    image: '/__l5e/assets-v1/d3d69a15-41ac-4d64-9534-027d7d8a094d/sleek-and-clean-bundle-bottle.png',
+    image: sleekAndCleanBundleImage,
     affiliateUrl: '/product/sleek-and-clean-bundle',
     inStock: true,
     isBundle: true,
