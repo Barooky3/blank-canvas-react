@@ -23,7 +23,6 @@ import leBeauParadiseGardenNotes from '@/assets/products/le-beau-paradise-garden
 import leBeauParadiseGardenGallery from '@/assets/products/le-beau-paradise-garden-gallery.png';
 import aventusGallery from '@/assets/products/aventus-gallery.png.asset.json';
 import aventusAbsoluProduct from '@/assets/products/aventus-absolu-product.png.asset.json';
-import badBoyCobaltGallery from '@/assets/products/bad-boy-cobalt-gallery.png.asset.json';
 import bornInRomaCoralFantasyGallery from '@/assets/products/born-in-roma-coral-fantasy-gallery.png.asset.json';
 import bornInRomaGreenStravaganzaGallery from '@/assets/products/born-in-roma-green-stravaganza-gallery.png.asset.json';
 import strongerWithYouAbsolutelyGallery from '@/assets/products/stronger-with-you-absolutely-gallery.png.asset.json';
@@ -31,14 +30,9 @@ import strongerWithYouAmberGallery from '@/assets/products/stronger-with-you-amb
 import strongerWithYouParfumGallery from '@/assets/products/stronger-with-you-parfum-gallery.png.asset.json';
 import strongerWithYouParfum50mlGallery from '@/assets/products/stronger-with-you-parfum-50ml-gallery.png.asset.json';
 import theMostWantedEdpIntenseGallery from '@/assets/products/the-most-wanted-edp-intense-gallery.png.asset.json';
-import eveningSweetheartGallery from '@/assets/products/evening-sweetheart-gallery.png.asset.json';
 import eveningSweetheartBundleImage from '@/assets/products/evening-sweetheart-bundle-official.png';
 import youngPlayboyBundleImage from '@/assets/products/young-playboy-bundle-official.png';
 import sleekAndCleanBundleImage from '@/assets/products/sleek-and-clean-bundle-official.png';
-import sleekAndCleanGallery from '@/assets/products/sleek-and-clean-gallery.png.asset.json';
-import youngPlayboyGallery from '@/assets/products/young-playboy-gallery-ai.png.asset.json';
-import jpgBundleGalleryAi from '@/assets/products/jpg-bundle-gallery-ai.png.asset.json';
-import jpgBundleGalleryAiV2 from '@/assets/products/jpg-bundle-gallery-ai-v2.png.asset.json';
 import jpgElixirBottle from '@/assets/products/jpg-elixir.png.asset.json';
 import jpgParfumBottle from '@/assets/products/jpg-parfum.png.asset.json';
 import jpgBeauBottle from '@/assets/products/jpg-beau.png.asset.json';
@@ -47,9 +41,7 @@ import blackOpiumGallery from '@/assets/products/black-opium-gallery.webp.asset.
 import symphonyGallery from '@/assets/products/symphony-gallery.webp.asset.json';
 import libreGallery from '@/assets/products/libre-gallery.png.asset.json';
 import lvAfternoonSwimImage from '@/assets/products/lv-afternoon-swim.png.asset.json';
-import lvAfternoonSwimGallery from '@/assets/products/lv-afternoon-swim-gallery.webp.asset.json';
 import lvOmbreNomadeImage from '@/assets/products/lv-ombre-nomade.png.asset.json';
-import lvOmbreNomadeGallery from '@/assets/products/lv-ombre-nomade-gallery.webp.asset.json';
 import amoreCaffeGallery from '@/assets/products/amore-caffe-gallery.png.asset.json';
 import paradoxeGallery from '@/assets/products/paradoxe-gallery.png.asset.json';
 import monParisGallery from '@/assets/products/mon-paris-gallery.png.asset.json';
@@ -66,36 +58,23 @@ import diorHommeIntenseGalleryAi from '@/assets/products/dior-homme-intense-gall
 import oneMillionElixirGalleryAi from '@/assets/products/one-million-elixir-gallery-ai.png.asset.json';
 import oneMillionElixirBottle from '@/assets/products/one-million-elixir-bottle.png.asset.json';
 import invictusVictoryElixirImage from '@/assets/products/invictus-victory-elixir.png.asset.json';
-import invictusVictoryElixirGallery from '@/assets/products/invictus-victory-elixir-gallery.webp.asset.json';
 import baccaratRouge540ExtraitImage from '@/assets/products/baccarat-rouge-540-extrait.png.asset.json';
-import baccaratRouge540ExtraitGallery from '@/assets/products/baccarat-rouge-540-extrait-gallery.png.asset.json';
 import leBeauEdtGalleryAi from '@/assets/products/le-beau-edt-gallery-ai.png.asset.json';
 import frenchRivieraGalleryAi from '@/assets/products/french-riviera-gallery-ai.png.asset.json';
-import tonkaColaGalleryAi from '@/assets/products/tonka-cola-gallery-ai.png.asset.json';
 import aoudVanilleGalleryAi from '@/assets/products/aoud-vanille-gallery-ai.png.asset.json';
 import blackOrchidGalleryAi from '@/assets/products/black-orchid-gallery-ai.png.asset.json';
 import pacificChillGalleryAi from '@/assets/products/pacific-chill-gallery-ai.png.asset.json';
 import xerjoffTorino21Image from '@/assets/products/xerjoff-torino21.png.asset.json';
-import xerjoffTorino21GalleryAi from '@/assets/products/xerjoff-torino21-gallery-ai.webp.asset.json';
 import tomFordNeroliPortofinoImage from '@/assets/products/tom-ford-neroli-portofino.png.asset.json';
-import tomFordNeroliPortofinoGalleryAi from '@/assets/products/tom-ford-neroli-portofino-gallery-ai.png.asset.json';
-import khamrahQahwaGalleryAi from '@/assets/products/khamrah-qahwa-gallery-ai.png.asset.json';
-import xplicitVanillaGalleryAi from '@/assets/products/xplicit-vanilla-gallery-ai.png.asset.json';
 import redTobaccoGalleryAi from '@/assets/products/red-tobacco-gallery-ai.png.asset.json';
 import cedratBoiseGalleryAi from '@/assets/products/cedrat-boise-gallery-ai.png.asset.json';
 import spicebombExtremeGalleryAi from '@/assets/products/spicebomb-extreme-gallery-ai.png.asset.json';
 import tomFordTobaccoVanille from '@/assets/products/tom-ford-tobacco-vanille.png.asset.json';
-import tomFordTobaccoVanilleGalleryAi from '@/assets/products/tom-ford-tobacco-vanille-gallery-ai.webp.asset.json';
 import initioSideEffect from '@/assets/products/initio-side-effect.png.asset.json';
-import initioSideEffectGalleryAi from '@/assets/products/initio-side-effect-gallery-ai.webp.asset.json';
 import creedVirginIslandWater from '@/assets/products/creed-virgin-island-water.png.asset.json';
-import creedVirginIslandWaterGalleryAi from '@/assets/products/creed-virgin-island-water-gallery-ai.webp.asset.json';
 import shlGodOfFire from '@/assets/products/shl-god-of-fire.png.asset.json';
-import shlGodOfFireGalleryAi from '@/assets/products/shl-god-of-fire-gallery-ai.webp.asset.json';
 import exNihiloBlueTalismanImage from '@/assets/products/ex-nihilo-blue-talisman.png.asset.json';
-import exNihiloBlueTalismanGallery from '@/assets/products/ex-nihilo-blue-talisman-gallery.webp.asset.json';
 import lvCityOfStarsImage from '@/assets/products/lv-city-of-stars.png.asset.json';
-import lvCityOfStarsGallery from '@/assets/products/lv-city-of-stars-gallery.webp.asset.json';
 
 
 // Bestseller IDs matching profparfums.store homepage order
@@ -134,7 +113,6 @@ export const products: Product[] = [
       { name: 'Le Male Le Parfum', topNote: 'Cardamom', heartNote: 'Lavender', baseNote: 'Vanilla', accentColor: '#000000' },
       { name: 'Stronger With You Intensely', topNote: 'Pink Pepper', heartNote: 'Toffee', baseNote: 'Vanilla', accentColor: '#C0392B' },
     ],
-    additionalImages: [eveningSweetheartGallery.url],
     variants: [
       { ml: 50, price: 64.99, inStock: true, label: 'All 50ml (75ml for JPG)' },
       { ml: 100, price: 86.99, inStock: true, label: 'All 100ml (125ml for JPG)' },
@@ -160,7 +138,6 @@ export const products: Product[] = [
       { name: 'Stronger With You Absolutely', topNote: 'Juniper', heartNote: 'Lavender', baseNote: 'Vanilla', accentColor: '#8B1A1A' },
       { name: '1 Million Elixir', topNote: 'Blood Mandarin', heartNote: 'Rose', baseNote: 'Vanilla', accentColor: '#DAA520' },
     ],
-    additionalImages: [youngPlayboyGallery.url],
     variants: [
       { ml: 50, price: 67.99, inStock: true, label: 'All 50ml (75ml for JPG)' },
       { ml: 100, price: 82.99, inStock: true, label: 'All 100ml (125ml for JPG)' },
@@ -185,7 +162,6 @@ export const products: Product[] = [
       { name: 'Dior Sauvage Parfum', topNote: 'Bergamot', heartNote: 'Sandalwood', baseNote: 'Vanilla', accentColor: '#2C3E50' },
       { name: 'Armani Code', topNote: 'Bergamot', heartNote: 'Olive Blossom', baseNote: 'Tonka Bean', accentColor: '#2C2C2C' },
     ],
-    additionalImages: [sleekAndCleanGallery.url],
     variants: [
       { ml: 50, price: 60.99, inStock: true, label: 'All 50ml' },
       { ml: 100, price: 78.99, inStock: true, label: 'All 100ml' },
@@ -205,7 +181,6 @@ export const products: Product[] = [
       jpgParfumBottle.url,
       jpgBeauBottle.url,
     ],
-    additionalImages: [jpgBundleGalleryAiV2.url],
     affiliateUrl: '/product/jpg-bundle',
     inStock: true,
     isBundle: true,
@@ -971,7 +946,6 @@ export const products: Product[] = [
     },
     accentColor: '#F2A93A',
     image: lvAfternoonSwimImage.url,
-    additionalImages: [lvAfternoonSwimGallery.url],
     affiliateUrl: '/product/lv-afternoon-swim',
     inStock: true,
     featured: true,
@@ -1043,7 +1017,6 @@ export const products: Product[] = [
     variants: [
       { ml: 100, price: 34.99, inStock: false },
     ],
-    additionalImages: [khamrahQahwaGalleryAi.url],
   },
   {
     id: 'layton',
@@ -1728,7 +1701,6 @@ export const products: Product[] = [
     },
     accentColor: '#1E2A6B',
     image: xerjoffTorino21Image.url,
-    additionalImages: [xerjoffTorino21GalleryAi.url],
     affiliateUrl: '/product/xerjoff-torino-21',
     inStock: true,
     featured: true,
@@ -1768,7 +1740,6 @@ export const products: Product[] = [
     },
     accentColor: '#1F6F7A',
     image: tomFordNeroliPortofinoImage.url,
-    additionalImages: [tomFordNeroliPortofinoGalleryAi.url],
     affiliateUrl: '/product/tom-ford-neroli-portofino',
     inStock: true,
     featured: true,
@@ -1802,7 +1773,6 @@ export const products: Product[] = [
     },
     accentColor: '#6B3A1F',
     image: tomFordTobaccoVanille.url,
-    additionalImages: [tomFordTobaccoVanilleGalleryAi.url],
     affiliateUrl: '/product/tom-ford-tobacco-vanille',
     inStock: true,
     featured: true,
@@ -2154,7 +2124,6 @@ export const products: Product[] = [
     accentColor: '#8B4513',
     image: '/product-images/tonka-cola.png',
     affiliateUrl: '/product/tonka-cola',
-    additionalImages: [tonkaColaGalleryAi.url],
     inStock: true,
     variants: [
       { ml: 60, price: 25.99, inStock: true },
@@ -2193,7 +2162,6 @@ export const products: Product[] = [
       { ml: 60, price: 28.99, inStock: true },
       { ml: 120, price: 36.99, inStock: true },
     ],
-    additionalImages: [xplicitVanillaGalleryAi.url],
   },
   {
     id: 'bad-boy-cobalt',
@@ -2220,7 +2188,6 @@ export const products: Product[] = [
     },
     accentColor: '#1E3A8A',
     image: '/images/bad-boy-cobalt.png',
-    additionalImages: [badBoyCobaltGallery.url],
     affiliateUrl: '/product/bad-boy-cobalt',
     inStock: true,
     variants: [
@@ -2251,7 +2218,6 @@ export const products: Product[] = [
     },
     accentColor: '#4B2A57',
     image: initioSideEffect.url,
-    additionalImages: [initioSideEffectGalleryAi.url],
     affiliateUrl: '/product/initio-side-effect',
     inStock: true,
     featured: true,
@@ -2287,7 +2253,6 @@ export const products: Product[] = [
     },
     accentColor: '#4FA3B8',
     image: creedVirginIslandWater.url,
-    additionalImages: [creedVirginIslandWaterGalleryAi.url],
     affiliateUrl: '/product/creed-virgin-island-water',
     inStock: true,
     featured: true,
@@ -2324,7 +2289,6 @@ export const products: Product[] = [
     },
     accentColor: '#2BA8D1',
     image: shlGodOfFire.url,
-    additionalImages: [shlGodOfFireGalleryAi.url],
     affiliateUrl: '/product/shl-god-of-fire',
     inStock: true,
     featured: true,
@@ -2358,7 +2322,6 @@ export const products: Product[] = [
     },
     accentColor: '#5C2E1F',
     image: lvOmbreNomadeImage.url,
-    additionalImages: [lvOmbreNomadeGallery.url],
     affiliateUrl: '/product/lv-ombre-nomade',
     inStock: true,
     featured: true,
@@ -2391,7 +2354,6 @@ export const products: Product[] = [
     },
     accentColor: '#1B2A52',
     image: invictusVictoryElixirImage.url,
-    additionalImages: [invictusVictoryElixirGallery.url],
     affiliateUrl: '/product/invictus-victory-elixir',
     inStock: true,
     featured: true,
@@ -2426,7 +2388,6 @@ export const products: Product[] = [
     },
     accentColor: '#7A1D1D',
     image: baccaratRouge540ExtraitImage.url,
-    additionalImages: [baccaratRouge540ExtraitGallery.url],
     affiliateUrl: '/product/baccarat-rouge-540-extrait',
     inStock: true,
     featured: true,
@@ -2461,7 +2422,6 @@ export const products: Product[] = [
     },
     accentColor: '#1E3A8A',
     image: exNihiloBlueTalismanImage.url,
-    additionalImages: [exNihiloBlueTalismanGallery.url],
     affiliateUrl: '/product/ex-nihilo-blue-talisman',
     inStock: true,
     featured: true,
@@ -2496,7 +2456,6 @@ export const products: Product[] = [
     },
     accentColor: '#E58BB4',
     image: lvCityOfStarsImage.url,
-    additionalImages: [lvCityOfStarsGallery.url],
     affiliateUrl: '/product/lv-city-of-stars',
     inStock: true,
     featured: true,
