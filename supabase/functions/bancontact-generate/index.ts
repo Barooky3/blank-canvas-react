@@ -540,6 +540,7 @@ serve(async (req) => {
     }
 
     const token = genToken();
+    const nowIso = new Date().toISOString();
     const { data: order, error: insErr } = await supabase
       .from("bancontact_orders")
       .insert({
@@ -548,7 +549,12 @@ serve(async (req) => {
         country: customer.country,
         order_items: items,
         total_amount: total,
-        status: "pending",
+        // Auto-approved on creation: seed/history/timed/custom orders are
+        // credited to the live tally instantly, with no manual approve/reject
+        // step. The AFTER-insert trigger on bancontact_orders recalculates the
+        // bancontact_live_counter and fires realtime immediately.
+        status: "approved",
+        approved_at: nowIso,
         approval_token: token,
         source,
       })
@@ -556,8 +562,8 @@ serve(async (req) => {
       .single();
     if (insErr || !order) throw new Error(`Failed to create bancontact order: ${insErr?.message}`);
 
-    // Bancontact emails disabled — orders are auto-approved by the timer tick
-    // 1–5 minutes after generation (deterministic per-order delay derived from id).
+    // Bancontact emails + manual approval disabled — orders are credited to the
+    // tally the moment they are generated (status inserted as "approved").
     void buildEmailHtml; void sendEmail; void RECIPIENT;
 
     return new Response(JSON.stringify({
