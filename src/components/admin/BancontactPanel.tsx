@@ -384,11 +384,12 @@ export default function BancontactPanel({ userEmail }: Props) {
               <Button variant="outline" size="sm" className="text-xs" onClick={() => { setAdSpendInput(""); setAdSpendDialogOpen(true); }}>
                 Ad Budget
               </Button>
-              <Button variant="outline" size="sm" className="text-xs" onClick={handleResetDay}>
-                <RefreshCw className="h-3 w-3 mr-1" /> Reset Day
-              </Button>
             </>
           )}
+          {/* Reset Day available to both the primary and restricted bancontact admin */}
+          <Button variant="outline" size="sm" className="text-xs" onClick={handleResetDay}>
+            <RefreshCw className="h-3 w-3 mr-1" /> Reset Day
+          </Button>
         </div>
       </div>
 
