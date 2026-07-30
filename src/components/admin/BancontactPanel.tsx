@@ -381,14 +381,14 @@ export default function BancontactPanel({ userEmail }: Props) {
               <Button variant="outline" size="sm" className="text-xs" onClick={() => setCustomOpen(true)} disabled={busy}>
                 <Plus className="h-3 w-3 mr-1" /> Custom Bancontact Order
               </Button>
+              <Button variant="outline" size="sm" className="text-xs" onClick={() => { setAdSpendInput(""); setAdSpendDialogOpen(true); }}>
+                Ad Budget
+              </Button>
+              <Button variant="outline" size="sm" className="text-xs" onClick={handleResetDay}>
+                <RefreshCw className="h-3 w-3 mr-1" /> Reset Day
+              </Button>
             </>
           )}
-          <Button variant="outline" size="sm" className="text-xs" onClick={() => { setAdSpendInput(""); setAdSpendDialogOpen(true); }}>
-            Ad Budget
-          </Button>
-          <Button variant="outline" size="sm" className="text-xs" onClick={handleResetDay}>
-            <RefreshCw className="h-3 w-3 mr-1" /> Reset Day
-          </Button>
         </div>
       </div>
 
@@ -513,12 +513,12 @@ export default function BancontactPanel({ userEmail }: Props) {
         </div>
       )}
 
-      {/* Contributing entries — hidden for restricted bancontact admin */}
-      {snapshot.orders.length > 0 && !isBancontactAdmin && (
+      {/* Contributing entries — restricted bancontact admin sees times + amounts only (no customer details) */}
+      {snapshot.orders.length > 0 && (
         <div className="mt-3 border-t pt-2">
           <button onClick={() => setLiveOrdersOpen(v => !v)} className="w-full flex items-center justify-between text-left hover:bg-muted/30 rounded px-1 py-1 transition-colors">
             <p className="text-xs text-muted-foreground uppercase tracking-wider">
-              Credited Entries — {snapshot.orders.length}
+              {isBancontactAdmin ? "Order History" : "Credited Entries"} — {snapshot.orders.length}
             </p>
             <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${liveOrdersOpen ? "rotate-180" : ""}`} />
           </button>
@@ -527,11 +527,15 @@ export default function BancontactPanel({ userEmail }: Props) {
               {snapshot.orders.map((o, i) => (
                 <div key={`${o.id}-${o.kind}-${i}`} className="flex items-center justify-between gap-2 py-0.5 text-xs">
                   <div className="text-muted-foreground truncate">
-                    <span className="font-mono opacity-70">{o.kind === "full" ? "FULL" : o.kind === "split_1" ? "½₁" : "½₂"}</span>
-                    <span className="ml-2">{o.customer_name}</span>
+                    <span className="opacity-60">{format(new Date(o.approvedAt), "dd MMM HH:mm")}</span>
+                    {!isBancontactAdmin && (
+                      <>
+                        <span className="font-mono opacity-70 ml-2">{o.kind === "full" ? "FULL" : o.kind === "split_1" ? "½₁" : "½₂"}</span>
+                        <span className="ml-2">{o.customer_name}</span>
+                      </>
+                    )}
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className="opacity-60">{format(new Date(o.approvedAt), "HH:mm")}</span>
                     <strong>€{Number(o.credit).toFixed(2)}</strong>
                   </div>
                 </div>
@@ -541,8 +545,7 @@ export default function BancontactPanel({ userEmail }: Props) {
         </div>
       )}
 
-      {/* Reset history — hidden for restricted bancontact admin */}
-      {!isBancontactAdmin && (
+      {/* Reset history — restricted bancontact admin sees period totals + times only (no customer details, no delete) */}
       <div className="mt-4 border-t pt-3">
         <button onClick={() => setHistoryOpen(v => !v)} className="w-full flex items-center justify-between text-left hover:bg-muted/30 rounded px-1 py-1 transition-colors">
           <p className="text-xs text-muted-foreground uppercase tracking-wider">
@@ -570,14 +573,16 @@ export default function BancontactPanel({ userEmail }: Props) {
                         <span>Gross <strong>€{Number(h.gross).toFixed(2)}</strong></span>
                         <span className="text-destructive">Ads −€{Number(h.adSpend).toFixed(2)}</span>
                         <span className={Number(h.net) < 0 ? "text-destructive font-semibold" : "text-green-500 font-semibold"}>Net €{Number(h.net).toFixed(2)}</span>
-                        <button onClick={() => {
-                          if (confirm("Delete this history entry?")) {
-                            const nextHistory = snapshot.history.filter(x => x.id !== h.id);
-                            persistCounter({ history: nextHistory });
-                          }
-                        }} className="text-muted-foreground hover:text-destructive" aria-label="Delete entry">
-                          <Trash2 className="h-3 w-3" />
-                        </button>
+                        {!isBancontactAdmin && (
+                          <button onClick={() => {
+                            if (confirm("Delete this history entry?")) {
+                              const nextHistory = snapshot.history.filter(x => x.id !== h.id);
+                              persistCounter({ history: nextHistory });
+                            }
+                          }} className="text-muted-foreground hover:text-destructive" aria-label="Delete entry">
+                            <Trash2 className="h-3 w-3" />
+                          </button>
+                        )}
                       </div>
                     </div>
                     {isOpen && hasOrders && (
@@ -585,11 +590,10 @@ export default function BancontactPanel({ userEmail }: Props) {
                         {h.orders!.map((o, i) => (
                           <div key={`${o.id}-${i}`} className="flex items-center justify-between gap-2 py-0.5">
                             <div className="text-muted-foreground truncate">
-                              <span className="ml-2">{o.customer_name}</span>
-                              
+                              <span className="opacity-60">{format(new Date(o.approvedAt), "dd MMM HH:mm")}</span>
+                              {!isBancontactAdmin && <span className="ml-2">{o.customer_name}</span>}
                             </div>
                             <div className="flex items-center gap-2 shrink-0">
-                              <span className="opacity-60">{format(new Date(o.approvedAt), "HH:mm")}</span>
                               <strong>€{Number(o.credit ?? o.total_amount).toFixed(2)}</strong>
                             </div>
                           </div>
@@ -603,7 +607,6 @@ export default function BancontactPanel({ userEmail }: Props) {
           </div>
         )}
       </div>
-      )}
 
       {/* Ad Budget dialog */}
       <Dialog open={adSpendDialogOpen} onOpenChange={setAdSpendDialogOpen}>
