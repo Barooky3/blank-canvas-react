@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { UnifiedReview, adminUpdateReview, adminDeleteReview, hideSeedReview, setSeedOverride } from '@/hooks/useReviews';
 import { toast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 
 // Heuristic: treat text as non-English if it contains common non-English markers
 // (diacritics or frequent foreign stop-words). Good enough for review snippets.
@@ -68,11 +67,17 @@ export const ReviewItem = ({ review, isAdmin, onChanged }: ReviewItemProps) => {
     }
     setTranslating(true);
     try {
-      const { data, error } = await supabase.functions.invoke('translate-text', {
-        body: { text: review.text },
+      const res = await fetch('/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: review.text }),
       });
-      if (error) throw error;
-      const t = (data as { translation?: string })?.translation?.trim();
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as { error?: string })?.error ?? `Request failed (${res.status})`);
+      }
+      const data = (await res.json()) as { translation?: string };
+      const t = data?.translation?.trim();
       if (!t) throw new Error('Empty translation');
       setTranslation(t);
       setShowTranslation(true);
