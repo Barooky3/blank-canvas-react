@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Star, ImagePlus, X, Loader2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -31,33 +30,10 @@ export const ReviewSubmitDialog = ({ open, onOpenChange, onSubmitted }: ReviewSu
   const [submitting, setSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  if (!user) {
-    return (
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-sm">
-          <DialogHeader>
-            <DialogTitle>Sign in to write a review</DialogTitle>
-            <DialogDescription>
-              You need a Parfumistry account to leave a review. It only takes a moment.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex flex-col gap-2 mt-2">
-            <Button asChild className="rounded-none" onClick={() => onOpenChange(false)}>
-              <Link to="/login">Log in</Link>
-            </Button>
-            <Button asChild variant="outline" className="rounded-none" onClick={() => onOpenChange(false)}>
-              <Link to="/signup">Create account</Link>
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
   const displayName =
     name.trim() ||
-    (user.user_metadata?.full_name as string | undefined) ||
-    (user.email ? user.email.split('@')[0] : 'Anonymous');
+    (user?.user_metadata?.full_name as string | undefined) ||
+    (user?.email ? user.email.split('@')[0] : 'Anonymous');
 
   const handleFiles = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -79,7 +55,8 @@ export const ReviewSubmitDialog = ({ open, onOpenChange, onSubmitted }: ReviewSu
         continue;
       }
       const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
-      const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const folder = user?.id ?? 'anon';
+      const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
       const { error } = await supabase.storage
         .from('review-images')
         .upload(path, file, { cacheControl: '3600', upsert: false });
@@ -110,9 +87,9 @@ export const ReviewSubmitDialog = ({ open, onOpenChange, onSubmitted }: ReviewSu
     const res = isAdmin
       ? await adminAddReview({ customer_name: displayName, rating, text, images })
       : await submitReview({
-          user_id: user.id,
+          user_id: user?.id ?? null,
           customer_name: displayName,
-          customer_email: user.email || '',
+          customer_email: user?.email || '',
           rating,
           text,
           images,
@@ -126,7 +103,9 @@ export const ReviewSubmitDialog = ({ open, onOpenChange, onSubmitted }: ReviewSu
       title: isAdmin ? 'Review published' : 'Thanks for your review!',
       description: isAdmin
         ? 'Your review is now live.'
-        : 'It will appear publicly once approved. You can still see it while logged in.',
+        : user
+          ? 'It will appear publicly once approved. You can still see it while logged in.'
+          : 'It will appear publicly once approved.',
     });
     setText('');
     setName('');

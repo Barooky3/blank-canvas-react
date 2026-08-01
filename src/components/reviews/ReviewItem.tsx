@@ -67,17 +67,20 @@ export const ReviewItem = ({ review, isAdmin, onChanged }: ReviewItemProps) => {
     }
     setTranslating(true);
     try {
-      const res = await fetch('/api/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: review.text }),
-      });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error((err as { error?: string })?.error ?? `Request failed (${res.status})`);
-      }
-      const data = (await res.json()) as { translation?: string };
-      const t = data?.translation?.trim();
+      // Keyless, CORS-enabled Google Translate endpoint (auto-detect -> English).
+      // Runs entirely client-side so it works in both preview and production
+      // with no server function or API key.
+      const url =
+        'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=' +
+        encodeURIComponent(review.text);
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      // Response shape: [[["translated","original",...], ...], ...]
+      const data = (await res.json()) as any;
+      const segments: string[] = Array.isArray(data?.[0])
+        ? data[0].map((seg: any) => (Array.isArray(seg) ? seg[0] : '')).filter(Boolean)
+        : [];
+      const t = segments.join('').trim();
       if (!t) throw new Error('Empty translation');
       setTranslation(t);
       setShowTranslation(true);
