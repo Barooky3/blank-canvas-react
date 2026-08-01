@@ -285,7 +285,7 @@ export const useReviews = () => {
 };
 
 export const submitReview = async (params: {
-  user_id: string;
+  user_id: string | null;
   customer_name: string;
   customer_email?: string;
   rating: number;
@@ -293,7 +293,7 @@ export const submitReview = async (params: {
   images?: string[];
 }) => {
   return supabase.from('reviews').insert({
-    user_id: params.user_id,
+    user_id: params.user_id ?? null,
     customer_name: params.customer_name.slice(0, 80),
     rating: params.rating,
     text: params.text.slice(0, 1000) || null,
