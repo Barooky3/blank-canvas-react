@@ -101,7 +101,7 @@ const Index = () => {
                 width={800}
                 height={533}
                 fetchPriority="high"
-                className="h-auto w-[540px] md:w-[700px] lg:w-[920px] mx-auto relative z-10 brightness-0 invert drop-shadow-2xl object-contain blur-[0.4px]"
+                className="h-auto w-[540px] md:w-[700px] lg:w-[920px] mx-auto relative z-10 drop-shadow-2xl object-contain"
               />
             </div>
             
