@@ -99,7 +99,7 @@ export const PromoBanner = () => {
   return (
     <div
       ref={bannerRef}
-      className="relative text-primary-foreground py-3 sm:py-4 md:py-5 fixed top-0 left-0 right-0 z-50 overflow-hidden border-b border-accent/40 bg-gradient-to-r from-primary via-accent/35 to-primary"
+      className="fixed top-0 left-0 right-0 z-50 text-primary-foreground py-3 sm:py-4 md:py-5 overflow-hidden border-b border-accent/40 bg-gradient-to-r from-primary via-accent/35 to-primary"
     >
       {/* subtle accent glow line at the top for prominence */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" aria-hidden="true" />
