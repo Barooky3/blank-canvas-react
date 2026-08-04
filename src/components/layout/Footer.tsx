@@ -11,7 +11,7 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 );
 
 const socialLinks = [
-  { icon: TikTokIcon, href: 'https://www.tiktok.com/@professor_pfm', label: 'TikTok' },
+  { icon: TikTokIcon, href: 'https://www.tiktok.com/@Parfora_pfm', label: 'TikTok' },
 ];
 
 export const Footer = () => {
