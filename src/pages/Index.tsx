@@ -97,16 +97,16 @@ const Index = () => {
               />
               <img 
                 src={logo} 
-                alt="Parfumistry" 
-                width={800}
-                height={533}
+                alt="Parfora" 
+                width={448}
+                height={492}
                 fetchPriority="high"
-                className="h-auto w-[540px] md:w-[700px] lg:w-[920px] mx-auto relative z-10 brightness-0 invert drop-shadow-2xl object-contain blur-[0.4px]"
+                className="h-auto w-[150px] md:w-[180px] lg:w-[210px] mx-auto relative z-10 drop-shadow-2xl object-contain"
               />
             </div>
             
             {/* Tagline */}
-            <p className="font-display text-xs md:text-sm lg:text-base text-white/70 tracking-[0.2em] uppercase -mt-10 md:-mt-14 lg:-mt-20 mb-6 hero-tagline-animate">
+            <p className="font-display text-xs md:text-sm lg:text-base text-white/70 tracking-[0.2em] uppercase mt-4 md:mt-6 mb-6 hero-tagline-animate">
               The Fragrance Library
             </p>
             
@@ -263,7 +263,7 @@ const Index = () => {
       <section className="py-14 md:py-20 bg-secondary">
         <div className="container">
           <div className="max-w-lg mx-auto text-center">
-            <img src={logo} alt="Parfumistry" width={800} height={533} loading="lazy" className="h-14 md:h-16 w-auto mx-auto mb-5 opacity-80" />
+            <img src={logo} alt="Parfora" width={448} height={492} loading="lazy" className="h-12 md:h-14 w-auto mx-auto mb-5 brightness-0 opacity-70" />
             <h2 className="font-display text-xl md:text-2xl lg:text-3xl text-foreground mb-3">
               Join Parfumistry
             </h2>

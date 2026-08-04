@@ -31,7 +31,7 @@ const PaymentMethodExplainer = () => {
             </p>
             <p>
               For now, Rewarble codes and app-based payments are the only way I can securely accept payments. I know it's not the most convenient — but there's not much I can do. If you're in doubt or don't trust it, please do some research on Rewarble, and don't hesitate to ask me questions on{' '}
-              <a href="https://www.tiktok.com/@professor_pfm" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80">TikTok</a>{' '}
+              <a href="https://www.tiktok.com/@Parfora_pfm" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80">TikTok</a>{' '}
               if you're confused!
             </p>
             <p className="font-semibold">
