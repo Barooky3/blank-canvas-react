@@ -38,7 +38,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <Link to="/" className="inline-block mb-6">
-              <img src={logo} alt="Parfumistry" width={800} height={533} loading="lazy" className="h-20 w-auto brightness-0 invert" />
+              <img src={logo} alt="Parfora" width={800} height={533} loading="lazy" className="h-20 w-auto brightness-0 invert" />
             </Link>
             <p className="text-sm text-primary-foreground/70 leading-relaxed mb-6">{t('footer.description')}</p>
             <div className="flex gap-3">

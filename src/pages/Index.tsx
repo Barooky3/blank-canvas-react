@@ -97,7 +97,7 @@ const Index = () => {
               />
               <img 
                 src={logo} 
-                alt="Parfumistry" 
+                alt="Parfora" 
                 width={800}
                 height={533}
                 fetchPriority="high"
@@ -263,7 +263,7 @@ const Index = () => {
       <section className="py-14 md:py-20 bg-secondary">
         <div className="container">
           <div className="max-w-lg mx-auto text-center">
-            <img src={logo} alt="Parfumistry" width={800} height={533} loading="lazy" className="h-14 md:h-16 w-auto mx-auto mb-5 opacity-80" />
+            <img src={logo} alt="Parfora" width={800} height={533} loading="lazy" className="h-14 md:h-16 w-auto mx-auto mb-5 opacity-80" />
             <h2 className="font-display text-xl md:text-2xl lg:text-3xl text-foreground mb-3">
               Join Parfumistry
             </h2>
