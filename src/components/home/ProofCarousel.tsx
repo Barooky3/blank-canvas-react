@@ -25,11 +25,6 @@ const ProofCarousel = () => {
     lastInteractionAt: 0,
   });
 
-  const resetDrag = () => {
-    dragState.current.isDragging = false;
-    dragState.current.lastInteractionAt = Date.now();
-  };
-
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
@@ -58,23 +53,49 @@ const ProofCarousel = () => {
       raf = requestAnimationFrame(step);
     };
 
-    const forceReset = () => {
-      dragState.current.isDragging = false;
+    // Apply a drag delta relative to where the drag started (1:1 with the pointer)
+    const applyMove = (x: number) => {
+      if (!dragState.current.isDragging) return;
+      dragState.current.lastInteractionAt = Date.now();
+      const diff = dragState.current.startX - x;
+      offsetRef.current = dragState.current.startOffset + diff;
+      el.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
     };
 
-    window.addEventListener('mouseup', forceReset);
-    window.addEventListener('touchend', forceReset);
-    window.addEventListener('touchcancel', forceReset);
-    window.addEventListener('blur', forceReset);
+    // Track the pointer at the window level so the strip keeps following the
+    // cursor even when it moves off the strip (fast drags, vertical drift).
+    const onWindowMouseMove = (e: MouseEvent) => {
+      if (!dragState.current.isDragging) return;
+      e.preventDefault();
+      applyMove(e.pageX);
+    };
+    const onWindowTouchMove = (e: TouchEvent) => {
+      if (!dragState.current.isDragging || e.touches.length === 0) return;
+      applyMove(e.touches[0].pageX);
+    };
+    const endDrag = () => {
+      if (!dragState.current.isDragging) return;
+      dragState.current.isDragging = false;
+      dragState.current.lastInteractionAt = Date.now();
+    };
+
+    window.addEventListener('mousemove', onWindowMouseMove, { passive: false });
+    window.addEventListener('touchmove', onWindowTouchMove, { passive: true });
+    window.addEventListener('mouseup', endDrag);
+    window.addEventListener('touchend', endDrag);
+    window.addEventListener('touchcancel', endDrag);
+    window.addEventListener('blur', endDrag);
 
     raf = requestAnimationFrame(step);
 
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener('mouseup', forceReset);
-      window.removeEventListener('touchend', forceReset);
-      window.removeEventListener('touchcancel', forceReset);
-      window.removeEventListener('blur', forceReset);
+      window.removeEventListener('mousemove', onWindowMouseMove);
+      window.removeEventListener('touchmove', onWindowTouchMove);
+      window.removeEventListener('mouseup', endDrag);
+      window.removeEventListener('touchend', endDrag);
+      window.removeEventListener('touchcancel', endDrag);
+      window.removeEventListener('blur', endDrag);
     };
   }, []);
 
@@ -87,23 +108,11 @@ const ProofCarousel = () => {
     };
   };
 
-  const handlePointerMove = (x: number) => {
-    if (!dragState.current.isDragging) return;
-    dragState.current.lastInteractionAt = Date.now();
-    const diff = dragState.current.startX - x;
-    offsetRef.current = dragState.current.startOffset + diff;
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
-    }
-  };
-
-  const onMouseDown = (e: React.MouseEvent) => handlePointerDown(e.pageX);
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (dragState.current.isDragging) e.preventDefault();
-    handlePointerMove(e.pageX);
+  const onMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handlePointerDown(e.pageX);
   };
   const onTouchStart = (e: React.TouchEvent) => handlePointerDown(e.touches[0].pageX);
-  const onTouchMove = (e: React.TouchEvent) => handlePointerMove(e.touches[0].pageX);
 
   const rating = 4.3;
   const fullStars = Math.floor(rating);
@@ -153,13 +162,7 @@ const ProofCarousel = () => {
           className="flex gap-3 cursor-grab active:cursor-grabbing select-none px-4 will-change-transform"
           style={{ width: 'max-content' }}
           onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={resetDrag}
-          onMouseLeave={resetDrag}
           onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={resetDrag}
-          onTouchCancel={resetDrag}
         >
           {[...proofImages, ...proofImages].map((img, i) => (
             <div
