@@ -101,7 +101,7 @@ const Index = () => {
                 width={448}
                 height={492}
                 fetchPriority="high"
-                className="h-auto w-[240px] md:w-[300px] lg:w-[360px] mx-auto relative z-10 drop-shadow-2xl object-contain"
+                className="h-auto w-[150px] md:w-[180px] lg:w-[210px] mx-auto relative z-10 drop-shadow-2xl object-contain"
               />
             </div>
             
@@ -263,7 +263,7 @@ const Index = () => {
       <section className="py-14 md:py-20 bg-secondary">
         <div className="container">
           <div className="max-w-lg mx-auto text-center">
-            <img src={logo} alt="Parfora" width={448} height={492} loading="lazy" className="h-16 md:h-20 w-auto mx-auto mb-5 brightness-0 opacity-70" />
+            <img src={logo} alt="Parfora" width={448} height={492} loading="lazy" className="h-12 md:h-14 w-auto mx-auto mb-5 brightness-0 opacity-70" />
             <h2 className="font-display text-xl md:text-2xl lg:text-3xl text-foreground mb-3">
               Join Parfumistry
             </h2>
