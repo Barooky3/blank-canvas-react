@@ -3,7 +3,7 @@ import { getFirstVisitAt } from '@/utils/firstVisit';
 import PaymentMethodExplainer from '@/components/PaymentMethodExplainer';
 import { DeliveryInfo } from '@/components/product/DeliveryInfo';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { CheckCircle, ShoppingBag, Tag, Loader2, Shield, Lock, Mail, AlertCircle, Maximize2, Phone, ArrowRight, ArrowLeft } from 'lucide-react';
+import { CheckCircle, ShoppingBag, Tag, Loader2, Shield, Lock, Mail, AlertCircle, Maximize2, ArrowRight, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -127,7 +127,7 @@ const Checkout = () => {
   const [formData, setFormData] = useState(() => {
     const saved = sessionStorage.getItem('checkoutFormData');
     if (saved) { try { return JSON.parse(saved); } catch {} }
-    return { email: '', confirmEmail: '', phone: '', firstName: '', lastName: '', country: '', streetAddress: '', postalCode: '', city: '' };
+    return { email: '', confirmEmail: '', firstName: '', lastName: '', country: '', streetAddress: '', postalCode: '', city: '' };
   });
 
   useEffect(() => { sessionStorage.setItem('checkoutFormData', JSON.stringify(formData)); }, [formData]);
@@ -165,7 +165,6 @@ const Checkout = () => {
 
   const isFormValid = () => {
     return formData.email && isValidEmail(formData.email) && formData.confirmEmail && formData.email === formData.confirmEmail &&
-           formData.phone && formData.phone.trim().length >= 6 &&
            formData.firstName && formData.lastName && formData.country && formData.streetAddress && formData.postalCode && formData.city;
   };
 
@@ -227,7 +226,7 @@ const Checkout = () => {
     const ctxPayload = JSON.stringify({
       cartItems, email: fd.email,
       customerName: `${fd.firstName} ${fd.lastName}`,
-      shippingAddress: { country: fd.country, city: fd.city, postalCode: fd.postalCode, line1: fd.streetAddress, phone: fd.phone },
+      shippingAddress: { country: fd.country, city: fd.city, postalCode: fd.postalCode, line1: fd.streetAddress },
       totalAmount: finalTotal.toFixed(2),
       discountCode: appliedDiscountRef.current?.code || null,
       discountPercent: appliedDiscountRef.current?.percent || 0,
@@ -662,14 +661,6 @@ const Checkout = () => {
                         <p className="text-[10px] text-destructive mt-1">Emails do not match</p>
                       )}
                     </div>
-                    <div>
-                      <Label className="text-xs text-muted-foreground mb-1.5 block">Phone number *</Label>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input type="tel" value={formData.phone} onChange={(e) => updateFormData('phone', e.target.value)} placeholder="+31 6 12345678" className="h-11 bg-background pl-9" />
-                      </div>
-                      <p className="text-[10px] text-muted-foreground mt-1">For delivery updates — include your country code.</p>
-                    </div>
                   </div>
 
                   <div className="border border-border rounded-xl p-5 space-y-4">
@@ -732,7 +723,7 @@ const Checkout = () => {
                     </div>
                     <p className="text-sm text-foreground">{formData.firstName} {formData.lastName}</p>
                     <p className="text-xs text-muted-foreground">{formData.streetAddress}, {formData.postalCode} {formData.city}, {formData.country}</p>
-                    <p className="text-xs text-muted-foreground">{formData.email} · {formData.phone}</p>
+                    <p className="text-xs text-muted-foreground">{formData.email}</p>
                   </div>
 
                   {/* Shipping method */}
