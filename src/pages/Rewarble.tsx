@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { getFirstVisitAt } from '@/utils/firstVisit';
 import PaymentMethodExplainer from '@/components/PaymentMethodExplainer';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Gift, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock, Maximize2 } from 'lucide-react';
+import { ArrowLeft, Gift, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock, Maximize2, Star, Truck, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -132,18 +132,61 @@ const Rewarble = () => {
         </Link>
 
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#7C3AED]/10 mb-4">
             <Gift className="h-7 w-7 text-[#7C3AED]" />
           </div>
           <h1 className="font-display text-2xl font-semibold text-foreground">Pay with Rewarble</h1>
         </div>
 
+        {/* Buyer protection / escrow banner */}
+        <div className="rounded-xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 p-4 mb-6">
+          <div className="flex items-start gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/15 shrink-0">
+              <Shield className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-200">Protected by Rewarble Buyer Protection</p>
+              <p className="text-xs text-emerald-800/80 dark:text-emerald-300/80 mt-0.5 leading-relaxed">
+                Your payment is held securely in escrow and only released to us <strong>after</strong> your order has been delivered. If anything goes wrong, your funds stay protected.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-3 pt-3 border-t border-emerald-500/20">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Lock className="h-3 w-3" /> Escrow held funds</span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><CheckCircle className="h-3 w-3" /> Released on delivery</span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Shield className="h-3 w-3" /> Secure verification</span>
+          </div>
+        </div>
+
+        {/* Trust badges */}
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
+            <div className="flex items-center gap-0.5 text-[#7C3AED] mb-1.5" aria-hidden="true">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <Star key={i} className="h-3.5 w-3.5 fill-current" />
+              ))}
+            </div>
+            <p className="text-[11px] font-semibold text-foreground leading-tight">4.8 / 2,300+</p>
+            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">Verified buyers</p>
+          </div>
+          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
+            <Truck className="h-5 w-5 text-[#7C3AED] mb-1.5" aria-hidden="true" />
+            <p className="text-[11px] font-semibold text-foreground leading-tight">Tracked</p>
+            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">EU shipping</p>
+          </div>
+          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
+            <RotateCcw className="h-5 w-5 text-[#7C3AED] mb-1.5" aria-hidden="true" />
+            <p className="text-[11px] font-semibold text-foreground leading-tight">14-day</p>
+            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">Money back</p>
+          </div>
+        </div>
+
         {/* Order total */}
         {orderTotal && (
-          <div className="rounded-xl border border-[#7C3AED]/30 bg-[#7C3AED]/5 p-4 mb-6 text-center">
+          <div className="rounded-xl border border-[#7C3AED]/30 bg-[#7C3AED]/5 p-6 mb-6 text-center">
             <p className="text-xs text-muted-foreground mb-1">Order amount</p>
-            <p className="text-2xl font-bold text-foreground">€{orderTotal}</p>
+            <p className="font-display text-4xl font-bold text-foreground">€{orderTotal}</p>
             {currency !== 'EUR' && orderTotalNum > 0 && (
               <p className="text-sm text-muted-foreground mt-1">≈ {formatPrice(orderTotalNum)}</p>
             )}
@@ -243,7 +286,7 @@ const Rewarble = () => {
               <div className="mt-2 pt-3 border-t border-border">
                 <p className="text-xs text-muted-foreground">
                   Confused or need help?{' '}
-                  <a href="https://www.tiktok.com/@Parfora_pfm" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">
+                  <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">
                     Contact us on TikTok
                   </a>
                 </p>

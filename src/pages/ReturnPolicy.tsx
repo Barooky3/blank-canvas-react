@@ -72,7 +72,7 @@ const ReturnPolicy = () => {
                 <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3.5 py-2.5">
                   <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
                     <strong>How to report:</strong> Contact us on{' '}
-                    <a href="https://www.tiktok.com/@Parfora_pfm" target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">TikTok @Parfora_pfm</a>{' '}
+                    <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">TikTok @parfora_xs</a>{' '}
                     with your order number and photos/videos of the damage. We aim to resolve all claims within 48 hours.
                   </p>
                 </div>
@@ -115,7 +115,7 @@ const ReturnPolicy = () => {
           <div className="text-center pt-4">
             <p className="text-sm text-muted-foreground">
               Questions about our return policy?{' '}
-              <a href="https://www.tiktok.com/@Parfora_pfm" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">
+              <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">
                 Contact us on TikTok
               </a>
             </p>
