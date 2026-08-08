@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { getFirstVisitAt } from '@/utils/firstVisit';
 import PaymentMethodExplainer from '@/components/PaymentMethodExplainer';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Gift, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock, Maximize2 } from 'lucide-react';
+import { ArrowLeft, Gift, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock, Maximize2, Star, Truck, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,10 +20,6 @@ const Rewarble = () => {
   const orderTotal = searchParams.get('total') || '';
   const { currency, formatPrice } = useCurrency();
   const orderTotalNum = orderTotal ? parseFloat(orderTotal) : 0;
-  const REWARBLE_DENOMINATIONS = [5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100, 150, 200, 250, 300, 500];
-  const suggestedCard = orderTotalNum > 0
-    ? (REWARBLE_DENOMINATIONS.find((d) => d >= orderTotalNum) ?? Math.ceil(orderTotalNum / 10) * 10)
-    : 0;
   const [codes, setCodes] = useState<string[]>(() => {
     const saved = sessionStorage.getItem('rewarbleCodes');
     return saved ? JSON.parse(saved) : [''];
@@ -163,27 +159,36 @@ const Rewarble = () => {
           </div>
         </div>
 
-        {/* Order total + suggested card value */}
-        {orderTotal && (
-          <div className="rounded-xl border border-[#7C3AED]/30 bg-[#7C3AED]/5 p-4 mb-6">
-            <div className="grid grid-cols-2 divide-x divide-[#7C3AED]/20">
-              <div className="text-center px-2">
-                <p className="text-xs text-muted-foreground mb-1">Order amount</p>
-                <p className="text-2xl font-bold text-foreground">€{orderTotal}</p>
-                {currency !== 'EUR' && orderTotalNum > 0 && (
-                  <p className="text-sm text-muted-foreground mt-1">≈ {formatPrice(orderTotalNum)}</p>
-                )}
-              </div>
-              <div className="text-center px-2">
-                <p className="text-xs text-muted-foreground mb-1">Rewarble card to buy</p>
-                <p className="text-2xl font-bold text-[#7C3AED]">€{suggestedCard}</p>
-                <p className="text-[11px] text-muted-foreground mt-1">Pick this value (or higher) on G2A</p>
-              </div>
+        {/* Trust badges */}
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
+            <div className="flex items-center gap-0.5 text-[#7C3AED] mb-1.5" aria-hidden="true">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <Star key={i} className="h-3.5 w-3.5 fill-current" />
+              ))}
             </div>
-            {suggestedCard > orderTotalNum && orderTotalNum > 0 && (
-              <p className="text-[11px] text-center text-muted-foreground mt-3 pt-3 border-t border-[#7C3AED]/20 leading-relaxed">
-                Cards come in fixed values, so buy the <strong className="text-foreground">€{suggestedCard}</strong> card to cover your <strong className="text-foreground">€{orderTotal}</strong> total. Any leftover balance stays on your Rewarble card for next time.
-              </p>
+            <p className="text-[11px] font-semibold text-foreground leading-tight">4.8 / 2,300+</p>
+            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">Verified buyers</p>
+          </div>
+          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
+            <Truck className="h-5 w-5 text-[#7C3AED] mb-1.5" aria-hidden="true" />
+            <p className="text-[11px] font-semibold text-foreground leading-tight">Tracked</p>
+            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">EU shipping</p>
+          </div>
+          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
+            <RotateCcw className="h-5 w-5 text-[#7C3AED] mb-1.5" aria-hidden="true" />
+            <p className="text-[11px] font-semibold text-foreground leading-tight">14-day</p>
+            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">Money back</p>
+          </div>
+        </div>
+
+        {/* Order total */}
+        {orderTotal && (
+          <div className="rounded-xl border border-[#7C3AED]/30 bg-[#7C3AED]/5 p-6 mb-6 text-center">
+            <p className="text-xs text-muted-foreground mb-1">Order amount</p>
+            <p className="font-display text-4xl font-bold text-foreground">€{orderTotal}</p>
+            {currency !== 'EUR' && orderTotalNum > 0 && (
+              <p className="text-sm text-muted-foreground mt-1">≈ {formatPrice(orderTotalNum)}</p>
             )}
           </div>
         )}
