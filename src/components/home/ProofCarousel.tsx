@@ -3,9 +3,8 @@ import { Star, ChevronRight } from 'lucide-react';
 
 const proofImages = [
   { src: '/images/proof/aventus-absolu.webp', alt: 'Aventus Absolu' },
-  { src: '/images/proof/customer-tablet-shop.jpg', alt: 'Customer browsing Parfumistry' },
-  { src: '/images/proof/mancera-xplicit-vanilla.jpg', alt: 'Mancera Xplicit Vanilla' },
-  { src: '/images/proof/valentino-born-in-roma.jpg', alt: 'Valentino Born in Roma' },
+  { src: '/images/proof/customer-tablet-shop.jpg', alt: 'Customer order — Le Beau Le Parfum' },
+  { src: '/images/proof/mancera-xplicit-vanilla.jpg', alt: 'Paangora Xplicit Vanille' },
   { src: '/images/proof/le-male-parfum-1.webp', alt: 'Le Male Parfum' },
   { src: '/images/proof/le-male-parfum-2.webp', alt: 'Le Male Parfum' },
   { src: '/images/proof/pdm-layton.webp', alt: 'Parfums de Marly Layton' },
