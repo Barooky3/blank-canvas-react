@@ -20,6 +20,10 @@ const Rewarble = () => {
   const orderTotal = searchParams.get('total') || '';
   const { currency, formatPrice } = useCurrency();
   const orderTotalNum = orderTotal ? parseFloat(orderTotal) : 0;
+  const REWARBLE_DENOMINATIONS = [5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100, 150, 200, 250, 300, 500];
+  const suggestedCard = orderTotalNum > 0
+    ? (REWARBLE_DENOMINATIONS.find((d) => d >= orderTotalNum) ?? Math.ceil(orderTotalNum / 10) * 10)
+    : 0;
   const [codes, setCodes] = useState<string[]>(() => {
     const saved = sessionStorage.getItem('rewarbleCodes');
     return saved ? JSON.parse(saved) : [''];
@@ -132,20 +136,54 @@ const Rewarble = () => {
         </Link>
 
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#7C3AED]/10 mb-4">
             <Gift className="h-7 w-7 text-[#7C3AED]" />
           </div>
           <h1 className="font-display text-2xl font-semibold text-foreground">Pay with Rewarble</h1>
         </div>
 
-        {/* Order total */}
+        {/* Buyer protection / escrow banner */}
+        <div className="rounded-xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 p-4 mb-6">
+          <div className="flex items-start gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/15 shrink-0">
+              <Shield className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-200">Protected by Rewarble Buyer Protection</p>
+              <p className="text-xs text-emerald-800/80 dark:text-emerald-300/80 mt-0.5 leading-relaxed">
+                Your payment is held securely in escrow and only released to us <strong>after</strong> your order has been delivered. If anything goes wrong, your funds stay protected.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-3 pt-3 border-t border-emerald-500/20">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Lock className="h-3 w-3" /> Escrow held funds</span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><CheckCircle className="h-3 w-3" /> Released on delivery</span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Shield className="h-3 w-3" /> Secure verification</span>
+          </div>
+        </div>
+
+        {/* Order total + suggested card value */}
         {orderTotal && (
-          <div className="rounded-xl border border-[#7C3AED]/30 bg-[#7C3AED]/5 p-4 mb-6 text-center">
-            <p className="text-xs text-muted-foreground mb-1">Order amount</p>
-            <p className="text-2xl font-bold text-foreground">€{orderTotal}</p>
-            {currency !== 'EUR' && orderTotalNum > 0 && (
-              <p className="text-sm text-muted-foreground mt-1">≈ {formatPrice(orderTotalNum)}</p>
+          <div className="rounded-xl border border-[#7C3AED]/30 bg-[#7C3AED]/5 p-4 mb-6">
+            <div className="grid grid-cols-2 divide-x divide-[#7C3AED]/20">
+              <div className="text-center px-2">
+                <p className="text-xs text-muted-foreground mb-1">Order amount</p>
+                <p className="text-2xl font-bold text-foreground">€{orderTotal}</p>
+                {currency !== 'EUR' && orderTotalNum > 0 && (
+                  <p className="text-sm text-muted-foreground mt-1">≈ {formatPrice(orderTotalNum)}</p>
+                )}
+              </div>
+              <div className="text-center px-2">
+                <p className="text-xs text-muted-foreground mb-1">Rewarble card to buy</p>
+                <p className="text-2xl font-bold text-[#7C3AED]">€{suggestedCard}</p>
+                <p className="text-[11px] text-muted-foreground mt-1">Pick this value (or higher) on G2A</p>
+              </div>
+            </div>
+            {suggestedCard > orderTotalNum && orderTotalNum > 0 && (
+              <p className="text-[11px] text-center text-muted-foreground mt-3 pt-3 border-t border-[#7C3AED]/20 leading-relaxed">
+                Cards come in fixed values, so buy the <strong className="text-foreground">€{suggestedCard}</strong> card to cover your <strong className="text-foreground">€{orderTotal}</strong> total. Any leftover balance stays on your Rewarble card for next time.
+              </p>
             )}
           </div>
         )}
