@@ -31,7 +31,7 @@ const PaymentMethodExplainer = () => {
             </p>
             <p>
               iDEAL, card, Apple Pay and Google Pay are also available at checkout. If you're in doubt or don't trust it, please do some research on Rewarble, and don't hesitate to ask me questions on{' '}
-              <a href="https://www.tiktok.com/@Parfora_pfm" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80">TikTok</a>{' '}
+              <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80">TikTok</a>{' '}
               if you're confused!
             </p>
           </div>
