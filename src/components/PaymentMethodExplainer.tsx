@@ -34,6 +34,9 @@ const PaymentMethodExplainer = () => {
               <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80">TikTok</a>{' '}
               if you're confused!
             </p>
+            <p className="pt-2 mt-2 border-t border-amber-500/20">
+              If for whatever reason you do not wish to pay using this method, then our company will obtain full registration on the 1st of August 2027, and you may wait until then if you wish — we will have normal payment methods by then.
+            </p>
           </div>
         </div>
       )}
