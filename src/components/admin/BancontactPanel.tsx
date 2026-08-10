@@ -528,7 +528,7 @@ export default function BancontactPanel({ userEmail }: Props) {
               {snapshot.orders.map((o, i) => (
                 <div key={`${o.id}-${o.kind}-${i}`} className="flex items-center justify-between gap-2 py-0.5 text-xs">
                   <div className="text-muted-foreground truncate">
-                    <span className="opacity-60">{format(new Date(o.approvedAt), "dd MMM HH:mm")}</span>
+                    <span className="opacity-60">{format(new Date(o.approvedAt), "dd MMM")}</span>
                     {!isBancontactAdmin && (
                       <>
                         <span className="font-mono opacity-70 ml-2">{o.kind === "full" ? "FULL" : o.kind === "split_1" ? "½₁" : "½₂"}</span>
