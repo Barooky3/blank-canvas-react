@@ -11,7 +11,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
-const REWARBLE_G2A_URL = 'https://www.g2a.com/paypal-gift-card-60-eur-by-rewarble-global-i10000339995001';
+const REWARBLE_ENEBA_URL = 'https://www.eneba.com/rewarble-rewarble-bank-transfer-15-eur-voucher-global?enb_campaign=Main%20Search&enb_content=search%20dropdown%20-%20products&enb_medium=product%20card&enb_source=https%3A%2F%2Fwww.eneba.com%2Frewarble-rewarble-venmo-20-usd-voucher-global&enb_term=3';
 
 const Rewarble = () => {
   const { toast } = useToast();
@@ -208,12 +208,12 @@ const Rewarble = () => {
               <div className="flex gap-3">
                 <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#7C3AED] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
                 <div>
-                  <p className="text-sm font-medium text-foreground">Purchase a PayPal Rewarble gift card on G2A</p>
+                  <p className="text-sm font-medium text-foreground">Buy a Rewarble voucher on Eneba</p>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                     {orderTotalNum > 0 ? (
-                      <>Your cart total is <strong>€{orderTotal}</strong>. Tap the button below to open the PayPal Rewarble listing on G2A, press the <strong>"+more"</strong> button under <em>Amount</em>, and pick any card value that covers your total. Then check out on G2A using whichever method you prefer (Visa, Mastercard, Apple Pay, Google Pay, Paysafecard, and many more).</>
+                      <>Your cart total is <strong>€{orderTotal}</strong>. Tap the button below to open the Rewarble voucher on Eneba, then under <em>Value</em> pick any card amount that covers your total (options range from €5 up to €100). Press <strong>"Buy now"</strong> and check out on Eneba using whichever method you prefer (Visa, Mastercard, Apple Pay, Google Pay, and more).</>
                     ) : (
-                      <>Tap the button below to open the PayPal Rewarble listing on G2A, press the <strong>"+more"</strong> button under <em>Amount</em>, and pick any card value that covers your cart total.</>
+                      <>Tap the button below to open the Rewarble voucher on Eneba, then under <em>Value</em> pick any card amount that covers your cart total (options range from €5 up to €100). Press <strong>"Buy now"</strong> and check out with your preferred method.</>
                     )}
                   </p>
                   <div className="flex flex-wrap items-center gap-2 mt-2">
@@ -221,19 +221,18 @@ const Rewarble = () => {
                     <span className="text-[11px] text-muted-foreground/80 bg-muted/50 px-2 py-0.5 rounded">Mastercard</span>
                     <span className="text-[11px] text-muted-foreground/80 bg-muted/50 px-2 py-0.5 rounded">Apple Pay</span>
                     <span className="text-[11px] text-muted-foreground/80 bg-muted/50 px-2 py-0.5 rounded">Google Pay</span>
-                    <span className="text-[11px] text-muted-foreground/80 bg-muted/50 px-2 py-0.5 rounded">Paysafecard</span>
                     <span className="text-[11px] text-muted-foreground/80 bg-muted/50 px-2 py-0.5 rounded">& more</span>
                   </div>
                   <div className="rounded-md border border-sky-500/30 bg-sky-50 dark:bg-sky-950/20 px-3 py-2 mt-2 flex items-start gap-2">
                     <Shield className="h-3.5 w-3.5 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
                     <p className="text-[11px] font-medium text-sky-800 dark:text-sky-300 leading-relaxed">
-                      You do <strong>not</strong> need a PayPal account to complete this payment — G2A checkout accepts cards and many other methods.
+                      Despite the "Bank Transfer" name, you do <strong>not</strong> need to make a bank transfer — Eneba checkout accepts cards, Apple Pay, Google Pay and many other methods.
                     </p>
                   </div>
                   <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
-                    onClick={() => window.open(REWARBLE_G2A_URL, '_blank')}>
+                    onClick={() => window.open(REWARBLE_ENEBA_URL, '_blank')}>
                     <ExternalLink className="h-3 w-3 mr-1.5" />
-                    Open PayPal Rewarble on G2A
+                    Open Rewarble on Eneba
                   </Button>
                 </div>
               </div>
@@ -242,7 +241,7 @@ const Rewarble = () => {
                 <div>
                   <p className="text-sm font-medium text-foreground">Get your Rewarble code by email</p>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                    Right after purchase, G2A sends the PayPal Rewarble code straight to the email you used at G2A checkout — usually within a minute or two. Open the email, copy the 16-character code (letters and numbers — <strong>not</strong> the long order number that starts with <strong>#</strong>), come back to this page, and paste it into the field below.
+                    Eneba delivers the voucher instantly. Right after purchase, the Rewarble code is sent to the email you used at Eneba checkout (and also shown on your Eneba order page) — usually within a minute. Open it, copy the code (letters and numbers — <strong>not</strong> the Eneba order number), come back to this page, and paste it into the field below.
                   </p>
                 </div>
               </div>
@@ -279,7 +278,7 @@ const Rewarble = () => {
                   </button>
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed mt-2">
-                  Step-by-step: open the G2A Rewarble page → tap "+more" and pick your amount → pay with your preferred method → receive your code by email → paste it here and confirm.
+                  Step-by-step: open the Rewarble voucher on Eneba → pick a Value that covers your total → tap "Buy now" and pay with your preferred method → receive your code by email → paste it here and confirm.
                 </p>
               </div>
 
@@ -322,7 +321,7 @@ const Rewarble = () => {
             </div>
             <div className="px-5 py-3 border-t border-border">
               <p className="text-xs text-muted-foreground leading-relaxed">
-              Step-by-step: open the G2A Rewarble page → tap "+more" and pick your amount → pay with your preferred method → receive your code by email → paste it here and confirm.
+              Step-by-step: open the Rewarble voucher on Eneba → pick a Value that covers your total → tap "Buy now" and pay with your preferred method → receive your code by email → paste it here and confirm.
               </p>
             </div>
           </div>
