@@ -846,7 +846,7 @@ const Checkout = () => {
                         </div>
                         <div className="px-4 py-2.5 border-t border-border">
                           <p className="text-[11px] text-muted-foreground leading-relaxed">
-                            Step-by-step: open G2A → choose your amount → pay with card, Apple Pay or Google Pay → paste the code here after purchase.
+                            Step-by-step: open the Rewarble voucher on Eneba → choose a Value that covers your total → pay with card, Apple Pay or Google Pay → paste the code here after purchase.
                           </p>
                         </div>
                       </div>
