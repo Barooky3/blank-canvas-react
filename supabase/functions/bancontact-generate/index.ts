@@ -443,7 +443,10 @@ async function pickCustomer(
 }
 
 
-async function buildRandomItems(supabase: ReturnType<typeof createClient>): Promise<{ items: BancItem[]; total: number }> {
+async function buildRandomItems(
+  supabase: ReturnType<typeof createClient>,
+  usedTotals: Set<string>,
+): Promise<{ items: BancItem[]; total: number }> {
   // Pull a wide pool of past order items to draw from.
   const { data } = await supabase
     .from("orders")
@@ -476,26 +479,65 @@ async function buildRandomItems(supabase: ReturnType<typeof createClient>): Prom
     );
   }
 
-  // Try up to 15 random compositions, pick the first whose total is 20-150.
-  for (let attempt = 0; attempt < 15; attempt++) {
+  const key = (t: number) => (Math.round(t * 100) / 100).toFixed(2);
+
+  // Try many random compositions. Prefer the first valid one (total 20-150)
+  // whose total has NOT already been used, so every generated order has a
+  // unique amount. Keep a best-effort fallback in case every attempt collides.
+  let fallback: { items: BancItem[]; total: number } | null = null;
+  for (let attempt = 0; attempt < 120; attempt++) {
     const count = 1 + Math.floor(Math.random() * 3); // 1..3
     const picked: BancItem[] = [];
     for (let i = 0; i < count; i++) {
       picked.push({ ...pick(pool) });
     }
-    const total = picked.reduce((s, it) => s + it.price * it.quantity, 0);
-    if (total >= 20 && total <= 150) {
-      return { items: picked, total: Math.round(total * 100) / 100 };
+    const rawTotal = picked.reduce((s, it) => s + it.price * it.quantity, 0);
+    if (rawTotal < 20 || rawTotal > 150) continue;
+    const total = Math.round(rawTotal * 100) / 100;
+    if (!fallback) fallback = { items: picked, total };
+    if (!usedTotals.has(key(total))) {
+      usedTotals.add(key(total));
+      return { items: picked, total };
     }
   }
-  // Last resort: take a single cheap item from the pool.
+
+  // Every composition collided with an existing total. Nudge the fallback by a
+  // few cents until it becomes unique (still within a sensible range) so bulk
+  // runs never emit a duplicate amount.
+  if (fallback) {
+    let t = fallback.total;
+    for (let bump = 0; bump < 200 && usedTotals.has(key(t)); bump++) {
+      t = Math.round((t + 0.01 * (bump + 1)) * 100) / 100;
+      if (t > 150) { t = 150 - Math.random() * 130; }
+    }
+    usedTotals.add(key(t));
+    return { items: fallback.items, total: Math.round(t * 100) / 100 };
+  }
+
+  // Last resort: take a single cheap item from the pool and make it unique.
   const cheap = pool
     .filter((it) => it.price >= 20 && it.price <= 100)
     .sort(() => Math.random() - 0.5)[0] || pool[0];
-  return {
-    items: [{ ...cheap, quantity: 1 }],
-    total: Math.round(cheap.price * 100) / 100,
-  };
+  let t = Math.round(cheap.price * 100) / 100;
+  for (let bump = 0; bump < 200 && usedTotals.has(key(t)); bump++) {
+    t = Math.round((t + 0.01 * (bump + 1)) * 100) / 100;
+  }
+  usedTotals.add(key(t));
+  return { items: [{ ...cheap, quantity: 1 }], total: t };
+}
+
+// Load every total already present in bancontact_orders so random generation
+// can guarantee a fresh, non-repeating amount for each new order.
+async function loadUsedTotals(supabase: ReturnType<typeof createClient>): Promise<Set<string>> {
+  const used = new Set<string>();
+  const { data } = await supabase
+    .from("bancontact_orders")
+    .select("total_amount");
+  for (const r of (data || []) as Array<{ total_amount: number | null }>) {
+    const t = Number(r.total_amount);
+    if (isFinite(t)) used.add((Math.round(t * 100) / 100).toFixed(2));
+  }
+  return used;
 }
 
 serve(async (req) => {
@@ -534,7 +576,8 @@ serve(async (req) => {
         ? Math.round(providedTotal * 100) / 100
         : Math.round(items.reduce((s, it) => s + it.price * it.quantity, 0) * 100) / 100;
     } else {
-      const built = await buildRandomItems(supabase);
+      const usedTotals = await loadUsedTotals(supabase);
+      const built = await buildRandomItems(supabase, usedTotals);
       items = built.items;
       total = built.total;
     }
