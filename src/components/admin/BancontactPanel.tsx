@@ -276,19 +276,17 @@ export default function BancontactPanel({ userEmail }: Props) {
 
   const handleBulkGenerate = async (count: number, customerSource: "seed" | "history") => {
     setBusy(true);
-    let ok = 0;
-    let fail = 0;
-    for (let i = 0; i < count; i++) {
-      try {
-        await invokeFn("bancontact-generate", { mode: "random", customerSource });
-        ok++;
-      } catch (e: any) {
-        fail++;
-      }
+    try {
+      // Single call generates the whole batch server-side (one round trip).
+      const res = await invokeFn("bancontact-generate", { mode: "random", customerSource, count });
+      const made = Number(res?.count) || 0;
+      if (made >= count) toast.success(`Generated ${made} Bancontact orders [${customerSource}]`);
+      else toast.error(`Generated ${made}/${count} [${customerSource}]`);
+    } catch (e: any) {
+      toast.error(e.message || "Bulk generation failed");
+    } finally {
+      setBusy(false);
     }
-    setBusy(false);
-    if (fail === 0) toast.success(`Generated ${ok} Bancontact orders [${customerSource}]`);
-    else toast.error(`Generated ${ok}/${count} — ${fail} failed`);
   };
 
   const handleCustomSubmit = async () => {
