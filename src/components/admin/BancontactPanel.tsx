@@ -530,10 +530,7 @@ export default function BancontactPanel({ userEmail }: Props) {
                   <div className="text-muted-foreground truncate">
                     <span className="opacity-60">{format(new Date(o.approvedAt), "dd MMM")}</span>
                     {!isBancontactAdmin && (
-                      <>
-                        <span className="font-mono opacity-70 ml-2">{o.kind === "full" ? "FULL" : o.kind === "split_1" ? "½₁" : "½₂"}</span>
-                        <span className="ml-2">{o.customer_name}</span>
-                      </>
+                      <span className="font-mono opacity-70 ml-2">{o.kind === "full" ? "FULL" : o.kind === "split_1" ? "½₁" : "½₂"}</span>
                     )}
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
@@ -592,7 +589,6 @@ export default function BancontactPanel({ userEmail }: Props) {
                           <div key={`${o.id}-${i}`} className="flex items-center justify-between gap-2 py-0.5">
                             <div className="text-muted-foreground truncate">
                               <span className="opacity-60">{format(new Date(o.approvedAt), "dd MMM")}</span>
-                              {!isBancontactAdmin && <span className="ml-2">{o.customer_name}</span>}
                             </div>
                             <div className="flex items-center gap-2 shrink-0">
                               <strong>€{Number(o.credit ?? o.total_amount).toFixed(2)}</strong>
