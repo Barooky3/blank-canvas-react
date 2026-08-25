@@ -346,10 +346,18 @@ type PickResult = {
   poolSize: number;
 };
 
-async function pickCustomer(
+type CustomerCtx = {
+  pool: Array<{ name: string; email: string; country: string }>;
+  counts: Map<string, number>;
+  lastUsedIdx: Map<string, number>;
+};
+
+// Load the customer pool + usage tallies ONCE. A bulk run reuses this context
+// across every order instead of re-querying per order (major speedup).
+async function loadCustomerCtx(
   supabase: ReturnType<typeof createClient>,
   source: "seed" | "history" = "seed",
-): Promise<PickResult> {
+): Promise<CustomerCtx> {
   // Pull past bancontact orders both to tally usage AND (for "history" mode)
   // to source the pool of names. Ordered newest-first so we can track recency.
   const { data: prev } = await supabase
@@ -409,13 +417,27 @@ async function pickCustomer(
     pool = SEED_CUSTOMERS.map((s) => ({ name: s.name, email: s.email, country: s.country }));
   }
 
+  return { pool, counts, lastUsedIdx };
+}
+
+// Pure customer chooser. `sessionCounts` tracks names already picked earlier in
+// the SAME batch so a bulk run keeps rotating without re-querying the database.
+function chooseCustomer(ctx: CustomerCtx, sessionCounts: Map<string, number>): PickResult {
+  const { pool, counts, lastUsedIdx } = ctx;
+  const combined = (k: string) => (counts.get(k) ?? 0) + (sessionCounts.get(k) ?? 0);
+
   // Exclude recently-used names so we never reuse one that just appeared.
   // Window scales with pool size but is bounded.
   const recentWindow = Math.min(Math.max(20, Math.floor(pool.length * 0.5)), Math.max(0, pool.length - 1));
   let candidates = pool.filter((s) => {
     const idx = lastUsedIdx.get(s.name.toLowerCase());
+    // Treat anything picked this session as "just used" too.
+    if ((sessionCounts.get(s.name.toLowerCase()) ?? 0) > 0) return false;
     return idx === undefined || idx >= recentWindow;
   });
+  if (candidates.length === 0) {
+    candidates = pool.filter((s) => (sessionCounts.get(s.name.toLowerCase()) ?? 0) === 0);
+  }
   if (candidates.length === 0) candidates = pool;
 
   // Find the minimum usage count across the candidates, then pick at random
@@ -423,14 +445,14 @@ async function pickCustomer(
   // "exhausted" one full cycle and naturally jumble + reuse from there.
   let minCount = Infinity;
   for (const s of candidates) {
-    const c = counts.get(s.name.toLowerCase()) ?? 0;
+    const c = combined(s.name.toLowerCase());
     if (c < minCount) minCount = c;
   }
   if (minCount === Infinity) minCount = 0;
-  const tier = candidates.filter(
-    (s) => (counts.get(s.name.toLowerCase()) ?? 0) === minCount,
-  );
+  const tier = candidates.filter((s) => combined(s.name.toLowerCase()) === minCount);
   const chosen = pick(tier);
+  const key = chosen.name.toLowerCase();
+  sessionCounts.set(key, (sessionCounts.get(key) ?? 0) + 1);
 
   return {
     ok: true,
@@ -443,8 +465,9 @@ async function pickCustomer(
 }
 
 
-async function buildRandomItems(supabase: ReturnType<typeof createClient>): Promise<{ items: BancItem[]; total: number }> {
-  // Pull a wide pool of past order items to draw from.
+// Load a wide pool of past order items ONCE so a bulk run can compose every
+// order from the same in-memory pool instead of re-querying per order.
+async function loadItemPool(supabase: ReturnType<typeof createClient>): Promise<BancItem[]> {
   const { data } = await supabase
     .from("orders")
     .select("order_items")
@@ -475,27 +498,73 @@ async function buildRandomItems(supabase: ReturnType<typeof createClient>): Prom
       { name: "Eros", brand: "Versace", price: 34.99, quantity: 1, selectedMl: 100 },
     );
   }
+  return pool;
+}
 
-  // Try up to 15 random compositions, pick the first whose total is 20-150.
-  for (let attempt = 0; attempt < 15; attempt++) {
+// Compose one order from a preloaded pool, guaranteeing a unique total.
+function buildRandomItems(
+  pool: BancItem[],
+  usedTotals: Set<string>,
+): { items: BancItem[]; total: number } {
+  const key = (t: number) => (Math.round(t * 100) / 100).toFixed(2);
+
+  // Try many random compositions. Prefer the first valid one (total 20-150)
+  // whose total has NOT already been used, so every generated order has a
+  // unique amount. Keep a best-effort fallback in case every attempt collides.
+  let fallback: { items: BancItem[]; total: number } | null = null;
+  for (let attempt = 0; attempt < 120; attempt++) {
     const count = 1 + Math.floor(Math.random() * 3); // 1..3
     const picked: BancItem[] = [];
     for (let i = 0; i < count; i++) {
       picked.push({ ...pick(pool) });
     }
-    const total = picked.reduce((s, it) => s + it.price * it.quantity, 0);
-    if (total >= 20 && total <= 150) {
-      return { items: picked, total: Math.round(total * 100) / 100 };
+    const rawTotal = picked.reduce((s, it) => s + it.price * it.quantity, 0);
+    if (rawTotal < 20 || rawTotal > 150) continue;
+    const total = Math.round(rawTotal * 100) / 100;
+    if (!fallback) fallback = { items: picked, total };
+    if (!usedTotals.has(key(total))) {
+      usedTotals.add(key(total));
+      return { items: picked, total };
     }
   }
-  // Last resort: take a single cheap item from the pool.
+
+  // Every composition collided with an existing total. Nudge the fallback by a
+  // few cents until it becomes unique (still within a sensible range) so bulk
+  // runs never emit a duplicate amount.
+  if (fallback) {
+    let t = fallback.total;
+    for (let bump = 0; bump < 200 && usedTotals.has(key(t)); bump++) {
+      t = Math.round((t + 0.01 * (bump + 1)) * 100) / 100;
+      if (t > 150) { t = 150 - Math.random() * 130; }
+    }
+    usedTotals.add(key(t));
+    return { items: fallback.items, total: Math.round(t * 100) / 100 };
+  }
+
+  // Last resort: take a single cheap item from the pool and make it unique.
   const cheap = pool
     .filter((it) => it.price >= 20 && it.price <= 100)
     .sort(() => Math.random() - 0.5)[0] || pool[0];
-  return {
-    items: [{ ...cheap, quantity: 1 }],
-    total: Math.round(cheap.price * 100) / 100,
-  };
+  let t = Math.round(cheap.price * 100) / 100;
+  for (let bump = 0; bump < 200 && usedTotals.has(key(t)); bump++) {
+    t = Math.round((t + 0.01 * (bump + 1)) * 100) / 100;
+  }
+  usedTotals.add(key(t));
+  return { items: [{ ...cheap, quantity: 1 }], total: t };
+}
+
+// Load every total already present in bancontact_orders so random generation
+// can guarantee a fresh, non-repeating amount for each new order.
+async function loadUsedTotals(supabase: ReturnType<typeof createClient>): Promise<Set<string>> {
+  const used = new Set<string>();
+  const { data } = await supabase
+    .from("bancontact_orders")
+    .select("total_amount");
+  for (const r of (data || []) as Array<{ total_amount: number | null }>) {
+    const t = Number(r.total_amount);
+    if (isFinite(t)) used.add((Math.round(t * 100) / 100).toFixed(2));
+  }
+  return used;
 }
 
 serve(async (req) => {
@@ -509,20 +578,29 @@ serve(async (req) => {
     const mode: "random" | "custom" = body?.mode === "custom" ? "custom" : "random";
     const source: string = body?.source === "timed" ? "timed" : mode;
     const customerSource: "seed" | "history" = body?.customerSource === "history" ? "history" : "seed";
+    // Bulk support: generate up to 50 orders in a single call. Custom mode is
+    // always a single order.
+    const count = mode === "custom"
+      ? 1
+      : Math.min(50, Math.max(1, Math.floor(Number(body?.count) || 1)));
 
-    const pickRes = await pickCustomer(supabase, customerSource);
-    const customer = { name: pickRes.name, email: pickRes.email, country: pickRes.country };
+    // Load shared context ONCE and reuse it for every order in the batch. This
+    // is the main speedup for bulk runs (no per-order DB round trips).
+    const usedTotals = await loadUsedTotals(supabase);
+    const customerCtx = await loadCustomerCtx(supabase, customerSource);
+    const itemPool = mode === "custom" ? [] : await loadItemPool(supabase);
+    const sessionCounts = new Map<string, number>();
 
-    let items: BancItem[];
-    let total: number;
-
+    // Pre-parse custom items once (only used when mode === "custom").
+    let customItems: BancItem[] = [];
+    let customTotal = 0;
     if (mode === "custom") {
       const rawItems = Array.isArray(body?.items) ? body.items : [];
       if (rawItems.length === 0) {
         return new Response(JSON.stringify({ error: "Custom mode requires items." }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 });
       }
-      items = rawItems.map((it: any) => ({
+      customItems = rawItems.map((it: any) => ({
         name: String(it.name || "Fragrance"),
         brand: String(it.brand || "Brand"),
         price: Number(it.price) || 0,
@@ -530,23 +608,35 @@ serve(async (req) => {
         selectedMl: typeof it.selectedMl === "number" ? it.selectedMl : undefined,
       }));
       const providedTotal = Number(body?.total);
-      total = isFinite(providedTotal) && providedTotal > 0
+      customTotal = isFinite(providedTotal) && providedTotal > 0
         ? Math.round(providedTotal * 100) / 100
-        : Math.round(items.reduce((s, it) => s + it.price * it.quantity, 0) * 100) / 100;
-    } else {
-      const built = await buildRandomItems(supabase);
-      items = built.items;
-      total = built.total;
+        : Math.round(customItems.reduce((s, it) => s + it.price * it.quantity, 0) * 100) / 100;
     }
 
-    const token = genToken();
     const nowIso = new Date().toISOString();
-    const { data: order, error: insErr } = await supabase
-      .from("bancontact_orders")
-      .insert({
-        customer_name: customer.name,
-        customer_email: customer.email,
-        country: customer.country,
+    const rowsToInsert: Array<Record<string, unknown>> = [];
+    const summaries: Array<{ customer: string; total: number }> = [];
+    let anyExhausted = false;
+
+    for (let i = 0; i < count; i++) {
+      const pickRes = chooseCustomer(customerCtx, sessionCounts);
+      anyExhausted = anyExhausted || pickRes.exhausted;
+
+      let items: BancItem[];
+      let total: number;
+      if (mode === "custom") {
+        items = customItems;
+        total = customTotal;
+      } else {
+        const built = buildRandomItems(itemPool, usedTotals);
+        items = built.items;
+        total = built.total;
+      }
+
+      rowsToInsert.push({
+        customer_name: pickRes.name,
+        customer_email: pickRes.email,
+        country: pickRes.country,
         order_items: items,
         total_amount: total,
         // Auto-approved on creation: seed/history/timed/custom orders are
@@ -555,26 +645,37 @@ serve(async (req) => {
         // bancontact_live_counter and fires realtime immediately.
         status: "approved",
         approved_at: nowIso,
-        approval_token: token,
+        approval_token: genToken(),
         source,
-      })
-      .select("id")
-      .single();
-    if (insErr || !order) throw new Error(`Failed to create bancontact order: ${insErr?.message}`);
+      });
+      summaries.push({ customer: pickRes.name, total });
+    }
+
+    // Single batched insert for the whole run — one DB round trip instead of N.
+    const { data: inserted, error: insErr } = await supabase
+      .from("bancontact_orders")
+      .insert(rowsToInsert)
+      .select("id");
+    if (insErr || !inserted) throw new Error(`Failed to create bancontact order(s): ${insErr?.message}`);
 
     // Bancontact emails + manual approval disabled — orders are credited to the
     // tally the moment they are generated (status inserted as "approved").
     void buildEmailHtml; void sendEmail; void RECIPIENT;
 
+    const first = summaries[0] || { customer: "", total: 0 };
     return new Response(JSON.stringify({
       success: true,
-      orderId: order.id,
-      customer: customer.name,
-      total,
-      exhausted: pickRes.exhausted,
-      poolSize: pickRes.poolSize,
-      warning: pickRes.exhausted
-        ? `Seed pool fully cycled (${pickRes.poolSize} customers). Reusing names from a jumbled rotation.`
+      count: inserted.length,
+      orderId: inserted[0]?.id,
+      orderIds: inserted.map((o: { id: string }) => o.id),
+      // Back-compat fields for single-order callers.
+      customer: first.customer,
+      total: first.total,
+      orders: summaries,
+      exhausted: anyExhausted,
+      poolSize: customerCtx.pool.length,
+      warning: anyExhausted
+        ? `Seed pool fully cycled (${customerCtx.pool.length} customers). Reusing names from a jumbled rotation.`
         : undefined,
     }), { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 });
   } catch (e: any) {
