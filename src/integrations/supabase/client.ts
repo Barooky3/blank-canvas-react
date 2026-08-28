@@ -4,51 +4,6 @@ import { createClient } from '@supabase/supabase-js';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
-// Derive this project's ref (e.g. "whoijmulomzwvsjomret") from the URL.
-const CURRENT_PROJECT_REF = (() => {
-  try {
-    return new URL(SUPABASE_URL).hostname.split('.')[0];
-  } catch {
-    return '';
-  }
-})();
-
-// A stale, corrupt, or foreign (old-project) auth token left in localStorage can
-// jam @supabase/auth-js so that signInWithPassword hangs forever. This runs at
-// startup, BEFORE the client reads any session, and removes:
-//   1. auth tokens belonging to a DIFFERENT Supabase project (old project leftovers)
-//   2. the current project's token if its stored JSON is unparseable/corrupt
-// It never removes a valid token for the current project, so real sessions persist.
-function purgeStaleSupabaseAuthTokens() {
-  if (typeof window === 'undefined' || !window.localStorage) return;
-  try {
-    const keys: string[] = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (k && k.startsWith('sb-') && k.endsWith('-auth-token')) keys.push(k);
-    }
-    for (const key of keys) {
-      const belongsToCurrent = CURRENT_PROJECT_REF && key === `sb-${CURRENT_PROJECT_REF}-auth-token`;
-      if (!belongsToCurrent) {
-        // Token from a different / old project — always remove.
-        localStorage.removeItem(key);
-        continue;
-      }
-      // Current project's token: keep only if it is valid JSON.
-      try {
-        const raw = localStorage.getItem(key);
-        if (raw) JSON.parse(raw);
-      } catch {
-        localStorage.removeItem(key);
-      }
-    }
-  } catch {
-    /* ignore storage access errors */
-  }
-}
-
-purgeStaleSupabaseAuthTokens();
-
 
 function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith('sb_publishable_') || value.startsWith('sb_secret_');
@@ -74,35 +29,6 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
   };
 }
 
-// A resilient auth lock. The default navigator.locks-based lock in @supabase/auth-js
-// can wait indefinitely when the lock is held by another tab or a crashed/stale
-// session, which freezes signInWithPassword forever (button stuck, no error).
-// This version caps how long it will wait for the lock, then proceeds anyway so
-// authentication can never hang permanently.
-async function resilientLock<R>(name: string, acquireTimeout: number, fn: () => Promise<R>): Promise<R> {
-  const nav = typeof globalThis !== 'undefined' ? (globalThis as any).navigator : undefined;
-  if (!nav?.locks?.request) {
-    return await fn();
-  }
-  const controller = new AbortController();
-  const waitMs = acquireTimeout > 0 ? acquireTimeout : 5000;
-  const timer = setTimeout(() => controller.abort(), waitMs);
-  try {
-    return await nav.locks.request(
-      name,
-      { mode: 'exclusive', signal: controller.signal },
-      async () => {
-        clearTimeout(timer);
-        return await fn();
-      },
-    );
-  } catch {
-    // Lock was contended/stale and could not be acquired in time — run without it.
-    clearTimeout(timer);
-    return await fn();
-  }
-}
-
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
@@ -114,6 +40,5 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     storage: typeof window !== 'undefined' ? localStorage : undefined,
     persistSession: true,
     autoRefreshToken: true,
-    lock: resilientLock,
   }
 });

@@ -26,24 +26,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     });
 
-    // Never let a hung getSession() (e.g. from a bad persisted token) keep the
-    // app in a permanent loading state.
-    const initTimeout = setTimeout(() => setLoading(false), 8000);
-    supabase.auth.getSession()
-      .then(({ data: { session } }) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-      })
-      .catch(() => { /* ignore — fall through to not-authenticated */ })
-      .finally(() => {
-        clearTimeout(initTimeout);
-        setLoading(false);
-      });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-    return () => {
-      clearTimeout(initTimeout);
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
   const signUp = async (email: string, password: string, fullName: string) => {
