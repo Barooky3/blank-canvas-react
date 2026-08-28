@@ -24,13 +24,23 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const { error } = await signIn(email, password);
-    setIsSubmitting(false);
-    if (error) {
-      toast({ title: 'Login failed', description: error, variant: 'destructive' });
-    } else {
-      toast({ title: 'Welcome back! 🎉' });
-      navigate('/');
+    try {
+      // Safety net: never let the sign-in request leave the button stuck forever.
+      const timeout = new Promise<{ error: string }>((resolve) =>
+        setTimeout(
+          () => resolve({ error: 'Sign in timed out. Please close other tabs of this site and try again.' }),
+          15000,
+        ),
+      );
+      const { error } = await Promise.race([signIn(email, password), timeout]);
+      if (error) {
+        toast({ title: 'Login failed', description: error, variant: 'destructive' });
+      } else {
+        toast({ title: 'Welcome back! 🎉' });
+        navigate('/');
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
