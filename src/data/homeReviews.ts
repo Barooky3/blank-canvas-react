@@ -51,8 +51,6 @@ export const homeReviews: HomeReview[] = [
   { id: 'r39', name: 'Jürgen T.', rating: 5, text: 'Absolut zufrieden, danke für die schnelle Abwicklung!', date: '28 Mar 2025', verified: true },
   { id: 'r40', name: 'Anonymous', rating: 5, text: 'The only shop I trust for my signature scents.', date: '20 Mar 2025', verified: true },
   { id: 'r41', name: 'Petr S.', rating: 5, text: 'Fast shipping to Prague. Quality is A+.', date: '12 Mar 2025', verified: true },
-  { id: 'r42', name: 'Victor', rating: 5, text: "Hi, I'm just putting this here to test if the reviews are legit.", date: '07 Aug 2026', verified: true },
-  { id: 'r43', name: 'Dovkka', rating: 4, text: 'Just Checking if i can write rewiews', date: '16 Aug 2026', verified: true },
 ];
 
 export const reviewStats = (() => {
