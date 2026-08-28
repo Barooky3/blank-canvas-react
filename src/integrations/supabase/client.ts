@@ -4,6 +4,51 @@ import { createClient } from '@supabase/supabase-js';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
+// Derive this project's ref (e.g. "whoijmulomzwvsjomret") from the URL.
+const CURRENT_PROJECT_REF = (() => {
+  try {
+    return new URL(SUPABASE_URL).hostname.split('.')[0];
+  } catch {
+    return '';
+  }
+})();
+
+// A stale, corrupt, or foreign (old-project) auth token left in localStorage can
+// jam @supabase/auth-js so that signInWithPassword hangs forever. This runs at
+// startup, BEFORE the client reads any session, and removes:
+//   1. auth tokens belonging to a DIFFERENT Supabase project (old project leftovers)
+//   2. the current project's token if its stored JSON is unparseable/corrupt
+// It never removes a valid token for the current project, so real sessions persist.
+function purgeStaleSupabaseAuthTokens() {
+  if (typeof window === 'undefined' || !window.localStorage) return;
+  try {
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('sb-') && k.endsWith('-auth-token')) keys.push(k);
+    }
+    for (const key of keys) {
+      const belongsToCurrent = CURRENT_PROJECT_REF && key === `sb-${CURRENT_PROJECT_REF}-auth-token`;
+      if (!belongsToCurrent) {
+        // Token from a different / old project — always remove.
+        localStorage.removeItem(key);
+        continue;
+      }
+      // Current project's token: keep only if it is valid JSON.
+      try {
+        const raw = localStorage.getItem(key);
+        if (raw) JSON.parse(raw);
+      } catch {
+        localStorage.removeItem(key);
+      }
+    }
+  } catch {
+    /* ignore storage access errors */
+  }
+}
+
+purgeStaleSupabaseAuthTokens();
+
 
 function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith('sb_publishable_') || value.startsWith('sb_secret_');
