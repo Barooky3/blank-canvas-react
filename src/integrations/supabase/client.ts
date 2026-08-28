@@ -29,6 +29,35 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
   };
 }
 
+// A resilient auth lock. The default navigator.locks-based lock in @supabase/auth-js
+// can wait indefinitely when the lock is held by another tab or a crashed/stale
+// session, which freezes signInWithPassword forever (button stuck, no error).
+// This version caps how long it will wait for the lock, then proceeds anyway so
+// authentication can never hang permanently.
+async function resilientLock<R>(name: string, acquireTimeout: number, fn: () => Promise<R>): Promise<R> {
+  const nav = typeof globalThis !== 'undefined' ? (globalThis as any).navigator : undefined;
+  if (!nav?.locks?.request) {
+    return await fn();
+  }
+  const controller = new AbortController();
+  const waitMs = acquireTimeout > 0 ? acquireTimeout : 5000;
+  const timer = setTimeout(() => controller.abort(), waitMs);
+  try {
+    return await nav.locks.request(
+      name,
+      { mode: 'exclusive', signal: controller.signal },
+      async () => {
+        clearTimeout(timer);
+        return await fn();
+      },
+    );
+  } catch {
+    // Lock was contended/stale and could not be acquired in time — run without it.
+    clearTimeout(timer);
+    return await fn();
+  }
+}
+
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
@@ -40,5 +69,6 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     storage: typeof window !== 'undefined' ? localStorage : undefined,
     persistSession: true,
     autoRefreshToken: true,
+    lock: resilientLock,
   }
 });
