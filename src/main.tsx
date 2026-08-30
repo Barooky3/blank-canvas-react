@@ -16,6 +16,22 @@ if (typeof window !== 'undefined' && !window.requestIdleCallback) {
   (window as any).cancelIdleCallback = (id: number) => window.clearTimeout(id);
 }
 
+// Silence the benign "ResizeObserver loop completed with undelivered notifications"
+// warning. It's harmless (fired when a ResizeObserver callback causes a layout
+// change in the same frame — common with charts/Radix/carousels) but the dev
+// overlay surfaces it as an error. We only swallow this exact message.
+if (typeof window !== 'undefined') {
+  const isResizeObserverLoop = (msg?: string) =>
+    !!msg && /ResizeObserver loop (limit exceeded|completed with undelivered notifications)/i.test(msg);
+
+  window.addEventListener('error', (e) => {
+    if (isResizeObserverLoop(e?.message)) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+    }
+  });
+}
+
 // Auto-recover from stale lazy-loaded chunks after a redeploy.
 // When Vite ships new hashed chunks, old tabs fail with "Importing a module script failed".
 // Reload once to fetch fresh chunks; guard with sessionStorage to avoid reload loops.
