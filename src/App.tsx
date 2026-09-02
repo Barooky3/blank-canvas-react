@@ -57,6 +57,7 @@ const EmailPreview = lazyWithReload(() => import("./pages/EmailPreview"));
 const CustomBundle = lazyWithReload(() => import("./pages/CustomBundle"));
 const FAQ = lazyWithReload(() => import("./pages/FAQ"));
 const TrackOrder = lazyWithReload(() => import("./pages/TrackOrder"));
+const ConversationReply = lazyWithReload(() => import("./pages/ConversationReply"));
 
 const NotFound = lazyWithReload(() => import("./pages/NotFound"));
 
@@ -111,6 +112,7 @@ const App = () => (
                 <Route path="/custom-bundle" element={<CustomBundle />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/track-submit" element={<TrackOrder />} />
+                <Route path="/reply/:token" element={<ConversationReply />} />
                 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />

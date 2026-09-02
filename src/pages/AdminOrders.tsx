@@ -7,7 +7,8 @@ import { CURRENCIES } from "@/contexts/CurrencyContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Check, X, RefreshCw, Package, Mail, Search, Trash2, Pencil, Plus, CalendarIcon, ImageIcon, ExternalLink, Users, Radio, Ban, BarChart3, Globe, ChevronDown, Star } from "lucide-react";
+import { Check, X, RefreshCw, Package, Mail, Search, Trash2, Pencil, Plus, CalendarIcon, ImageIcon, ExternalLink, Users, Radio, Ban, BarChart3, Globe, ChevronDown, Star, MessageSquare } from "lucide-react";
+import { ContactMessagesAdmin } from "@/components/admin/ContactMessagesAdmin";
 import { Switch } from "@/components/ui/switch";
 import LiveVisitorDashboard from "@/components/admin/LiveVisitorDashboard";
 import ReviewsAdmin from "@/components/admin/ReviewsAdmin";
@@ -84,7 +85,11 @@ export default function AdminOrders() {
   const [transitioning, setTransitioning] = useState(false);
   const [actionLoading, setActionLoading] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<"orders" | "live" | "reviews">("orders");
+  const [activeTab, setActiveTab] = useState<"orders" | "live" | "reviews" | "messages">(() =>
+    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("tab") === "messages"
+      ? "messages"
+      : "orders",
+  );
   const [customerEmailFilter, setCustomerEmailFilter] = useState<string>("");
 
   // Read URL search params for email/search filter (e.g. from chat link)
@@ -981,12 +986,27 @@ export default function AdminOrders() {
               Reviews
             </button>
           )}
+          {user?.email === PRIMARY_ADMIN && (
+            <button
+              onClick={() => setActiveTab("messages")}
+              className={`px-4 py-2 text-sm font-medium rounded-t-md transition-colors ${
+                activeTab === "messages"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-muted"
+              }`}
+            >
+              <MessageSquare className="h-4 w-4 inline mr-1.5" />
+              Messages
+            </button>
+          )}
         </div>
 
         {activeTab === "live" ? (
           <LiveVisitorDashboard />
         ) : activeTab === "reviews" && user?.email === PRIMARY_ADMIN ? (
           <ReviewsAdmin />
+        ) : activeTab === "messages" && user?.email === PRIMARY_ADMIN ? (
+          <ContactMessagesAdmin />
         ) : (
         <>
 
