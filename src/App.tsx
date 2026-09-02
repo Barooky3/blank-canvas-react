@@ -10,6 +10,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Layout } from "@/components/layout";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { GeoDebug } from "@/components/GeoDebug";
 
 const isDynamicImportError = (error: unknown) => {
   const message = error instanceof Error ? error.message : String(error || '');
@@ -79,6 +80,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <GeoDebug />
           <Layout>
             <Suspense fallback={<PageLoader />}>
               <Routes>
