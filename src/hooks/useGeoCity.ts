@@ -64,8 +64,16 @@ export function useGeoCity() {
 
   // Portlaoise (also spelled "Port Laoise"), County Laois, Ireland.
   const normCity = normalize(city);
-  const detected =
+  const normRegion = normalize(region);
+  const cityMatch =
     normCity === 'portlaoise' || normCity === 'portlaois' || normCity === 'portlaoighise';
+  // Mobile/broadband often reports only the county/region. County Laois (Irish:
+  // "Laois" / "Laoighis" / "Queen's County") is small enough that region-level
+  // targeting is a reasonable proxy for Portlaoise, its county town.
+  const regionMatch =
+    normRegion === 'laois' || normRegion === 'colaois' || normRegion === 'countylaois' ||
+    normRegion === 'laoighis' || normRegion === 'queenscounty';
+  const detected = cityMatch || regionMatch;
 
   const isPortlaoise = override ?? detected;
 
