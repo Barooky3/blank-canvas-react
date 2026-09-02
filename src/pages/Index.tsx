@@ -10,6 +10,7 @@ import { ProductCard } from '@/components/product';
 import { getBestsellers, products, getProductById } from '@/data/products';
 import { BundleSection, FAQSection } from '@/components/home';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useGeoCity } from '@/hooks/useGeoCity';
 const heroImage = '/images/hero-perfumes.webp';
 const logo = '/images/logo.png';
 
@@ -21,6 +22,7 @@ const NextFragrancePoll = lazy(() => import('@/components/home/NextFragrancePoll
 const Index = () => {
   const allBestsellers = getBestsellers();
   const { t } = useLanguage();
+  const { isPortlaoise } = useGeoCity();
   const navigate = useNavigate();
   const newArrivals = [
     getProductById('lv-city-of-stars'),
@@ -108,6 +110,13 @@ const Index = () => {
             {/* Tagline */}
             <p className="font-display text-xs md:text-sm lg:text-base text-white/70 tracking-[0.2em] uppercase mt-4 md:mt-6 mb-6 hero-tagline-animate">
               The Fragrance Library
+              {isPortlaoise && (
+                <span className="mt-2 flex items-center justify-center gap-2 text-[0.65rem] md:text-xs text-accent/90 tracking-[0.25em]">
+                  <span className="h-px w-4 bg-accent/40" aria-hidden="true" />
+                  High Quality Replicas
+                  <span className="h-px w-4 bg-accent/40" aria-hidden="true" />
+                </span>
+              )}
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 hero-buttons-animate">
