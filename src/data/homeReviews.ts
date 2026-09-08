@@ -7,20 +7,21 @@ export interface HomeReview {
   verified: boolean;
 }
 
-// 41 reviews — breakdown: 31×5★, 6×4★, 1×3★, 2×2★, 1×1★
-// Adapted to fragrance shop tone, multilingual feel for authenticity.
+// 41 reviews — reflects the live admin-edited state (text edits, hidden reviews
+// removed, and custom display order) so a repo reinstate preserves what's shown.
+// Original seed ids kept for continuity with the admin review_order overrides.
 export const homeReviews: HomeReview[] = [
-  { id: 'r1', name: 'Anonymous', rating: 5, text: 'arrived fast, found on tiktok, smells exactly like the og, super happy', date: '29 Apr 2026', verified: true },
+  { id: 'r1', name: 'Anonymous', rating: 5, text: 'arrived fast, found on tiktok, smells exactly like the og, but the payment method could use some work to be honest', date: '29 Apr 2026', verified: true },
+  { id: 'r4', name: 'Anonymous', rating: 5, text: 'im just putting a review for the free gift but, no complaints with my first order i guess', date: '10 Feb 2026', verified: true },
   { id: 'r2', name: 'Anonymous', rating: 5, text: '', date: '16 Mar 2026', verified: true },
   { id: 'r3', name: 'Anonymous', rating: 5, text: "I did a review before a 2 star one about my bottle having a dent in it im just putting this here because i contacted support and they offered to send me a replacement bottle without me returning mine. Just wanted to put this review here so the rating isnt so low cuz of my other one and plus free gift", date: '20 Feb 2026', verified: true },
-  { id: 'r4', name: 'Anonymous', rating: 5, text: '', date: '10 Feb 2026', verified: true },
   { id: 'r5', name: 'Lukas M.', rating: 5, text: 'schnell geliefert alles top verpackt danke', date: '03 Feb 2026', verified: true },
-  { id: 'r6', name: 'Philip K.', rating: 5, text: 'exactly what i needed, performance is insane', date: '27 Jan 2026', verified: true },
+  { id: 'r6', name: 'Philip K.', rating: 5, text: 'lowk able to do a lv collection now dont rly care if its fake lol', date: '27 Jan 2026', verified: true },
   { id: 'r7', name: 'Anna K.', rating: 5, text: 'danke! produkt wie beschrieben gerne wieder', date: '20 Jan 2026', verified: true },
   { id: 'r8', name: 'Katrien V.', rating: 4, text: 'quality good, delivery to belgium took a while but support helped', date: '13 Jan 2026', verified: true },
   { id: 'r9', name: 'Michael S.', rating: 5, text: 'alles cool, offseason bestellung kam problemlos', date: '06 Jan 2026', verified: true },
   { id: 'r10', name: 'Anonymous', rating: 5, text: 'discreet packaging, no complaints', date: '30 Dec 2025', verified: true },
-  { id: 'r11', name: 'James T.', rating: 5, text: 'winter scent sorted, will reorder', date: '23 Dec 2025', verified: true },
+  { id: 'r11', name: 'James T.', rating: 5, text: 'This store seems to have more winter perfumes than it does summer but eh', date: '23 Dec 2025', verified: true },
   { id: 'r12', name: 'Carmen S.', rating: 4, text: 'buena calidad, el envío a España un poco lento', date: '16 Dec 2025', verified: true },
   { id: 'r13', name: 'Stefan B.', rating: 5, text: 'top produkt und schneller versand danke', date: '09 Dec 2025', verified: true },
   { id: 'r14', name: 'Anonymous', rating: 5, text: 'reliable, discreet, happy with it', date: '02 Dec 2025', verified: true },
@@ -33,12 +34,10 @@ export const homeReviews: HomeReview[] = [
   { id: 'r21', name: 'John M.', rating: 4, text: "Everything fine, but I hate that standard PayPal isn't accepted.", date: '25 Aug 2025', verified: true },
   { id: 'r22', name: 'Lars H.', rating: 1, text: "Scam? My order didn't arrive for 3 weeks... Edit: It arrived today, customs held it. Quality is actually good, but the stress was too much.", date: '15 Aug 2025', verified: true },
   { id: 'r23', name: 'Javier R.', rating: 5, text: 'Perfecto! Muy rapido.', date: '05 Aug 2025', verified: true },
-  { id: 'r24', name: 'Dimitri W.', rating: 5, text: 'Besten in der EU. Punkt.', date: '28 Jul 2025', verified: true },
   { id: 'r25', name: 'Mateusz P.', rating: 5, text: 'Bardzo dobra jakość, szybka przesyłka do Polski.', date: '20 Jul 2025', verified: true },
-  { id: 'r26', name: 'Anonymous', rating: 5, text: "Super discreet, partner didn't suspect a thing lol.", date: '05 Jul 2025', verified: true },
   { id: 'r27', name: 'Fabien L.', rating: 5, text: 'Utilisé tous les jours, sillage excellent.', date: '28 Jun 2025', verified: true },
   { id: 'r28', name: 'Tom H.', rating: 4, text: 'Solid stuff. A bit pricey but worth it for a clearance bottle.', date: '20 Jun 2025', verified: true },
-  { id: 'r29', name: 'Anonymous', rating: 5, text: 'Always reliable.', date: '12 Jun 2025', verified: true },
+  { id: 'r29', name: 'Anonymous', rating: 5, text: 'Always reliable, dont know how they get these prices but i have tested these against some of my real ones, and it checks out', date: '12 Jun 2025', verified: true },
   { id: 'r30', name: 'Christian R.', rating: 5, text: 'Hab viele Shops probiert, bleibe jetzt hier. Top-Qualität.', date: '05 Jun 2025', verified: true },
   { id: 'r31', name: 'Erik J.', rating: 4, text: 'Versand nach Schweden war okay, 6 Tage.', date: '28 May 2025', verified: true },
   { id: 'r32', name: 'Sarah J.', rating: 5, text: 'Great support team, answered all my questions about the batch.', date: '20 May 2025', verified: true },
