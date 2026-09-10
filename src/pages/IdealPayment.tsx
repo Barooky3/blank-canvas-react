@@ -168,14 +168,6 @@ const IdealPayment = () => {
                 <p className="text-xs text-muted-foreground mt-0.5">Your code is sent to Rewarble for validation. Funds are only released once delivery to your address is complete.</p>
               </div>
             </div>
-            <div className="mt-2 pt-3 border-t border-border">
-              <p className="text-xs text-muted-foreground">
-                Confused or need help?{' '}
-                <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">
-                  Contact us on TikTok
-                </a>
-              </p>
-            </div>
           </div>
         </div>
 

@@ -175,15 +175,7 @@ const PaypalEneba = () => {
               </div>
             </div>
             <div className="mt-2 pt-3 border-t border-border">
-              <p className="text-xs text-muted-foreground">
-                Confused or need help?{' '}
-                <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline">
-                  Contact us on TikTok
-                </a>
-              </p>
-              <div className="mt-3">
-                <PaymentMethodExplainer />
-              </div>
+              <PaymentMethodExplainer />
             </div>
           </div>
         </div>
