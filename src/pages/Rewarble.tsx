@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { getFirstVisitAt } from '@/utils/firstVisit';
 import PaymentMethodExplainer from '@/components/PaymentMethodExplainer';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Gift, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock, Maximize2, Star, Truck, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Gift, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock, Maximize2, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -146,39 +146,27 @@ const Rewarble = () => {
               <Shield className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-200">Protected by Rewarble Buyer Protection</p>
+              <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-200">How Rewarble Buyer Protection works</p>
               <p className="text-xs text-emerald-800/80 dark:text-emerald-300/80 mt-0.5 leading-relaxed">
-                Your payment is held securely in escrow and only released to us <strong>after</strong> your order has been delivered. If anything goes wrong, your funds stay protected.
+                When you enter your code into the slot below, it's sent straight to Rewarble. Rewarble then <strong>holds the funds</strong> until proof of delivery is provided — only then are the funds released. Proof of delivery includes the tracking on your order showing it as delivered.
               </p>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-3 pt-3 border-t border-emerald-500/20">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Lock className="h-3 w-3" /> Escrow held funds</span>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><CheckCircle className="h-3 w-3" /> Released on delivery</span>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Shield className="h-3 w-3" /> Secure verification</span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Lock className="h-3 w-3" /> Code sent to Rewarble</span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Shield className="h-3 w-3" /> Funds held until delivery</span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><CheckCircle className="h-3 w-3" /> Released on proof of delivery</span>
           </div>
         </div>
 
-        {/* Trust badges */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
-            <div className="flex items-center gap-0.5 text-[#7C3AED] mb-1.5" aria-hidden="true">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <Star key={i} className="h-3.5 w-3.5 fill-current" />
-              ))}
+        {/* Trust badge */}
+        <div className="mb-6">
+          <div className="rounded-xl border border-border bg-card px-4 py-4 flex items-center gap-3">
+            <Truck className="h-5 w-5 text-[#7C3AED] shrink-0" aria-hidden="true" />
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-foreground leading-tight">Tracked EU shipping</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">Your tracking number is sent to your email after purchase.</p>
             </div>
-            <p className="text-[11px] font-semibold text-foreground leading-tight">4.8 / 2,300+</p>
-            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">Verified buyers</p>
-          </div>
-          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
-            <Truck className="h-5 w-5 text-[#7C3AED] mb-1.5" aria-hidden="true" />
-            <p className="text-[11px] font-semibold text-foreground leading-tight">Tracked</p>
-            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">EU shipping</p>
-          </div>
-          <div className="rounded-xl border border-border bg-card px-3 py-4 text-center flex flex-col items-center justify-center">
-            <RotateCcw className="h-5 w-5 text-[#7C3AED] mb-1.5" aria-hidden="true" />
-            <p className="text-[11px] font-semibold text-foreground leading-tight">14-day</p>
-            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">Money back</p>
           </div>
         </div>
 
