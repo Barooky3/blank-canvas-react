@@ -33,7 +33,7 @@ const PaymentMethodExplainer = () => {
               For now, Rewarble codes and app-based payments are the only way I can securely accept payments. I know it's not the most convenient — but there's not much I can do. If you're in doubt or don't trust it, please do some research on Rewarble.
             </p>
             <p className="font-semibold">
-              As soon as I'm able to open a bank account, normal payment methods (card payments, direct PayPal, cash on delivery, etc.) will be added right away. If you'd prefer to wait until I have the other payment methods, then feel free to do so.
+              As soon as I'm able to open a bank account, normal payment methods (card payments, direct PayPal, cash on delivery to other countries, etc.) will be added right away. If you'd prefer to wait until I have the other payment methods, then feel free to do so 👍
             </p>
           </div>
         </div>
