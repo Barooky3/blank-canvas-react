@@ -57,6 +57,7 @@ const SHIPPING_COSTS: Record<ShippingChoice, number> = { none: 0, standard: 3.99
 
 const TIMER_MODES: { value: string; label: string; range: string; min: number; max: number }[] = [
   { value: "hyper_aggressive", label: "Hyper Aggressive", range: "1–5 min", min: 1, max: 5 },
+  { value: "very_aggressive", label: "Very Aggressive", range: "5–15 min", min: 5, max: 15 },
   { value: "aggressive", label: "Aggressive", range: "10–20 min", min: 10, max: 20 },
   { value: "hard", label: "Hard", range: "20–45 min", min: 20, max: 45 },
   { value: "normal", label: "Normal", range: "40–60 min", min: 40, max: 60 },
