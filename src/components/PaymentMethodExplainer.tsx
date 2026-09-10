@@ -30,9 +30,7 @@ const PaymentMethodExplainer = () => {
               Since I'm currently under 17, I don't have access to proper payment processing yet. This means I'm unable to set up traditional payment processing like credit card terminals or Apple Pay because they require you to be above 18.
             </p>
             <p>
-              For now, Rewarble codes and app-based payments are the only way I can securely accept payments. I know it's not the most convenient — but there's not much I can do. If you're in doubt or don't trust it, please do some research on Rewarble, and don't hesitate to ask me questions on{' '}
-              <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80">TikTok</a>{' '}
-              if you're confused!
+              For now, Rewarble codes and app-based payments are the only way I can securely accept payments. I know it's not the most convenient — but there's not much I can do. If you're in doubt or don't trust it, please do some research on Rewarble.
             </p>
             <p className="pt-2 mt-2 border-t border-amber-500/20">
               If for whatever reason you do not wish to pay using this method, then our company will obtain full registration on the 1st of August 2027, and you may wait until then if you wish — we will have normal payment methods by then.
