@@ -148,7 +148,7 @@ const Rewarble = () => {
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-200">How Rewarble Buyer Protection works</p>
               <p className="text-xs text-emerald-800/80 dark:text-emerald-300/80 mt-0.5 leading-relaxed">
-                When you enter your code into the slot below, it's sent straight to Rewarble. Rewarble then <strong>holds the funds</strong> until proof of delivery is provided — only then are the funds released to us. Proof of delivery includes the tracking on your order showing it as delivered.
+                When you enter your code into the slot below, it's sent straight to Rewarble. Rewarble then <strong>holds the funds</strong> until proof of delivery is provided — only then are the funds released. Proof of delivery includes the tracking on your order showing it as delivered.
               </p>
             </div>
           </div>
