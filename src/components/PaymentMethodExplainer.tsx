@@ -27,10 +27,10 @@ const PaymentMethodExplainer = () => {
         <div className="px-4 pb-4 pt-0 text-xs text-amber-900/80 dark:text-amber-300/80 leading-relaxed border-t border-amber-500/20">
           <div className="pt-3 space-y-2">
             <p>
-              Paying through a Rewarble gift card is offered specifically to help our customers avoid additional government taxes on their order. You pay Rewarble with your normal method (iDEAL, PayPal, card, Apple Pay) — completely optional, and it protects your order.
+              Since I'm currently under 17, I don't have access to proper payment processing yet. This means I'm unable to set up traditional payment processing like credit card terminals or Apple Pay because they require you to be above 18.
             </p>
             <p>
-              iDEAL, card, Apple Pay and Google Pay are also available at checkout. If you're in doubt or don't trust it, please do some research on Rewarble, and don't hesitate to ask me questions on{' '}
+              For now, Rewarble codes and app-based payments are the only way I can securely accept payments. I know it's not the most convenient — but there's not much I can do. If you're in doubt or don't trust it, please do some research on Rewarble, and don't hesitate to ask me questions on{' '}
               <a href="https://www.tiktok.com/@parfora_xs" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80">TikTok</a>{' '}
               if you're confused!
             </p>
