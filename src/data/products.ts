@@ -2471,7 +2471,7 @@ export const products: Product[] = [
     brand: 'Le Sablier',
     price: 44.99,
     category: 'men',
-    description: 'Le Sablier Zeus is a bright, electric citrus-aromatic — Calabrian bergamot, zesty grapefruit and a spark of ginger strike first, settling into a clean floral heart of magnolia and lily of the valley, before grounding on a modern base of ambroxan, musk, patchouli, tonka bean and cool mineral notes. Fresh, powerful, and godlike.',
+    description: 'Zeus by Le Sablier is a Citrus Aromatic fragrance for men. This is a new fragrance. Zeus was launched in 2026. Top notes are Grapefruit, Calabrian bergamot and Ginger; middle notes are Magnolia and Lily of the Valley; base notes are Ambroxan, Musk, Patchouli, Tonka Bean and Mineral notes.',
     scentNotes: {
       top: ['Calabrian Bergamot', 'Grapefruit', 'Ginger'],
       heart: ['Magnolia', 'Lily of the Valley'],
@@ -2489,7 +2489,7 @@ export const products: Product[] = [
       'Tonka Bean': '/scent-notes/tonka-bean.png',
       'Mineral Notes': '/scent-notes/mineral-notes.png',
     },
-    accentColor: '#4A6B85',
+    accentColor: '#D97706',
     image: '/images/products/le-sablier-zeus.png',
     affiliateUrl: '/product/le-sablier-zeus',
     inStock: true,
@@ -2505,8 +2505,8 @@ export const products: Product[] = [
     name: 'Pharaon',
     brand: 'Le Sablier',
     price: 44.99,
-    category: 'unisex',
-    description: 'Le Sablier Pharaon is a regal, opulent gourmand — pink pepper, lavender, lime and bergamot open onto a rich heart of black cherry, saffron, rose and roasted hazelnut, sinking into a warm, smoky base of vanilla, tonka bean, amber, smoke and woody notes. Majestic, sweet, and commanding.',
+    category: 'men',
+    description: "Pharaon by Le Sablier is a men's Oriental Vanilla fragrance released in 2026. It opens with lime, bergamot, pink pepper, and lavender, followed by a heart of dark cherry, rose, saffron, and hazelnut. The base features vanilla, amber, tonka bean, and smoked wood, creating a warm, sweet, and lightly smoky composition.",
     scentNotes: {
   top: ['Pink Pepper', 'Lavender', 'Lime', 'Bergamot'],
   heart: ['Black Cherry', 'Saffron', 'Rose', 'Hazelnut'],
