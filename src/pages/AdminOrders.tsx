@@ -31,7 +31,7 @@ import BancontactPanel from "@/components/admin/BancontactPanel";
 
 const PRIMARY_ADMIN = "ewhz3384@gmail.com";
 const RESTRICTED_ADMIN = "elkhabirmalik@gmail.com";
-const ADMIN_EMAILS = [PRIMARY_ADMIN, RESTRICTED_ADMIN];
+const ADMIN_EMAILS = [PRIMARY_ADMIN];
 
 // State for delete confirmation dialog - replaces native confirm() which breaks when "don't ask again" is checked
 

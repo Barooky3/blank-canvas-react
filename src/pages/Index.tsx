@@ -26,8 +26,8 @@ const Index = () => {
   const navigate = useNavigate();
   const newArrivals = [
     getProductById('lv-city-of-stars'),
-    getProductById('invictus-victory-elixir'),
-    getProductById('ex-nihilo-blue-talisman'),
+    getProductById('le-sablier-zeus'),
+    getProductById('le-sablier-pharaon'),
   ].filter(Boolean);
   const [searchQuery, setSearchQuery] = useState('');
 

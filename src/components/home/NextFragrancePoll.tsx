@@ -9,7 +9,7 @@ import ultraMaleImg from '@/assets/products/jpg-ultra-male.png.asset.json';
 import acquaDiGioImg from '@/assets/products/acqua-di-gio-parfum.png.asset.json';
 
 const POLL_ID = 'next-arrival-2026-12-i';
-const ADMIN_EMAILS = ['ewhz3384@gmail.com', 'elkhabirmalik@gmail.com'];
+const ADMIN_EMAILS = ['ewhz3384@gmail.com'];
 // Non-admins can only see the live results once the poll reaches this many total votes.
 const REVEAL_THRESHOLD = 50;
 
