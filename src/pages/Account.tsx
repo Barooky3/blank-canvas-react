@@ -30,7 +30,7 @@ const parseValueMismatch = (notes: string | null) => {
   return { codeValue: match[1], cartValue: match[2], missingAmount: match[3] };
 };
 
-const ADMIN_EMAILS = ['ewhz3384@gmail.com', 'elkhabirmalik@gmail.com'];
+const ADMIN_EMAILS = ['ewhz3384@gmail.com'];
 
 const Account = () => {
   const { user, loading, signOut } = useAuth();

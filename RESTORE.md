@@ -103,14 +103,14 @@ supabase secrets set \
 
 ### 4f. Recreate the admin accounts
 Admin access is **email-based only** (hardcoded allowlist in code — no role table).
-The allowed admins are `ewhz3384@gmail.com` and `elkhabirmalik@gmail.com`.
-Create them (email pre-confirmed) with the service_role key:
+The only allowed admin is `ewhz3384@gmail.com` (`elkhabirmalik@gmail.com` was revoked; older
+migrations still list it, so run all migrations — `20260912120000_revoke_elkhabirmalik_admin.sql` removes it).
+Create the account (email pre-confirmed) with the service_role key:
 ```bash
 curl -X POST "https://<YOUR_REF>.supabase.co/auth/v1/admin/users" \
   -H "apikey: <SERVICE_ROLE_KEY>" -H "Authorization: Bearer <SERVICE_ROLE_KEY>" \
   -H "Content-Type: application/json" \
   -d '{"email":"ewhz3384@gmail.com","password":"<choose>","email_confirm":true}'
-# repeat for elkhabirmalik@gmail.com
 ```
 To change who is an admin, edit the email allowlist in `src/hooks/useReviews.ts`
 (`ADMIN_EMAIL`) and the admin gate in `src/pages/AdminOrders.tsx`.
