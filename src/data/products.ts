@@ -203,7 +203,7 @@ export const products: Product[] = [
     brand: 'Mancera',
     price: 26.99,
     category: 'women',
-    description: 'One of my favourite fragrances of all time, Amore Caffè is a sweet coffee gourmand that blends rich espresso, amaretto, vanilla ice cream, brown sugar, and ambergris for a cozy, edible warmth. Literally smells like eating ice cream thats been dipped in coffee.',
+    description: 'A dessert-like oriental-vanilla fragrance combining coffee and amaretto with ice cream, spiced biscuit, brown sugar, vanilla and ambergris.',
     scentNotes: {
       top: ['Coffee', 'Amaretto'],
       heart: ['Ice Cream', 'Speculoos'],
@@ -236,7 +236,7 @@ export const products: Product[] = [
     brand: 'Parfums de Marly',
     price: 40.99,
     category: 'men',
-    description: 'Parfums de Marly Althair is a creamy vanilla scent with a spicy, citrusy kick – think kinda like a smooth bourbon vanilla mixed with cinnamon, orange blossom, and soft woods for a warm, slightly boozy feel. One of the absolute best fragrances ever made.',
+    description: 'A men’s oriental-vanilla fragrance with cinnamon, orange blossom and cardamom over bourbon vanilla, praline, musk, ambroxan and candied almond.',
     scentNotes: {
       top: ['Cinnamon', 'Orange Blossom', 'Cardamom'],
       heart: ['Bourbon Vanilla', 'Elemi'],
@@ -270,7 +270,7 @@ export const products: Product[] = [
     brand: 'Mancera',
     price: 25.99,
     category: 'unisex',
-    description: 'Aoud Lemon Mint is a vibrant citrus-oud fragrance where zesty lemon and spicy coriander meet jasmine, oud, leather, vanilla, and vetiver for a creamy, woody, unisex trail.',
+    description: 'A citrusy woody-aromatic fragrance combining lemon, almond and pepper with oud, patchouli, jasmine, mint, vanilla, musk, amber and leather.',
     scentNotes: {
       top: ['Lemon', 'Mint'],
       heart: ['Oud', 'Rose'],
@@ -301,7 +301,7 @@ export const products: Product[] = [
     brand: 'Mancera',
     price: 26.99,
     category: 'women',
-    description: 'This is my personal favourite mancera after xplicit vanilla. Its a harmonious blend of oriental and woody accords with a touch of sweetness. Powerful oud and vanilla combine with warm spices and fresh citrus, creating a warm, powdery scent with depth and an irresistible creamy vanilla trail.',
+    description: 'A warm oriental-vanilla fragrance pairing oud, saffron, pepper and cardamom with florals, Madagascar vanilla, guaiac wood and sandalwood.',
     scentNotes: {
       top: ['Saffron', 'Rose'],
       heart: ['Oud', 'Vanilla'],
@@ -332,7 +332,7 @@ export const products: Product[] = [
     brand: 'Creed',
     price: 55.99,
     category: 'men',
-    description: 'A legendary fragrance known for its bold and confident character, everyone and their mother has smelt this. Aventus opens with vibrant pineapple and bergamot, delivering an instantly recognizable freshness. Smoky woods and musk develop in the base, creating a powerful and masculine finish. Versatile and iconic, its suitable for both casual and formal wear.',
+    description: 'A celebrated fruity chypre combining bergamot, blackcurrant and apple with pineapple, patchouli, jasmine, birch, musk, oakmoss and cedar.',
     scentNotes: {
       top: ['Bergamot', 'Black Currant', 'Apple'],
       heart: ['Pineapple', 'Patchouli', 'Jasmine'],
@@ -367,7 +367,7 @@ export const products: Product[] = [
     brand: 'Creed',
     price: 57.99,
     category: 'men',
-    description: 'This is the older brother of Creed Aventus, sexier, more mature, rich and complex with adventurous spice and sophisticated woods. This has a much deeper drydown than its younger brother.',
+    description: 'A bold fruity-spicy scent with grapefruit, bergamot, pineapple and pepper, followed by warming spices, patchouli, vetiver, moss and ambroxan.',
     scentNotes: {
       top: ['Grapefruit', 'Bergamot', 'Pink Pepper', 'Pineapple'],
       heart: ['Ginger', 'Cinnamon', 'Cardamom', 'Rose'],
@@ -404,7 +404,7 @@ export const products: Product[] = [
     brand: 'Paco Rabanne',
     price: 22.99,
     category: 'men',
-    description: '1 Million Elixir is a rich, opulent take on the iconic 1 Million line. A bold gourmand fragrance that opens with crisp apple and aromatic davana, developing into a luxurious heart of damask rose, cedar, and osmanthus. The base is deep and addictive with vanilla absolute, tonka bean, and patchouli, creating a warm, sweet, and seductive trail perfect for nights out.',
+    description: 'A woody-aromatic fragrance combining apple and davana with rose, cedar and osmanthus over vanilla, tonka and patchouli.',
     scentNotes: {
       top: ['Apple', 'Davana'],
       heart: ['Damask Rose', 'Cedar', 'Osmanthus'],
@@ -438,7 +438,7 @@ export const products: Product[] = [
     brand: 'Tom Ford',
     price: 28.99,
     category: 'unisex',
-    description: 'Tom Ford Black Orchid smells dark, rich, and a bit gothic – like earthy truffle and dark florals over chocolate, patchouli, and vanilla, it can smell weird to SOME people.',
+    description: 'A dark oriental-floral blend of truffle, lush flowers and fruit over chocolate, patchouli, vanilla, incense, amber, sandalwood and musk.',
     scentNotes: {
       top: ['Black Truffle', 'Ylang-Ylang'],
       heart: ['Black Orchid', 'Spicy Notes'],
@@ -470,7 +470,7 @@ export const products: Product[] = [
     brand: 'Valentino',
     price: 26.99,
     category: 'men',
-    description: 'Born in Roma Intense, probably the best born in roma, takes everything bold about the original and turns it up. A warm, intoxicating blend of creamy vanilla and aromatic lavender sits over earthy vetiver, creating a scent that feels refined yet unapologetically powerful, for sure one of the best date night scents.',
+    description: 'A focused oriental-vanilla fragrance combining sweet vanilla with aromatic lavender and a dry vetiver base.',
     scentNotes: {
       top: ['Vanilla'],
       heart: ['Lavender'],
@@ -500,7 +500,7 @@ export const products: Product[] = [
     brand: 'Valentino',
     price: 26.99,
     category: 'men',
-    description: 'Green Stravaganza is the freshest entry in the Born in Roma line, not my favourite, but its interesting and unique, and can be weird to some. A zesty burst of Calabrian bergamot on top gives way to a rich, roasted coffee heart before settling into a smooth, earthy vetiver base.',
+    description: 'A men’s oriental-fougère built from fresh Calabrian bergamot, an aromatic coffee heart and earthy vetiver.',
     scentNotes: {
       top: ['Calabrian Bergamot'],
       heart: ['Coffee'],
@@ -529,7 +529,7 @@ export const products: Product[] = [
     brand: 'Valentino',
     price: 26.99,
     category: 'men',
-    description: 'Valentino Uomo Born in Roma smells like a modern, slightly sweet woody scent with fresh violet leaf, sage, and ginger over smoked vetiver, the intense version is much better in my opinion. It feels clean, a bit sexy, and easy to wear, sitting somewhere between a fresh everyday fragrance and a clubbing scent, so it works for both daytime and nights out.',
+    description: 'A masculine woody-spicy fragrance opening with mineral notes, violet leaf and salt before sage, ginger, vetiver and woods emerge.',
     scentNotes: {
       top: ['Mineral Notes', 'Violet Leaf', 'Salt'],
       heart: ['Sage', 'Ginger'],
@@ -561,7 +561,7 @@ export const products: Product[] = [
     brand: 'Mancera',
     price: 25.99,
     category: 'men',
-    description: 'This is similar to creed aventus, a vibrant and sparkling citrus-woody fragrance that opens with fresh Sicilian lemon, blackcurrant, and spices. Features a sensual heart of jasmine and patchouli, finishing with woody, vanilla, and leathery notes for a long-lasting, sophisticated sillage.',
+    description: 'A citrus-aromatic scent with lemon, bergamot and blackcurrant over fruit, patchouli and jasmine, finishing with cedar, leather, vanilla and musk.',
     scentNotes: {
       top: ['Citrus', 'Black Currant'],
       heart: ['Leather', 'Spicy Notes'],
@@ -592,7 +592,7 @@ export const products: Product[] = [
     brand: 'Parfums de Marly',
     price: 36.99,
     category: 'women',
-    description: 'A luxurious floral fragrance with a contemporary twist. Delina opens with fresh rose, lychee, and rhubarb, creating a vibrant and slightly tart introduction. Soft vanilla and musk smooth the composition, adding warmth and longevity. Feminine and confident, its both romantic and modern.',
+    description: 'A feminine floral fragrance pairing lychee and rhubarb with Turkish rose, peony, musk and vanilla over cashmeran, incense and woods.',
     scentNotes: {
       top: ['Lychee', 'Rhubarb', 'Bergamot'],
       heart: ['Turkish Rose', 'Peony', 'Vanilla'],
@@ -627,7 +627,7 @@ export const products: Product[] = [
     brand: 'Xerjoff',
     price: 39.99,
     category: 'unisex',
-    description: 'Erba Gold smells like a bright citrus and tropical fruit mix over warm vanilla, amber, and soft musk. It opens with lemon, bergamot, orange, and ginger, then brings in green apple, melon, and pear with a touch of cardamom and cinnamon, drying down to a smooth, slightly creamy base that feels sunny and playful.',
+    description: 'A fruity fragrance combining citrus and ginger with melon, pear, apple and warm spices over musk, vanilla, amber and woods.',
     scentNotes: {
       top: ['Sicilian Orange', 'Calabrian Bergamot'],
       heart: ['Fruity Notes', 'Amber'],
@@ -658,7 +658,7 @@ export const products: Product[] = [
     brand: 'Xerjoff',
     price: 41.99,
     category: 'unisex',
-    description: 'A clean and addictive fruity fragrance, my favourite xerjoff. It has a strong, long-lasting fruity shampoo feel – zesty citrus and mixed fruits up top that stay sweet and smooth for hours, making it stand out in warm weather or nights out.',
+    description: 'A sweet unisex oriental fragrance opening with Mediterranean citrus before revealing juicy fruits, white musk, Madagascar vanilla and amber.',
     scentNotes: {
       top: ['Sicilian Orange', 'Calabrian Bergamot'],
       heart: ['Fruity Notes', 'Flowers'],
@@ -690,7 +690,7 @@ export const products: Product[] = [
     brand: 'Versace',
     price: 26.99,
     category: 'men',
-    description: 'Versace Eros Energy takes the OG eros DNA and makes it fresher, with a lot more citrus (lemon, grapefruit, blood orange) on a clean woody base, perfect for warm days and casual wear. My favourite eros, it smells like Creed Aventus.',
+    description: 'A high-energy citrus-aromatic scent packed with lemon, lime, grapefruit, orange and bergamot over pepper, amber, musk, oakmoss and patchouli.',
     scentNotes: {
       top: ['Lemon', 'Lime', 'Grapefruit', 'Blood Orange', 'Bergamot'],
       heart: ['Pink Pepper', 'White Amber', 'Black Currant'],
@@ -726,7 +726,7 @@ export const products: Product[] = [
     brand: 'Versace',
     price: 26.99,
     category: 'men',
-    description: 'The sexiest of the eros line. It opens with bright citrus and black pepper, then turns warmer and smoother with rose, woods, vanilla, and tonka – basically a spicy, cozy twist on the original Eros.',
+    description: 'A woody-spicy fragrance combining mandarin, pepper and lemon with geranium and rose over vanilla, tonka, sandalwood, cedar and patchouli.',
     scentNotes: {
       top: ['Mandarin Orange', 'Black Pepper', 'Lemon', 'Rosemary'],
       heart: ['Geranium', 'Rose', 'Pepperwood'],
@@ -762,7 +762,7 @@ export const products: Product[] = [
     brand: 'Versace',
     price: 22.99,
     category: 'men',
-    description: 'One of the most popular fragrances. Smells like cool mint, green apple, and lemon over sweet vanilla and woods – playful, sweet, and a bit loud, great for nights out. Not the best versace but for sure the safest blind buy.',
+    description: 'An oriental-fougère with mint, lemon and pepper over apple, lavender and sage, grounded by tonka, amber, vanilla and patchouli.',
     scentNotes: {
       top: ['Mint', 'Candy Apple', 'Lemon', 'Mandarin Orange'],
       heart: ['Ambroxan', 'Geranium', 'Clary Sage'],
@@ -798,7 +798,7 @@ export const products: Product[] = [
     brand: 'Prada',
     price: 23.99,
     category: 'women',
-    description: 'Prada Paradoxe is a shape-shifting floral amber fragrance that evolves on every skin. A modern and sophisticated scent built around a unique molecular structure, blending bright neroli and sensual musks with warm amber. It\'s a fragrance that celebrates individuality and reinvention.',
+    description: 'A feminine oriental-floral scent featuring pear and tangerine, abundant orange blossom and neroli, then vanilla, amber, musk and benzoin.',
     scentNotes: {
       top: ['Pear', 'Tangerine', 'Bergamot'],
       heart: ['Orange Blossom', 'Neroli Essence', 'Neroli', 'Jasmine Sambac'],
@@ -835,7 +835,7 @@ export const products: Product[] = [
     brand: 'Mancera',
     price: 27.99,
     category: 'unisex',
-    description: 'A fresh, citrusy unisex fragrance that evokes the sophistication and charm of the Mediterranean coast. Bursts with citrus (lemon, orange, tangerine), marine notes, and floral touches, finishing with a warm base of musk and amber for a breezy, coastal elegance.',
+    description: 'An aquatic aromatic fragrance mixing bright citrus and ginger with marine notes, tiare flower, pine, mimosa, sea salt, musk and amber.',
     scentNotes: {
       top: ['Bergamot', 'Lemon'],
       heart: ['Jasmine', 'Rose'],
@@ -866,7 +866,7 @@ export const products: Product[] = [
     brand: 'Dior',
     price: 31.99,
     category: 'men',
-    description: 'This fragrance was voted one of the most attractive men\'s fragrances. It smells like powdery iris and lavender over warm vanilla and woods, with a soft cocoa-like sweetness in the background. It has that "makeup bag" vibe from the iris, smoothed out by ambrette and pear, then dries down into a velvety mix of vanilla, cedar, and vetiver that feels elegant, cozy, and a bit dressy.',
+    description: 'A powdery woody-floral fragrance pairing lavender with iris, ambrette and pear over cedar and vetiver.',
     scentNotes: {
       top: ['Lavender'],
       heart: ['Iris', 'Ambrette', 'Pear'],
@@ -897,7 +897,7 @@ export const products: Product[] = [
     brand: 'Louis Vuitton',
     price: 60.99,
     category: 'men',
-    description: 'This is probably the MOST talked about fragrance in the world, and the most agreed upon top #1 fragrance. This fragrance is said to be the most versatile fragrance that can be used in any season and anywhere, its a fresh and clean tea scent.',
+    description: 'A citrus-aromatic men’s scent with citron, bergamot and orange over neroli, ginger, cinnamon, black tea, ambroxan and incense.',
     scentNotes: {
       top: ['Citrus', 'Bergamot', 'Tea'],
       heart: ['Neroli', 'Orange Blossom'],
@@ -931,7 +931,7 @@ export const products: Product[] = [
     brand: 'Louis Vuitton',
     price: 60.99,
     category: 'unisex',
-    description: 'Louis Vuitton Afternoon Swim is a vibrant, sun-drenched citrus burst — juicy Sicilian and Mandarin oranges sparkle over bergamot, warmed by a touch of spicy ginger and rounded with creamy ambergris. A fresh, joyful scent that feels like a sunlit dive into the Mediterranean.',
+    description: 'A streamlined unisex citrus fragrance pairing mandarin, Sicilian orange and bergamot with subtle ginger and ambergris.',
     scentNotes: {
       top: ['Mandarin Orange', 'Sicilian Orange', 'Bergamot'],
       heart: ['Ginger'],
@@ -961,7 +961,7 @@ export const products: Product[] = [
     brand: 'Lattafa',
     price: 20.99,
     category: 'unisex',
-    description: 'Lattafa Khamrah is a warm, dessert‑like gourmand that smells like spiced cinnamon cake with sweet dates, praline, and creamy vanilla over soft woods and amber, perfect for cozy evenings and cooler weather.',
+    description: 'A rich oriental-spicy fragrance combining cinnamon and nutmeg with dates, praline, tuberose, vanilla, amberwood, myrrh and benzoin.',
     scentNotes: {
       top: ['Cinnamon', 'Nutmeg', 'Bergamot'],
       heart: ['Praline', 'Dates', 'Tuberose'],
@@ -995,7 +995,7 @@ export const products: Product[] = [
     brand: 'Lattafa',
     price: 34.99,
     category: 'unisex',
-    description: 'Khamrah Qahwa is much better than the OG. Its a rich coffee-gourmand that smells like a spiced latte: warm cinnamon and cardamom over sweet praline and candied fruits, drying down to creamy coffee, vanilla, tonka, and soft musk. It smells slightly less annoyingly sweet and is just better trust me.',
+    description: 'A coffee gourmand with cinnamon, cardamom and ginger, a praline and candied-fruit heart, and vanilla, coffee, tonka and benzoin.',
     scentNotes: {
       top: ['Coffee', 'Saffron'],
       heart: ['Rose', 'Praline'],
@@ -1025,7 +1025,7 @@ export const products: Product[] = [
     brand: 'Parfums de Marly',
     price: 41.99,
     category: 'men',
-    description: 'My favourite PDM. It smells like sweet spiced apple over creamy vanilla and woods. You get a fresh mix of apple, bergamot, and lavender at the start, then it dries down into warm vanilla, cardamom, and sandalwood, it can be used any time of the year.',
+    description: 'A smooth oriental-floral fragrance blending apple, lavender and citrus with geranium, violet, jasmine, vanilla, cardamom and sandalwood.',
     scentNotes: {
       top: ['Apple', 'Bergamot', 'Lavender'],
       heart: ['Jasmine', 'Violet', 'Geranium'],
@@ -1061,7 +1061,7 @@ export const products: Product[] = [
     brand: 'Giorgio Armani',
     price: 23.99,
     category: 'men',
-    description: 'One of the best fragrances of all time, pretty much everyone has it, its good for a reason. Its a powerful and modern fragrance built around warmth and spice. It opens with vibrant pink pepper and juniper, the heart reveals sweet vanilla and toffee, settling into a deep amber base.',
+    description: 'A sweet oriental-fougère with pepper and violet, a toffee-cinnamon heart, and a vanilla, amber, tonka and suede base.',
     scentNotes: {
       top: ['Pink Pepper', 'Juniper Berries', 'Violet'],
       heart: ['Toffee', 'Cinnamon', 'Lavender', 'Sage'],
@@ -1101,7 +1101,7 @@ export const products: Product[] = [
     brand: 'Jean Paul Gaultier',
     price: 21.99,
     category: 'men',
-    description: 'Intense tropical-woody men\'s scent with juicy pineapple, creamy coconut and warm tonka over ambered woods for a powerful, seductive signature. The pineapple disappears in the drydown and it becomes this sweet coconut smell, amazing, best le beau version.',
+    description: 'An oriental-woody men’s fragrance combining pineapple, iris and ginger with coconut, warm woods, tonka, sandalwood and amber.',
     scentNotes: {
       top: ['Bergamot', 'Green Mandarin', 'Pineapple'],
       heart: ['Coconut', 'Ylang-Ylang'],
@@ -1136,7 +1136,7 @@ export const products: Product[] = [
     brand: 'Jean Paul Gaultier',
     price: 23.99,
     category: 'men',
-    description: 'A fresh aquatic-green twist on Le Beau – crisp watery notes, mint and ginger meet creamy coconut, juicy fig and a salty breeze, drying down to warm tonka and sandalwood. A bright, summery escape with the unmistakable Le Beau sensuality.',
+    description: 'A lush tropical fragrance with green and watery notes, mint and ginger, followed by coconut, fig, salt, tonka and sandalwood.',
     scentNotes: {
       top: ['Green Notes', 'Watery Notes', 'Mint', 'Ginger'],
       heart: ['Coconut', 'Fig', 'Salt'],
@@ -1171,7 +1171,7 @@ export const products: Product[] = [
     brand: 'Viktor & Rolf',
     price: 26.99,
     category: 'men',
-    description: 'One of the more popular fragrances, and rated one of the most attractive fragrances by women. It opens with sharp, dry spices and quickly settles into a dense mix of tobacco, vanilla, and resinous warmth. It\'s heavy, masculine, and unapologetically intense, with a dark, almost smoky edge that lingers.',
+    description: 'A bold oriental-spicy fragrance combining vanilla, tobacco, cinnamon, cumin, bourbon whiskey and saffron.',
     scentNotes: {
       top: ['Cumin', 'Bourbon Whiskey'],
       heart: ['Cinnamon', 'Saffron'],
@@ -1203,7 +1203,7 @@ export const products: Product[] = [
     brand: 'Valentino',
     price: 23.99,
     category: 'men',
-    description: 'My personal favourite from the born in roma line. The scent blends fruity and floral elements with warm, deeper notes to create a layered profile that isn\'t overly sweet or sharp — more of a balanced, contemporary aroma with both bright and smooth aspects, it can be used for summer but surprisingly not bad for winter.',
+    description: 'A woody-aromatic men’s scent with red apple, cardamom and bergamot over lavender, sage, tobacco, patchouli and vetiver.',
     scentNotes: {
       top: ['Red Apple', 'Cardamom', 'Bergamot'],
       heart: ['Lavender', 'Geranium', 'Clary Sage'],
@@ -1238,7 +1238,7 @@ export const products: Product[] = [
     brand: 'Paco Rabanne',
     price: 23.99,
     category: 'men',
-    description: '1 Million Parfum is a bold, sun-drenched reinvention of the original. An intense and addictive fragrance that pushes boundaries with its powerful blend of salty and solar notes. The result is a golden, luminous trail that commands attention and refuses to be forgotten.',
+    description: 'A solar leather fragrance mixing tuberose, salt and monoi with ambergris, leather, cashmeran, labdanum and pine.',
     scentNotes: {
       top: ['Tuberose', 'Solar Notes', 'Salt'],
       heart: ['Monoi Oil', 'Ambergris', 'Leather'],
@@ -1273,7 +1273,7 @@ export const products: Product[] = [
     brand: 'Jean Paul Gaultier',
     price: 26.99,
     category: 'men',
-    description: 'Le Male Elixir is incredibly popular and you must have seen this bottle somewhere before even if you know nothing about fragrances. It has a creamy vanilla and honey wrapped around cool lavender and mint, with a soft tobacco touch in the drydown.',
+    description: 'A sweet oriental-fougère combining lavender and mint with vanilla, benzoin, honey, tonka and tobacco.',
     scentNotes: {
       top: ['Lavender', 'Mint'],
       heart: ['Vanilla', 'Benzoin'],
@@ -1307,7 +1307,7 @@ export const products: Product[] = [
     brand: 'Azzaro',
     price: 25.99,
     category: 'men',
-    description: 'This is an incredibly cozy winter fragrance, it has sweetness thats barely there but you can feel it heavily. Ginger in the opening gives it a slightly fizzy vibe which calms down into a beautiful and cozy vanilla. Theres a reason this fragrance is so popular.',
+    description: 'A concise woody-spicy fragrance built from zesty ginger, warm woods and smooth bourbon vanilla.',
     scentNotes: {
       top: ['Ginger'],
       heart: ['Woody Notes'],
@@ -1338,7 +1338,7 @@ export const products: Product[] = [
     brand: 'Yves Saint Laurent',
     price: 21.99,
     category: 'women',
-    description: 'YSL Black Opium smells like sweet coffee with vanilla and white flowers. You get a hit of coffee, pear, and orange blossom at the start, then it settles into a cozy mix of jasmine, vanilla, patchouli, and soft woods, the best womans fragrance for sure.',
+    description: 'A sweet oriental-vanilla scent mixing pear and pink pepper with coffee, jasmine, almond, vanilla, patchouli and cashmere wood.',
     scentNotes: {
       top: ['Pink Pepper', 'Orange Blossom'],
       heart: ['Coffee', 'Jasmine'],
@@ -1371,7 +1371,7 @@ export const products: Product[] = [
     brand: 'Jean Paul Gaultier',
     price: 25.99,
     category: 'men',
-    description: 'Best JPG in my opinion. A complex fragrance with an oriental character. The opening blends warm spices and woods, creating a luxurious and enveloping feel.',
+    description: 'A warm oriental men’s fragrance with cardamom, lavender and iris layered over vanilla, aromatic woods and amber-like nuances.',
     scentNotes: {
       top: ['Cardamom'],
       heart: ['Lavender', 'Iris'],
@@ -1404,7 +1404,7 @@ export const products: Product[] = [
     brand: 'Jean Paul Gaultier',
     price: 21.99,
     category: 'men',
-    description: 'This is Le beau le parfum\'s younger brother. It smells similar but significantly less creamy, and much fresher. To be honest this one smells much worse than the le parfum, but its much more versatile and is a decent summer scent regardless.',
+    description: 'A simple tropical woody-aromatic composition of fresh bergamot, creamy coconut and sweet tonka bean.',
     scentNotes: {
       top: ['Bergamot', 'Grapefruit'],
       heart: ['Coconut', 'Tonka Bean'],
@@ -1435,7 +1435,7 @@ export const products: Product[] = [
     brand: 'Jean Paul Gaultier',
     price: 25.99,
     category: 'men',
-    description: 'This is like le male elixir but less sweet, a tiny bit more mature, and honestly i think its better. Its much less popular so you wont smell like everyone else. Its le male elixir and le male le parfum combined. It opens with plum, which is incredibly unique, and it dries down similar to le male elixir but less annoyingly sweet.',
+    description: 'A woody-aromatic men’s scent with spiced plum, lavender and davana over tonka, benzoin, ambrette, patchouli and labdanum.',
     scentNotes: {
       top: ['Plum', 'Cinnamon', 'Cardamom', 'Bergamot'],
       heart: ['Lavender', 'Davana', 'Artemisia'],
@@ -1471,7 +1471,7 @@ export const products: Product[] = [
     brand: 'Yves Saint Laurent',
     price: 21.99,
     category: 'women',
-    description: 'YSL Libre smells like sweet orange blossom and jasmine mixed with clean lavender and vanilla. This is a girl boss scent. It starts a bit citrusy and aromatic, then dries down to a warm, slightly musky vanilla-floral that feels smooth and modern rather than old-school.',
+    description: 'A feminine oriental-fougère pairing lavender and mandarin with orange blossom, jasmine, Madagascar vanilla, musk, cedar and ambergris.',
     scentNotes: {
       top: ['Mandarin', 'Lavender'],
       heart: ['Orange Blossom', 'Jasmine'],
@@ -1505,7 +1505,7 @@ export const products: Product[] = [
     brand: 'Yves Saint Laurent',
     price: 20.99,
     category: 'women',
-    description: 'A romantic and modern fruity floral fragrance. Sweet berries and white florals create a lively and feminine opening. Soft patchouli and musks add warmth and depth in the base. Elegant and sensual, it\'s designed to feel passionate yet refined.',
+    description: 'A fruity chypre overflowing with strawberry, raspberry and pear, followed by white florals and a musky vanilla-patchouli base.',
     scentNotes: {
       top: ['Strawberry', 'Raspberry', 'Pear'],
       heart: ['Peony', 'Datura', 'Jasmine'],
@@ -1540,7 +1540,7 @@ export const products: Product[] = [
     brand: 'Yves Saint Laurent',
     price: 21.99,
     category: 'men',
-    description: 'YSL MYSLF EDP is such a good daily scent. It smells like fresh citrus and soft white florals over a clean, woody base. You get a bright bergamot opening, then smooth Tunisian orange blossom, drying down to a modern mix of Ambrofix and patchouli that feels like clean skin and fresh laundry rather than heavy cologne.',
+    description: 'A clean masculine aromatic fragrance centred on Calabrian bergamot, Tunisian orange blossom, ambroxan and patchouli.',
     scentNotes: {
       top: ['Bergamot', 'Orange Blossom'],
       heart: ['Lavender', 'Rose'],
@@ -1573,7 +1573,7 @@ export const products: Product[] = [
     brand: 'Paco Rabanne',
     price: 22.99,
     category: 'men',
-    description: 'Phantom Parfum is the intensified evolution of the futuristic original. A bold, creamy fragrance that blends cutting-edge freshness with deep, addictive gourmand notes. It feels modern, innovative, and unapologetically different – a scent designed for the next generation.',
+    description: 'An aromatic men’s fragrance combining cardamom, citrus and rhubarb with lavender, cedar, patchouli, vanilla, balsam and vetiver.',
     scentNotes: {
       top: ['Cardamom', 'Bergamot', 'Rhubarb', 'Lemon'],
       heart: ['Lavender', 'Cedarwood', 'Patchouli', 'Geranium'],
@@ -1610,7 +1610,7 @@ export const products: Product[] = [
     brand: 'Yves Saint Laurent',
     price: 21.99,
     category: 'men',
-    description: 'This is known as the "marlon" fragrance, very popular and easy to use. Its a fresh yet powerful masculine scent. Crisp apple, ginger, and bergamot in the opening and drying down to a warm, woody base of amberwood, tonka bean, cedar, vetiver, and olibanum.',
+    description: 'A masculine aromatic-fougère with apple, ginger and bergamot over sage, juniper, geranium, amberwood, tonka, cedar and vetiver.',
     scentNotes: {
       top: ['Apple', 'Ginger', 'Bergamot'],
       heart: ['Sage', 'Juniper Berries', 'Geranium'],
@@ -1648,7 +1648,7 @@ export const products: Product[] = [
     brand: 'Xerjoff',
     price: 40.99,
     category: 'unisex',
-    description: 'Xerjoff Naxos is in my opinion one of the worst fragrances but heres the description anyway. It is a sweet, warm scent that starts with bright citrus and lavender, then shifts into noticeable honey and light spice, before settling into soft tobacco, vanilla and tonka bean. It comes across as a cozy, slightly spicy unisex fragrance that many people find suitable for cooler weather or evenings.',
+    description: 'A rich citrus-gourmand scent where lavender and bergamot meet honey, cinnamon, jasmine, tobacco, vanilla and tonka.',
     scentNotes: {
       top: ['Lavender', 'Bergamot', 'Cinnamon'],
       heart: ['Honey', 'Cashmeran'],
@@ -1681,7 +1681,7 @@ export const products: Product[] = [
     brand: 'Xerjoff',
     price: 42.99,
     category: 'unisex',
-    description: 'Xerjoff Torino 21 is a vibrant herbal-citrus fragrance that opens with cool mint, bright lemon, basil and thyme — fresh, green and alive. It softens into a bouquet of black currant, lavender, rosemary and jasmine, then dries down to a warm, refined base of musk and delicate vervain. Sophisticated, unisex, and instantly recognisable.',
+    description: 'A lively green-aromatic fragrance of mint, lemon, basil and thyme over blackcurrant, lavender, rosemary, jasmine, musk and verbena.',
     scentNotes: {
       top: ['Mint', 'Lemon', 'Basil', 'Thyme'],
       heart: ['Black Currant', 'Lavender', 'Rosemary', 'Jasmine'],
@@ -1716,7 +1716,7 @@ export const products: Product[] = [
     brand: 'Tom Ford',
     price: 74.99,
     category: 'unisex',
-    description: 'Tom Ford Neroli Portofino is a luminous citrus-aromatic fragrance inspired by the Italian Riviera. It opens with a sparkling burst of bergamot, mandarin, lemon and bitter orange, woven with lavender, rosemary and myrtle. The heart blossoms into a sun-warmed bouquet of African orange flower, neroli, jasmine and pitosporum, settling into a soft, refined base of amber, ambrette and angelica. Crisp, clean and effortlessly elegant.',
+    description: 'A sparkling Mediterranean citrus-aromatic scent filled with bergamot, lemon, neroli, orange blossom, lavender, jasmine, amber and ambrette.',
     scentNotes: {
       top: ['Bergamot', 'Mandarin Orange', 'Lemon', 'Bitter Orange', 'Lavender', 'Rosemary', 'Myrtle'],
       heart: ['African Orange Flower', 'Neroli', 'Jasmine', 'Pitosporum'],
@@ -1755,7 +1755,7 @@ export const products: Product[] = [
     brand: 'Tom Ford',
     price: 74.99,
     category: 'unisex',
-    description: 'Tom Ford Tobacco Vanille is a warm, opulent oriental that wraps you in rich tobacco leaf and spicy notes over creamy vanilla, cacao, tonka bean and tobacco blossom, settling into a smooth base of dried fruits and woody notes. Smoky, sweet, and unmistakably luxurious — a true cold-weather statement scent.',
+    description: 'A sweet, spicy tobacco fragrance enriched with vanilla, cacao, tonka, dried fruit and deep woody notes.',
     scentNotes: {
       top: ['Tobacco Leaf', 'Spicy Notes'],
       heart: ['Vanilla', 'Cacao', 'Tonka Bean', 'Tobacco Blossom'],
@@ -1788,7 +1788,7 @@ export const products: Product[] = [
     brand: 'Louis Vuitton',
     price: 64.99,
     category: 'unisex',
-    description: 'A refreshing and invigorating scent inspired by the Pacific coast. Citrusy, aquatic, and deeply relaxing.',
+    description: 'A refreshing aromatic-fruity scent mixing mint and citrus with blackcurrant, apricot, basil, carrot seed, fig, dates and ambrette.',
     scentNotes: {
       top: ['Citrus', 'Grapefruit'],
       heart: ['Sea Notes', 'Green Tea'],
@@ -1819,7 +1819,7 @@ export const products: Product[] = [
     brand: 'Prada',
     price: 27.99,
     category: 'men',
-    description: 'This is basic designer fragrance but done to perfection. It opens warm and woody (Peru balsam, benzoin, guaiac wood), then brings in green bourbon geranium and Calabrian bergamot with airy musks, so it feels smooth, modern, and dressed-up without being loud.',
+    description: 'A modern men’s oriental-fougère balancing bergamot and musk with geranium, benzoin, Peru balsam and guaiac wood.',
     scentNotes: {
       top: ['Bergamot', 'Lavender'],
       heart: ['Iris', 'Geranium'],
@@ -1851,7 +1851,7 @@ export const products: Product[] = [
     brand: 'Mancera',
     price: 26.99,
     category: 'unisex',
-    description: 'A warm and intoxicating fragrance that blends smoky tobacco and sweet spices with a touch of fruity freshness. Rich, complex spice notes with creamy vanilla, amber, and woody undertones create a luxurious and sensual experience.',
+    description: 'An intense spicy-woody fragrance combining cinnamon, oud, incense and saffron with patchouli, tobacco, vanilla, amber and sandalwood.',
     scentNotes: {
       top: ['Saffron', 'Cinnamon'],
       heart: ['Jasmine', 'Rose'],
@@ -1883,7 +1883,7 @@ export const products: Product[] = [
     brand: 'Dior',
     price: 22.99,
     category: 'men',
-    description: 'Dior Sauvage Parfum smells like a smoother, darker take on the original Sauvage – less sharp, more warm and woody. You get a soft citrus opening of bergamot and mandarin, quickly wrapped in creamy sandalwood, with vanilla, tonka, and a touch of incense in the base that makes it feel more suited to evenings and cooler weather.',
+    description: 'A smooth oriental-fougère opening with bergamot and mandarin before revealing sandalwood, frankincense, tonka and vanilla.',
     scentNotes: {
       top: ['Bergamot', 'Mandarin Orange', 'Elemi'],
       heart: ['Sandalwood'],
@@ -1917,7 +1917,7 @@ export const products: Product[] = [
     brand: 'Creed',
     price: 54.99,
     category: 'unisex',
-    description: 'Creed Silver Mountain Water smells like a mix of cold citrus, green tea, and blackcurrant over soft musk and sandalwood. It comes across clean, slightly soapy, and airy, like fresh laundry and cool mountain air rather than a heavy, sweet perfume.',
+    description: 'A crisp unisex aromatic fragrance with bergamot, mandarin, green tea and blackcurrant over musk, petitgrain, sandalwood and galbanum.',
     scentNotes: {
       top: ['Bergamot', 'Mandarin', 'Neroli'],
       heart: ['Green Tea', 'Black Currant'],
@@ -1950,7 +1950,7 @@ export const products: Product[] = [
     brand: 'Giorgio Armani',
     price: 23.99,
     category: 'men',
-    description: 'A radiant and cozy fragrance that reimagines the Stronger With You DNA with a richer amber twist, slightly more mature than Intensely in my opinion, but not as mature as the parfum version.',
+    description: 'A smooth unisex oriental-fougère focused on amber, Madagascar vanilla and aromatic lavender.',
     scentNotes: {
       top: ['Cinnamon', 'Pink Pepper'],
       heart: ['Lavender', 'Amber'],
@@ -1982,7 +1982,7 @@ export const products: Product[] = [
     brand: 'Giorgio Armani',
     price: 26.99,
     category: 'men',
-    description: 'The best SWY. Smells like sweet rum poured over roasted chestnuts, with vanilla and woods in the background, its a slightly more mature and grown up version of intensely, oh, and you wont smell like everyone else.',
+    description: 'A boozy gourmand fragrance pairing rum and bergamot with lavender, davana, vanilla, chestnut, cedar and patchouli.',
     scentNotes: {
       top: ['Juniper', 'Pink Pepper'],
       heart: ['Lavender', 'Cinnamon'],
@@ -2014,7 +2014,7 @@ export const products: Product[] = [
     brand: 'Giorgio Armani',
     price: 22.99,
     category: 'men',
-    description: 'In my opinion this is the WORST stronger with you, i wont even describe it for you, its so bad i didnt bother stocking a 50ml version, just dont buy it.',
+    description: 'A warm men’s oriental-fougère with pepper and mandarin, aromatic lavender and cinnamon, then vanilla, chestnut and leather.',
     scentNotes: {
       top: ['Pink Pepper', 'Violet'],
       heart: ['Toffee', 'Lavender'],
@@ -2046,7 +2046,7 @@ export const products: Product[] = [
     brand: 'Louis Vuitton',
     price: 67.99,
     category: 'unisex',
-    description: 'A harmonious and luxurious composition. Floral, fruity, and utterly refined.',
+    description: 'A minimalist unisex citrus fragrance showcasing vibrant grapefruit and bergamot sharpened by fresh ginger.',
     scentNotes: {
       top: ['Mandarin', 'Grapefruit'],
       heart: ['Rose', 'Peony'],
@@ -2076,7 +2076,7 @@ export const products: Product[] = [
     brand: 'Azzaro',
     price: 25.99,
     category: 'men',
-    description: 'This fragrance starts off slightly spicy and then becomes incredibly sweet, but not the juvenile or boring kind of sweet, this is a masculine kind of sweet thats playful but can be taken seriously at the same time. You smell like you go to the gym but meow back at cats at the same time. One of my favourite sweet fragrances.',
+    description: 'A sweet-spicy masculine fragrance built around aromatic cardamom, gourmand toffee and warm amberwood.',
     scentNotes: {
       top: ['Cardamom'],
       heart: ['Toffee'],
@@ -2104,7 +2104,7 @@ export const products: Product[] = [
     brand: 'Mancera',
     price: 25.99,
     category: 'unisex',
-    description: 'This is a really weird fragrance because it smells like cola, specifically the cola gummies. It smells incredible, but i would struggle to think of a time to wear it. Opens with cherry and cinnamon sparkle, blends with cola and orange blossom in the heart, and finishes with creamy tonka bean, vanilla, and warm amber for a fun yet elegant scent.',
+    description: 'A playful cola-inspired oriental fragrance blending cherry, cinnamon and citrus with cola, patchouli, tonka, vanilla, benzoin and labdanum.',
     scentNotes: {
       top: ['Cherry', 'Cinnamon', 'Bergamot'],
       heart: ['Cola', 'Orange Blossom', 'Rose'],
@@ -2137,7 +2137,7 @@ export const products: Product[] = [
     brand: 'Mancera',
     price: 28.99,
     category: 'unisex',
-    description: 'Xplicit Vanilla is a bold, earthy vanilla that blends creamy Mexican vanilla and dark chocolate with warm woods and amber for a rich, unisex, and addictive trail.',
+    description: 'A decadent unisex vanilla fragrance combining Mexican vanilla and dark chocolate with oud, brown sugar, sandalwood, amber, tonka and benzoin.',
     scentNotes: {
       top: ['Mexican Vanilla', 'Dark Chocolate'],
       heart: ['Cambodian Oud', 'Brown Sugar', 'Cedarwood', 'Australian Sandalwood'],
@@ -2170,7 +2170,7 @@ export const products: Product[] = [
     brand: 'Carolina Herrera',
     price: 25.99,
     category: 'men',
-    description: 'Bad Boy Cobalt Parfum is the most electrifying chapter of the Bad Boy saga — a deep, magnetic blue fragrance that fuses aromatic freshness with seductive warmth. Lavender and pink pepper crackle at the top, leading into a velvety heart of plum and geranium, before settling on a smooth woody base of cedar, vetiver, truffle and oak. Bold, modern, and unmistakably charismatic — a true after-dark signature.',
+    description: 'A woody-aromatic men’s scent with lavender and pink pepper, a juicy plum heart, and a cedar, vetiver, truffle and oak base.',
     scentNotes: {
       top: ['Lavender', 'Pink Pepper'],
       heart: ['Plum', 'Geranium'],
@@ -2202,7 +2202,7 @@ export const products: Product[] = [
     brand: 'Initio',
     price: 84.99,
     category: 'unisex',
-    description: 'Initio Side Effect is a hypnotic, addictive oriental that blends boozy rum and warming spices with smoky tobacco and creamy sandalwood. Rum, cinnamon and saffron open like a dimly lit lounge, melting into a heart of tobacco and luminous hedione before settling on a velvety sandalwood base. Sensual, magnetic, unforgettable — a true after-dark signature.',
+    description: 'A warm, intoxicating unisex oriental fragrance centred on rum, tobacco, cinnamon, saffron, sandalwood and luminous hedione.',
     scentNotes: {
       top: ['Rum', 'Cinnamon', 'Saffron'],
       heart: ['Tobacco', 'Hedione'],
@@ -2233,7 +2233,7 @@ export const products: Product[] = [
     brand: 'Creed',
     price: 89.99,
     category: 'unisex',
-    description: 'Creed Virgin Island Water is a luminous tropical escape — a sun-drenched blend of juicy lime and bergamot lifted by sweet coconut milk and ivory white flowers, settling on a soft bed of white musk, patchouli and tonka bean. Crisp, creamy and effortlessly summery, it captures the feeling of barefoot evenings on a Caribbean shore.',
+    description: 'A tropical citrus fragrance with coconut, lime and mandarin, followed by ginger and florals over white rum, sugar cane and musk.',
     scentNotes: {
       top: ['Lime', 'Bergamot', 'Mandarin'],
       heart: ['Coconut', 'Jasmine', 'Hibiscus', 'Ylang-Ylang'],
@@ -2268,7 +2268,7 @@ export const products: Product[] = [
     brand: 'Stephane Humbert Lucas',
     price: 119.99,
     category: 'unisex',
-    description: 'God of Fire by Stephane Humbert Lucas is a radiant honeycomb fantasy — ripe mango and ginger flicker over lemon and pink berries, opening into a luminous heart of blue coumarin, jasmine and dry woods. The base smolders with oud, nagarmotha, musk and amber for a creamy, resinous, gold-trimmed signature that feels both regal and intimate.',
+    description: 'A fruity oriental-woody scent where mango, lemon and ginger meet jasmine, cedar, musk, oud, amber and earthy cypriol.',
     scentNotes: {
       top: ['Mango', 'Lemon', 'Pink Berries', 'Ginger'],
       heart: ['Blue Coumarin', 'Jasmine', 'Dry Woods'],
@@ -2303,7 +2303,7 @@ export const products: Product[] = [
     brand: 'Louis Vuitton',
     price: 74.99,
     category: 'unisex',
-    description: 'Louis Vuitton Ombré Nomade is a smoky, resinous oud masterpiece — juicy raspberry and saffron glow over a smoldering heart of rose, geranium and birch tar, drying down to a deep, leathery base of agarwood, incense, amberwood and benzoin. Dark, opulent, and unmistakably regal.',
+    description: 'A powerful unisex oriental-woody fragrance combining oud and incense with rose, raspberry, saffron, amberwood, benzoin and smoky birch.',
     scentNotes: {
       top: ['Raspberry', 'Saffron', 'Rose'],
       heart: ['Geranium', 'Birch'],
@@ -2337,7 +2337,7 @@ export const products: Product[] = [
     brand: 'Paco Rabanne',
     price: 39.99,
     category: 'men',
-    description: 'Paco Rabanne Invictus Victory Elixir is a regal, intensely masculine parfum — aromatic lavender, spicy cardamom and crackling black pepper open onto a smoky heart of incense and patchouli, drying down to a rich, addictive base of vanilla pod and tonka bean. Bold, warm, and triumphant.',
+    description: 'A dark oriental-woody men’s scent featuring lavender, cardamom and pepper over incense, patchouli, vanilla and tonka.',
     scentNotes: {
       top: ['Lavender', 'Cardamom', 'Black Pepper'],
       heart: ['Incense', 'Patchouli'],
@@ -2369,7 +2369,7 @@ export const products: Product[] = [
     brand: 'Maison Francis Kurkdjian',
     price: 89.99,
     category: 'unisex',
-    description: 'Maison Francis Kurkdjian Baccarat Rouge 540 Extrait de Parfum is the deeper, more sensual sibling to the icon — luminous bitter almond and saffron dazzle over a heart of Egyptian jasmine and Virginia cedar, sinking into a plush, addictive base of ambergris, woody notes, musk, ambroxan and cashmeran. Radiant, warm, and unforgettable.',
+    description: 'A rich oriental-floral composition built around bitter almond, saffron, jasmine, cedar, ambergris, musk and warm woods.',
     scentNotes: {
       top: ['Bitter Almond', 'Saffron'],
       heart: ['Egyptian Jasmine', 'Virginia Cedar'],
@@ -2403,7 +2403,7 @@ export const products: Product[] = [
     brand: 'Ex Nihilo',
     price: 79.99,
     category: 'unisex',
-    description: 'Ex Nihilo Blue Talisman is a luminous, protective aura in a bottle — juicy pear and sparkling bergamot open into a radiant heart of orange blossom and jasmine sambac, resting on a plush base of amberwood, ambrofix, musk, sandalwood and vanilla. Refined, sunlit, and quietly magnetic.',
+    description: 'A fresh unisex blend of pear, citrus and ginger, softened by orange blossom and finished with modern musks and woody notes.',
     scentNotes: {
       top: ['Pear', 'Bergamot'],
       heart: ['Orange Blossom', 'Jasmine Sambac'],
@@ -2437,7 +2437,7 @@ export const products: Product[] = [
     brand: 'Louis Vuitton',
     price: 149.99,
     category: 'unisex',
-    description: 'Louis Vuitton City of Stars is a luminous citrus reverie — a sparkling burst of lime, blood orange, blood mandarin, lemon and bergamot dissolves into a solitary, sunlit tiare flower, resting on a powdery bed of musk and creamy sandalwood. Radiant, airy, and quietly cinematic.',
+    description: 'A bright unisex citrus fragrance mixing blood orange, lime, mandarin, lemon and bergamot with tiare flower, powdery musk and sandalwood.',
     scentNotes: {
       top: ['Lime', 'Blood Orange', 'Blood Mandarin', 'Lemon', 'Bergamot'],
       heart: ['Tiare Flower'],
@@ -2471,7 +2471,7 @@ export const products: Product[] = [
     brand: 'Le Sablier',
     price: 44.99,
     category: 'men',
-    description: 'Zeus by Le Sablier is a Citrus Aromatic fragrance for men. This is a new fragrance. Zeus was launched in 2026. Top notes are Grapefruit, Calabrian bergamot and Ginger; middle notes are Magnolia and Lily of the Valley; base notes are Ambroxan, Musk, Patchouli, Tonka Bean and Mineral notes.',
+    description: 'A masculine citrus-aromatic fragrance with grapefruit, bergamot and ginger over soft florals, ambroxan, musk, patchouli and mineral notes.',
     scentNotes: {
       top: ['Calabrian Bergamot', 'Grapefruit', 'Ginger'],
       heart: ['Magnolia', 'Lily of the Valley'],
@@ -2506,7 +2506,7 @@ export const products: Product[] = [
     brand: 'Le Sablier',
     price: 44.99,
     category: 'men',
-    description: "Pharaon by Le Sablier is a men's Oriental Vanilla fragrance released in 2026. It opens with lime, bergamot, pink pepper, and lavender, followed by a heart of dark cherry, rose, saffron, and hazelnut. The base features vanilla, amber, tonka bean, and smoked wood, creating a warm, sweet, and lightly smoky composition.",
+    description: 'A warm men’s oriental-vanilla scent combining bright citrus and lavender with cherry, saffron, hazelnut, vanilla, amber, smoke and woods.',
     scentNotes: {
   top: ['Pink Pepper', 'Lavender', 'Lime', 'Bergamot'],
   heart: ['Black Cherry', 'Saffron', 'Rose', 'Hazelnut'],
