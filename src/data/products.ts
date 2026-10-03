@@ -1806,10 +1806,10 @@ export const products: Product[] = [
     image: '/product-images/pacific-chill.png',
     affiliateUrl: '/product/pacific-chill',
     additionalImages: [pacificChillGalleryAi.url],
-    inStock: true,
+    inStock: false,
     variants: [
-      { ml: 100, price: 64.99, inStock: true },
-      { ml: 200, price: 75.99, inStock: true },
+      { ml: 100, price: 64.99, inStock: false },
+      { ml: 200, price: 75.99, inStock: false },
     ],
   },
   {
@@ -2064,9 +2064,9 @@ export const products: Product[] = [
     image: '/product-images/symphony.png',
     additionalImages: [symphonyGallery.url],
     affiliateUrl: '/product/symphony',
-    inStock: false,
+    inStock: true,
     variants: [
-      { ml: 100, price: 67.99, inStock: false },
+      { ml: 100, price: 67.99, inStock: true },
     ],
   },
   {
