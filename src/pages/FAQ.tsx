@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { HelpCircle } from 'lucide-react';
@@ -28,6 +28,10 @@ const faqs = [
 ];
 
 const FAQ = () => {
+  const [searchParams] = useSearchParams();
+  const openIndex = faqs.findIndex((faq) => faq.answer === searchParams.get('open'));
+  const defaultOpen = openIndex >= 0 ? `faq-${openIndex}` : undefined;
+
   return (
     <div className="min-h-screen py-14 md:py-20 bg-background">
       <div className="container">
@@ -49,7 +53,7 @@ const FAQ = () => {
             </p>
           </div>
 
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion type="single" collapsible defaultValue={defaultOpen} className="w-full">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`faq-${index}`} className="border-border">
                 <AccordionTrigger className="text-sm md:text-base text-foreground text-left">
