@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Search, Sparkles } from 'lucide-react';
+import { ArrowRight, HelpCircle, Search, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { lazy, Suspense } from 'react';
 import { Input } from '@/components/ui/input';
@@ -205,6 +205,20 @@ const Index = () => {
           </div>
         </section>
       )}
+
+      <div className="container flex justify-center pt-2 pb-8 md:pb-10 bg-background">
+        <Button
+          size="lg"
+          variant="outline"
+          className="h-12 px-8 text-[11px] font-medium tracking-[0.12em] uppercase rounded-none border-accent text-accent bg-transparent hover:bg-accent hover:text-accent-foreground active:scale-[0.98] transition-all"
+          asChild
+        >
+          <Link to="/faq?open=why-cheap">
+            <HelpCircle className="h-4 w-4 mr-2" aria-hidden="true" />
+            Why are these fragrances so cheap?
+          </Link>
+        </Button>
+      </div>
 
       {/* Bestsellers Section */}
       <section id="bestsellers" className="pt-4 md:pt-6 pb-14 md:pb-20 bg-background">
