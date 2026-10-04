@@ -1,13 +1,13 @@
 import {
   adminDb, json, preflight, clean, sendEmail, adminNotifyHtml, ADMIN_EMAIL, SITE_URL,
-} from "../_lib/contact";
+} from "../_lib/contact.js";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // Customer side, authenticated only by the secret reply_token from their email.
 //   GET  /api/contact/reply?token=<uuid>        -> conversation + messages
 //   POST /api/contact/reply { token, body }     -> add customer reply, notify admin
-export default async function handler(req: Request): Promise<Response> {
+async function handler(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") return preflight();
   const db = adminDb();
 
@@ -74,3 +74,5 @@ export default async function handler(req: Request): Promise<Response> {
 
   return json({ error: "Method not allowed" }, 405);
 }
+
+export default { fetch: handler };

@@ -1,13 +1,13 @@
 import {
   adminDb, json, preflight, requireAdmin, clean, sendEmail, replyEmailHtml, SITE_URL, type ThreadMessage,
-} from "../_lib/contact";
+} from "../_lib/contact.js";
 
 // Admin-only. Bearer = Supabase access token of ewhz3384@gmail.com.
 //   GET    /api/contact/admin                  -> all conversations with messages
 //   POST   /api/contact/admin { action:"reply", conversationId, body } -> reply + email customer
 //   POST   /api/contact/admin { action:"read",  conversationId }       -> mark read
 //   DELETE /api/contact/admin?id=<uuid>        -> delete conversation (+ messages)
-export default async function handler(req: Request): Promise<Response> {
+async function handler(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") return preflight();
 
   const admin = await requireAdmin(req);
@@ -116,3 +116,5 @@ export default async function handler(req: Request): Promise<Response> {
 
   return json({ error: "Method not allowed" }, 405);
 }
+
+export default { fetch: handler };

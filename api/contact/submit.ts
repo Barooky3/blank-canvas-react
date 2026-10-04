@@ -1,9 +1,9 @@
 import {
   adminDb, json, preflight, isEmail, clean, sendEmail, adminNotifyHtml, ADMIN_EMAIL, SITE_URL,
-} from "../_lib/contact";
+} from "../_lib/contact.js";
 
 // POST /api/contact/submit  { name, email, subject, message }
-export default async function handler(req: Request): Promise<Response> {
+async function handler(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") return preflight();
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
 
@@ -44,3 +44,5 @@ export default async function handler(req: Request): Promise<Response> {
 
   return json({ ok: true, id: convo.id });
 }
+
+export default { fetch: handler };
