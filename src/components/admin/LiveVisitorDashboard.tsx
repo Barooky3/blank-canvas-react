@@ -132,21 +132,39 @@ function timeAgo(dateStr: string): string {
 
 export default function LiveVisitorDashboard() {
   const [sessions, setSessions] = useState<VisitorSession[]>([]);
+  const [lastHourVisitors, setLastHourVisitors] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
+  const [, setTick] = useState(0);
 
   const fetchSessions = async () => {
+    setLoading(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
-      const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-visitor`,
-        { headers: { Authorization: `Bearer ${session.access_token}` } }
-      );
-      const json = await res.json();
-      if (res.ok) setSessions(json.sessions || []);
-    } catch { /* silent */ }
-    setLoading(false);
+      if (!session) {
+        setError('Not signed in');
+        return;
+      }
+      const res = await fetch('/api/visitors', {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+        cache: 'no-store',
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(json.error || `Request failed (${res.status})`);
+        return;
+      }
+      setSessions(json.sessions || []);
+      setLastHourVisitors(json.lastHourVisitors || 0);
+      setLastUpdated(new Date());
+      setError(null);
+    } catch {
+      setError('Could not reach the visitor API');
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -155,6 +173,11 @@ export default function LiveVisitorDashboard() {
     const interval = setInterval(fetchSessions, 5000);
     return () => clearInterval(interval);
   }, [autoRefresh]);
+
+  useEffect(() => {
+    const t = setInterval(() => setTick(n => n + 1), 1000);
+    return () => clearInterval(t);
+  }, []);
 
   // Stats
   const stats = useMemo(() => {
@@ -212,6 +235,13 @@ export default function LiveVisitorDashboard() {
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
           </Button>
         </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+        <span>Active = seen in the last 75 seconds. Location from IP.</span>
+        <span>{lastHourVisitors} unique visitors in the last hour</span>
+        {lastUpdated && <span>Updated {timeAgo(lastUpdated.toISOString())}</span>}
+        {error && <span className="text-destructive">Error: {error}</span>}
       </div>
 
       {/* Key Metrics */}
@@ -403,9 +433,11 @@ export default function LiveVisitorDashboard() {
                     )}
                   </div>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
-                    <span>{s.country || 'Unknown'}</span>
+                    <span>{[s.city, s.country].filter(Boolean).join(', ') || 'Unknown'}</span>
                     <span>•</span>
                     <span>{s.browser} / {s.os}</span>
+                    <span>•</span>
+                    <span>on site {timeAgo(s.created_at).replace(' ago', '')}</span>
                     <span>•</span>
                     <span>{(s.pages_viewed || []).length} pages</span>
                   </div>
