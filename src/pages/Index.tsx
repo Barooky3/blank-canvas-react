@@ -210,11 +210,11 @@ const Index = () => {
         <Button
           size="lg"
           variant="outline"
-          className="h-12 px-8 text-[11px] font-medium tracking-[0.12em] uppercase rounded-none border-accent text-accent bg-transparent hover:bg-accent hover:text-accent-foreground active:scale-[0.98] transition-all"
-          asChild
-        >
-          <Link to="/faq?open=why-cheap">
-            <HelpCircle className="h-4 w-4 mr-2" aria-hidden="true" />
+  className="h-14 px-10 text-xs md:text-sm font-semibold tracking-[0.14em] uppercase rounded-none border-2 border-accent bg-accent text-accent-foreground shadow-lg shadow-accent/20 hover:bg-transparent hover:text-accent active:scale-[0.98] transition-all"
+  asChild
+  >
+  <Link to="/faq?open=why-cheap">
+  <HelpCircle className="h-5 w-5 mr-2" aria-hidden="true" />
             Why are these fragrances so cheap?
           </Link>
         </Button>
