@@ -101,11 +101,7 @@ export const ReviewSubmitDialog = ({ open, onOpenChange, onSubmitted }: ReviewSu
     }
     toast({
       title: isAdmin ? 'Review published' : 'Thanks for your review!',
-      description: isAdmin
-        ? 'Your review is now live.'
-        : user
-          ? 'It will appear publicly once approved. You can still see it while logged in.'
-          : 'It will appear publicly once approved.',
+      description: isAdmin ? 'Your review is now live.' : 'Your review has been posted.',
     });
     setText('');
     setName('');

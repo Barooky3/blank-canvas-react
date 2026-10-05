@@ -29,8 +29,51 @@ export interface UnifiedReview {
   status?: 'pending' | 'approved';
   user_id?: string | null;
   isOwn?: boolean;
+  /** Submitted by this visitor and still awaiting admin approval — shown to them as published. */
+  ownPending?: boolean;
+  createdAt?: string;
   images?: string[];
 }
+
+// Reviews this device has submitted. Anonymous visitors can't read their own
+// pending rows back through RLS, so we keep a local copy to show them only.
+const MY_REVIEWS_KEY = 'parfumistry_my_reviews';
+
+interface MyReview {
+  id: string;
+  user_id: string | null;
+  customer_name: string;
+  rating: number;
+  text: string;
+  images: string[];
+  created_at: string;
+}
+
+const readMyReviews = (): MyReview[] => {
+  if (typeof window === 'undefined') return [];
+  try {
+    const v = localStorage.getItem(MY_REVIEWS_KEY);
+    const parsed = v ? JSON.parse(v) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+const saveMyReview = (review: MyReview) => {
+  try {
+    const next = [review, ...readMyReviews().filter((r) => r.id !== review.id)].slice(0, 20);
+    localStorage.setItem(MY_REVIEWS_KEY, JSON.stringify(next));
+  } catch {}
+};
+
+const generateId = () =>
+  typeof crypto !== 'undefined' && 'randomUUID' in crypto
+    ? crypto.randomUUID()
+    : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+      });
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -46,6 +89,7 @@ const dbToUnified = (r: DbReview, currentUserId?: string | null): UnifiedReview 
   status: r.status,
   user_id: r.user_id,
   isOwn: !!currentUserId && r.user_id === currentUserId,
+  createdAt: r.created_at,
   images: Array.isArray(r.images) ? r.images : [],
 });
 
@@ -267,9 +311,44 @@ export const useReviews = () => {
       ? publicSeeds
       : buildSeedAsUnified().filter((r) => !getHiddenSeedIds().includes(r.id));
 
-  // Public-facing list = approved db reviews + user's own pending + seed (minus admin-hidden)
+  // The viewer's own pending reviews are shown to them as if already
+  // published, pinned to the top. Nobody else sees them until approved.
+  const dbIds = new Set(dbReviews.map((r) => r.id));
+  const localOwn: UnifiedReview[] = isAdmin
+    ? []
+    : readMyReviews()
+        .filter((r) => !dbIds.has(r.id))
+        .map((r) => ({
+          id: r.id,
+          name: r.customer_name || 'Anonymous',
+          rating: r.rating,
+          text: r.text || '',
+          date: formatDate(r.created_at),
+          verified: true,
+          source: 'db' as const,
+          status: 'approved' as const,
+          user_id: r.user_id,
+          isOwn: true,
+          ownPending: true,
+          createdAt: r.created_at,
+          images: r.images ?? [],
+        }));
+
+  const dbVisible = allDbUnified
+    .filter((r) => r.status === 'approved' || r.isOwn)
+    .map((r) =>
+      !isAdmin && r.isOwn && r.status === 'pending'
+        ? { ...r, status: 'approved' as const, ownPending: true }
+        : r
+    );
+
+  const ownPending = [...localOwn, ...dbVisible.filter((r) => r.ownPending)].sort(
+    (a, b) => new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime()
+  );
+
   const visibleReviews: UnifiedReview[] = [
-    ...allDbUnified.filter((r) => r.status === 'approved' || r.isOwn),
+    ...ownPending,
+    ...dbVisible.filter((r) => !r.ownPending),
     ...visibleSeeds,
   ];
 
@@ -292,15 +371,32 @@ export const submitReview = async (params: {
   text: string;
   images?: string[];
 }) => {
-  return supabase.from('reviews').insert({
+  const id = generateId();
+  const customer_name = params.customer_name.slice(0, 80);
+  const text = params.text.slice(0, 1000);
+  const images = params.images ?? [];
+  const res = await supabase.from('reviews').insert({
+    id,
     user_id: params.user_id ?? null,
-    customer_name: params.customer_name.slice(0, 80),
+    customer_name,
     rating: params.rating,
-    text: params.text.slice(0, 1000) || null,
+    text: text || null,
     status: 'pending',
     is_admin_added: false,
-    images: params.images ?? [],
+    images,
   });
+  if (!res.error) {
+    saveMyReview({
+      id,
+      user_id: params.user_id ?? null,
+      customer_name,
+      rating: params.rating,
+      text,
+      images,
+      created_at: new Date().toISOString(),
+    });
+  }
+  return res;
 };
 
 export const adminAddReview = async (params: {

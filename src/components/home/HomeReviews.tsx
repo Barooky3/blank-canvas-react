@@ -82,14 +82,15 @@ const HomeReviews = () => {
   const [order, setOrder] = useReviewOrder();
 
   const sorted = useMemo(() => {
-    const base = [...visibleReviews].sort((a, b) => {
+    const own = visibleReviews.filter((r) => r.ownPending);
+    const base = visibleReviews.filter((r) => !r.ownPending).sort((a, b) => {
       if (a.isOwn && a.status === 'pending' && !(b.isOwn && b.status === 'pending')) return -1;
       if (b.isOwn && b.status === 'pending' && !(a.isOwn && a.status === 'pending')) return 1;
       if (a.source === 'db' && b.source === 'seed') return -1;
       if (b.source === 'db' && a.source === 'seed') return 1;
       return 0;
     });
-    return applyReviewOrder(base, order);
+    return [...own, ...applyReviewOrder(base, order)];
   }, [visibleReviews, order]);
 
   const filtered = useMemo(() => {
