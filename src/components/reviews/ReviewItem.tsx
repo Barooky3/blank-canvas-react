@@ -57,7 +57,7 @@ export const ReviewItem = ({ review, isAdmin, onChanged }: ReviewItemProps) => {
   const [translating, setTranslating] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
 
-  const canEdit = isAdmin || (review.source === 'db' && review.isOwn);
+  const canEdit = isAdmin || (review.source === 'db' && review.isOwn && !!review.user_id);
   const showTranslateBtn = !!review.text && isLikelyNonEnglish(review.text);
 
   const handleTranslate = async () => {
