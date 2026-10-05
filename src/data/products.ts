@@ -2467,9 +2467,9 @@ export const products: Product[] = [
   {
     id: 'le-sablier-zeus',
     addedAt: '2026-10-02',
-    name: 'Zeus',
-    brand: 'Le Sablier',
-    price: 44.99,
+  name: 'Zeus',
+  brand: 'Le Sablier',
+  price: 37.99,
     category: 'men',
     description: 'A masculine citrus-aromatic fragrance with grapefruit, bergamot and ginger over soft florals, ambroxan, musk, patchouli and mineral notes.',
     scentNotes: {
@@ -2491,20 +2491,19 @@ export const products: Product[] = [
     },
     accentColor: '#D97706',
     image: '/images/products/le-sablier-zeus.png',
-    affiliateUrl: '/product/le-sablier-zeus',
-    inStock: true,
-    featured: true,
-    variants: [
-      { ml: 50, price: 44.99, inStock: true },
-      { ml: 100, price: 64.99, inStock: true },
+  affiliateUrl: '/product/le-sablier-zeus',
+  inStock: true,
+  featured: true,
+  variants: [
+  { ml: 100, price: 37.99, inStock: true },
     ],
   },
   {
     id: 'le-sablier-pharaon',
     addedAt: '2026-10-02',
-    name: 'Pharaon',
-    brand: 'Le Sablier',
-    price: 44.99,
+  name: 'Pharaon',
+  brand: 'Le Sablier',
+  price: 42.99,
     category: 'men',
     description: 'A warm men’s oriental-vanilla scent combining bright citrus and lavender with cherry, saffron, hazelnut, vanilla, amber, smoke and woods.',
     scentNotes: {
@@ -2529,12 +2528,11 @@ export const products: Product[] = [
   },
   accentColor: '#1E3A8A',
     image: '/images/products/le-sablier-pharaon.png',
-    affiliateUrl: '/product/le-sablier-pharaon',
-    inStock: true,
-    featured: true,
-    variants: [
-      { ml: 50, price: 44.99, inStock: true },
-      { ml: 100, price: 64.99, inStock: true },
+  affiliateUrl: '/product/le-sablier-pharaon',
+  inStock: true,
+  featured: true,
+  variants: [
+  { ml: 100, price: 42.99, inStock: true },
     ],
   },
 ];
