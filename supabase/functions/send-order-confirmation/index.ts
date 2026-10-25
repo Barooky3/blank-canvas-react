@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { EMAIL_PRODUCT_IMAGES, type EmailProductImage } from "./product-images.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -17,93 +18,36 @@ function escapeHtml(text: string): string {
 
 const DEFAULT_SELLER_LINK = "https://litbuy.shop/lit/I2wvc0a2";
 
-const SITE_URL = "https://parfumistry.net";
-
-// Perfume bottle images hosted on Lovable Cloud storage (same-origin as sender for deliverability)
-// IMPORTANT: More specific keys MUST come before less specific ones to avoid prefix matching bugs
-const PRODUCT_IMAGES: Record<string, string> = {
-  // Specific variants first (before their base names)
-  "aventus-absolu": "https://parfumistry.net/__l5e/assets-v1/4b69e35d-0b00-4464-9914-0be1e0498a26/creed-aventus-absolu-8001034.png",
-  "born-in-roma-coral-fantasy": "https://parfumistry.net/__l5e/assets-v1/afafadb0-2801-4c1d-9e19-edc9311e7188/valentino.png",
-  "born-in-roma-green-stravaganza": "https://parfumistry.net/__l5e/assets-v1/a2ff4360-49ea-4171-a32e-8f20a20ab659/valentino-born-in-roma-8991381.png",
-  "born-in-roma-intense": "https://parfumistry.net/__l5e/assets-v1/a2ff4360-49ea-4171-a32e-8f20a20ab659/valentino-born-in-roma-8991381.png",
-  "stronger-with-you-absolutely": "https://parfumistry.net/__l5e/assets-v1/38f1e029-be5c-4b39-9a07-a5fed0c05d5e/stronger-with-you-absolute-8775051.png",
-  "stronger-with-you-amber": "https://parfumistry.net/__l5e/assets-v1/3d725ac3-4f23-46ab-ae82-3ddfd2945fa4/1C01C9E5-CAD8-4745-8AED-B06A573E591B_converted_1.png",
-  "stronger-with-you-intensely": "https://parfumistry.net/__l5e/assets-v1/f5d50aad-55e2-44e4-ab15-9a680cbe70a9/73584D90-E000-4F86-8CF6-647F94B4F567_converted_1.png",
-  "stronger-with-you-parfum": "https://parfumistry.net/__l5e/assets-v1/01a23970-6f77-489e-931b-f20993ad520a/stronger-with-you-parfum-2174125.png",
-  "le-male-elixir-absolu": "https://parfumistry.net/__l5e/assets-v1/a6e64020-9d4f-417e-97fc-87fda75eefac/gold_resized_to_match_black_object_1.png",
-  "le-male-elixir": "https://parfumistry.net/__l5e/assets-v1/3103b71e-0b1b-45ef-9df0-60bc0381ba4e/F5DB0F17-85A7-4892-BB9E-F7BE8D91B966_converted_1.png",
-  "le-male-le-parfum": "https://parfumistry.net/__l5e/assets-v1/af0482c0-855a-414f-b804-6165d3f31560/jean-paul-gaultier-le-male-le-parfum-9203208.png",
-  "le-beau-le-parfum": "https://parfumistry.net/__l5e/assets-v1/75186f8e-e2ac-4989-a079-2283c0b62222/CD9D450B-B45D-4AB9-9750-9BD6AD00DB2F_png_only_1.png",
-  "le-beau-edt": "https://parfumistry.net/__l5e/assets-v1/bacfca61-ba6f-46eb-a016-8335cf10fd42/jpg_le_beau_edt_bg_removed_1_1.png",
-  "the-most-wanted-edp-intense": "https://parfumistry.net/__l5e/assets-v1/859a1dda-bd37-433d-8956-8c2d176d869e/product_2_matched_1.png",
-  "the-most-wanted-parfum": "https://parfumistry.net/__l5e/assets-v1/79a259cf-d0d3-41de-a33f-8618dd81b3cd/product_3_matched_1.png",
-  "eros-energy": "https://parfumistry.net/__l5e/assets-v1/914e7078-68d9-460e-b9be-c580ec8db7d4/yellow_resized_to_red_d0d3284b-0228-4acd-8b37-3765a0c838d8.png",
-  "eros-flame": "https://parfumistry.net/__l5e/assets-v1/6fa1d9f3-68c8-46ae-8a1b-2daf3035de30/A2B6CEE1-52D5-4900-AE35-97311C0903DF_transparent_1.png",
-  "eros-parfum": "https://parfumistry.net/__l5e/assets-v1/86fcf4b3-278d-4943-975e-77197507346f/versace-eros-2404971.png",
-  "1-million-elixir": SITE_URL + "/images/scent-notes/1-million-elixir.png",
-  "1-million-parfum": SITE_URL + "/images/scent-notes/1-million-parfum.png",
-  // Base names (after their specific variants)
-  "amore-caffe": "https://parfumistry.net/__l5e/assets-v1/c601a644-7747-493b-bf58-cd0477fdb2fd/mancera-amore-caffe-1050170.png",
-  "althair": "https://parfumistry.net/__l5e/assets-v1/9c3b2dbe-4661-4856-bf9e-137cf77e76f0/parfums-de-marly-althair-7480525.png",
-  "aoud-lemon-mint": "https://parfumistry.net/__l5e/assets-v1/8a82491d-5064-4962-9c7e-cfe90b91ea7a/mancera-aoud-lemon-mint-3807519.png",
-  "aoud-vanille": "https://parfumistry.net/__l5e/assets-v1/99f28802-cff0-434d-bcfe-39311434a237/mancera-aoud-vanille-5716076.png",
-  "aventus": "https://parfumistry.net/__l5e/assets-v1/473bcb37-8a33-45d8-b018-a0d9e2d6c339/creed-aventus-1140157.png",
-  "black-orchid": "https://parfumistry.net/__l5e/assets-v1/6f12d646-ff88-4a67-aa29-86abcd9ea65b/tom-ford-black-orchid-1912271.png",
-  "black-opium": "https://parfumistry.net/__l5e/assets-v1/fac9d91b-eaa1-4999-9530-548fcb975975/ysl-black-opium-3914424.png",
-  "born-in-roma": "https://parfumistry.net/__l5e/assets-v1/a2ff4360-49ea-4171-a32e-8f20a20ab659/valentino-born-in-roma-8991381.png",
-  "cedrat-boise": "https://parfumistry.net/__l5e/assets-v1/2123799c-c009-4271-b0ef-efe81abc10e1/mancera-cedrat-boise-8376726.png",
-  "delina": "https://parfumistry.net/__l5e/assets-v1/71dda314-1668-4724-b764-6eb7d54ffb5a/second_image_matched_dimensions_smaller.png",
-  "erba-gold": "https://parfumistry.net/__l5e/assets-v1/4edee890-4f38-4307-a637-069ee600372c/xerjoff-erba-gold-9327888.png",
-  "erba-pura": "https://parfumistry.net/__l5e/assets-v1/f8bd0afa-6a78-43c3-970c-549beca65cef/xerjoff-erba-pura-8755466.png",
-  "french-riviera": "https://parfumistry.net/__l5e/assets-v1/1b7bcc92-64c5-4735-acae-7afaca25a408/mancera-french-riviera-9959440.png",
-  "khamrah-qahwa": "https://parfumistry.net/__l5e/assets-v1/7564ff7a-dc0a-455d-90e7-63e087eeac59/lataffa-khamrah-qahwa-4225237.png",
-  "khamrah-parfum": "https://parfumistry.net/__l5e/assets-v1/880fe655-6e8e-4acb-bb77-b69dc8846f29/lattafa-khamrah-6018164.png",
-  "imagination": "https://parfumistry.net/__l5e/assets-v1/e2723047-53c3-4a97-bf61-c98f7a9e71c6/product_4_matched_1.png",
-  "layton": "https://parfumistry.net/__l5e/assets-v1/1a338fbd-a642-470e-aa04-cdf860826a14/parfums-de-marly-layton-9771652.png",
-  "libre": "https://parfumistry.net/__l5e/assets-v1/abe04844-4d59-410e-b4e4-69affe22985f/ysl-libre-8359553.png",
-  "mon-paris": "https://parfumistry.net/__l5e/assets-v1/95ba9f0e-5b95-421d-bb0d-ab917dad618b/yves-saint-laurent-mon-paris-7356496.png",
-  "myself-edp": "https://parfumistry.net/__l5e/assets-v1/0f193cb0-a3f6-468c-8d16-bdb3e3bed7c3/ysl-myslf-eau-de-parfum-1896916.png",
-  "naxos": "https://parfumistry.net/__l5e/assets-v1/60dd052a-43b0-40ce-80ff-c7c57c9171d9/xerjoff-naxos-3352432.png",
-  "paradigme": "https://parfumistry.net/__l5e/assets-v1/941acd49-706a-444c-9d9c-677a92d7a39d/prada_resized_uniform_54c5598a-9a6e-47d7-8803-0a385e54b9c6.png",
-  "paradoxe": SITE_URL + "/images/scent-notes/prada-paradoxe.png",
-  "pacific": "https://parfumistry.net/__l5e/assets-v1/f05246ac-1d4e-4a45-9437-c1008aa515d8/image_6261aa49-3221-4a96-91e9-c8d120107fc0.png",
-  "phantom": SITE_URL + "/images/scent-notes/phantom-parfum.png",
-  "red-tobacco": "https://parfumistry.net/__l5e/assets-v1/e7cae788-53f9-4909-a9eb-15ecfacae64f/mancera-red-tobacco-3937206.png",
-  "sauvage-parfum": "https://parfumistry.net/__l5e/assets-v1/82b46afe-da13-4a5b-99b1-9466613df4c3/dior-sauvage-3604373.png",
-  "silver-mountain-water": "https://parfumistry.net/__l5e/assets-v1/9b0d49b0-842d-4c46-9ebc-b0e9e834b8ec/creed-silver-mountain-water-3465174.png",
-  "spicebomb-extreme": "https://parfumistry.net/__l5e/assets-v1/12fba35e-4bb4-4223-96fc-e26c2c82412a/spicebomb.png",
-  "symphony": "https://parfumistry.net/__l5e/assets-v1/1aa9b4eb-5839-4234-98f9-de15aa933c84/image_f5380ed8-72f9-4429-ae98-588f5395b6ba.png",
-  "homme-intense": "https://parfumistry.net/__l5e/assets-v1/ce54d6a0-4631-4072-b3fd-9a89d28b14a2/dior-homme-intense-7103864.png",
-  "elixir-absolu": "https://parfumistry.net/__l5e/assets-v1/a6e64020-9d4f-417e-97fc-87fda75eefac/gold_resized_to_match_black_object_1.png",
-  "tonka-cola": "https://parfumistry.net/__l5e/assets-v1/18f2f8f9-2f90-44cb-af03-42fd0490f439/mancera-tonka-cola-5797937.png",
-  "xplicit-vanilla": "https://parfumistry.net/__l5e/assets-v1/5d6d11e8-4a63-4a48-a5ec-257ccf58cc7f/mancera-xplicit-vanilla-7508759.png",
-  "y-eau-de-parfum": SITE_URL + "/images/scent-notes/ysl-y-edp.png",
-  "ysl-y": SITE_URL + "/images/scent-notes/ysl-y-edp.png",
-  // Bundles
-  "evening-sweetheart": "https://parfumistry.net/__l5e/assets-v1/453d5d66-bfec-4681-b842-80517be03b83/fragrance-bundle-evening-sweetheart-9560408.png",
-  "young-playboy": "https://parfumistry.net/__l5e/assets-v1/7edc3b57-82a2-412c-a106-cc1e0b021845/fragrance-bundle-young-playboy-9880709.png",
-  "sleek-and-clean": "https://parfumistry.net/__l5e/assets-v1/0184896a-656b-4a39-9fd0-232fda79436f/fragrance-bundle-sleek-and-clean-3751514.png",
-  "jpg-collection": "https://parfumistry.net/__l5e/assets-v1/af0482c0-855a-414f-b804-6165d3f31560/jean-paul-gaultier-le-male-le-parfum-9203208.png",
-};
+const SITE_URL = "https://www.parfora.net";
 
 // Strip accents for matching (é→e, ô→o, etc.)
 function stripAccents(str: string): string {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-function resolveProductImage(name: string, originalImage: string): string {
-  const n = stripAccents(name.toLowerCase());
-  for (const [key, url] of Object.entries(PRODUCT_IMAGES)) {
-    if (n.includes(key.replace(/-/g, " "))) return url;
-  }
-  // Fallback: if the original image is from the CDN or lovable.app, use it
-  if (originalImage && (originalImage.includes("supabase.co/storage") || originalImage.includes("lovable.app") || originalImage.includes("parfumistry.net"))) return originalImage;
-  // Last resort: try to make local paths work via site URL
-  if (originalImage && originalImage.startsWith("/")) return SITE_URL + originalImage;
-  // If no image at all, return a placeholder
-  if (!originalImage) return SITE_URL + "/placeholder.svg";
-  return originalImage;
+function normalizeName(str: string): string {
+  return stripAccents(str.toLowerCase()).replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+// The JPG bundle has no single cover image on the site, so its email thumbnail is a hand-built composite.
+const EXTRA_EMAIL_IMAGES: EmailProductImage[] = [
+  { id: "jpg-bundle", name: 'Fragrance Bundle "The JPG Collection"', brand: "Parfora", path: "/email/products/jpg-bundle.png" },
+];
+
+const ALL_EMAIL_IMAGES = [...EMAIL_PRODUCT_IMAGES, ...EXTRA_EMAIL_IMAGES];
+const EMAIL_IMAGE_BY_ID = new Map(ALL_EMAIL_IMAGES.map((e) => [e.id, e.path]));
+// Longest names first so "Aventus Absolu" wins over "Aventus".
+const EMAIL_IMAGE_BY_NAME = ALL_EMAIL_IMAGES
+  .map((e) => ({ key: normalizeName(e.name), path: e.path }))
+  .sort((a, b) => b.key.length - a.key.length);
+const EMAIL_FALLBACK_IMAGE = "/email/parfora-mark.png";
+
+function resolveProductImage(item: { name: string; product_id?: string }): string {
+  const byId = item.product_id ? EMAIL_IMAGE_BY_ID.get(item.product_id) : undefined;
+  if (byId) return SITE_URL + byId;
+  const n = normalizeName(item.name.replace(/\s*[—-]\s*Free\s*2ml\s*Sample.*$/i, ""));
+  const byName = EMAIL_IMAGE_BY_NAME.find((e) => n.includes(e.key));
+  return SITE_URL + (byName ? byName.path : EMAIL_FALLBACK_IMAGE);
 }
 
 const PRODUCT_LINKS: Record<string, string> = {
@@ -230,7 +174,7 @@ function paddingImgTag(imageUrl: string, alt: string, o?: PaddingOverride): stri
   const BOX = 72;
   const hasAny = o && (o.padding_top || o.padding_right || o.padding_bottom || o.padding_left || (o.scale && o.scale !== 1));
   if (!o || !hasAny) {
-    return `<img src="${imageUrl}" alt="${alt}" width="${BOX}" height="${BOX}" style="display:block;width:${BOX}px;height:${BOX}px;object-fit:cover;" />`;
+    return `<img src="${imageUrl}" alt="${escapeHtml(alt)}" width="${BOX}" height="${BOX}" style="display:block;width:${BOX}px;height:${BOX}px;border:0;outline:none;text-decoration:none;" />`;
   }
   const scale = Math.max(0.2, Math.min(2, o.scale || 1));
   const size = Math.round(BOX * scale);
@@ -279,7 +223,7 @@ function getBundleBonusLinks(name: string): { label: string; url: string }[] {
 function buildItemRow(item: OrderItem, origin: string, showImage: boolean, padding?: PaddingOverride): string {
   const mlLabel = item.selectedMl ? ` — ${item.selectedMl}ml` : "";
   const lineTotal = (item.price * item.quantity).toFixed(2);
-  const imageUrl = resolveProductImage(item.name, item.image);
+  const imageUrl = resolveProductImage(item);
   const isSample = item.price === 0 || /sample/i.test(item.name);
   const cleanName = item.name.replace(/\s*[—-]\s*Free\s*2ml\s*Sample\s*🎁?/i, '').trim();
   const priceLabel = isSample
@@ -294,8 +238,8 @@ function buildItemRow(item: OrderItem, origin: string, showImage: boolean, paddi
   return `<tr>
 <td style="padding: 16px 0; border-bottom: 1px solid #eee; vertical-align: top; ${rowBg}">
 <table cellpadding="0" cellspacing="0" border="0"><tr>
-${showImage ? `<td style="width: 80px; vertical-align: top;">
-<div style="width:72px;height:72px;border-radius:8px;border:1px solid #eee;overflow:hidden;background:#fafafa;">
+${showImage ? `<td style="width: 88px; vertical-align: top;">
+<div style="width:72px;height:72px;padding:6px;border-radius:10px;border:1px solid #ece7dc;overflow:hidden;background-color:#f7f5f0;">
 ${imgTag}
 </div>
 </td>` : ""}
@@ -348,7 +292,8 @@ function buildEmailHtml(
     '<div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">',
 
     '<div style="background-color: #1a1a1a; padding: 36px 32px; text-align: center;">',
-    '<h1 style="color: #c9a96e; font-size: 26px; font-weight: 300; letter-spacing: 5px; margin: 0; text-transform: uppercase;">Parfumistry</h1>',
+    '<a href="' + SITE_URL + '" style="text-decoration: none;"><img src="' + SITE_URL + '/email/parfora-mark.png" alt="" width="36" height="60" style="display: block; margin: 0 auto 14px auto; width: 36px; height: 60px; border: 0;" />',
+    '<h1 style="color: #c9a96e; font-size: 26px; font-weight: 300; letter-spacing: 8px; margin: 0; text-transform: uppercase;">Parfora</h1></a>',
     '<p style="color: #666; font-size: 12px; letter-spacing: 2px; margin: 8px 0 0 0; text-transform: uppercase;">Premium Fragrances</p>',
     '</div>',
 
@@ -403,9 +348,9 @@ function buildEmailHtml(
     '</div></div>',
 
     '<div style="background-color: #1a1a1a; padding: 28px 32px; text-align: center;">',
-    '<p style="color: #c9a96e; font-size: 14px; letter-spacing: 3px; margin: 0 0 8px 0; text-transform: uppercase;">Parfumistry</p>',
-    '<p style="color: #666; font-size: 11px; margin: 0; line-height: 1.8;">&copy; ' + year + ' Parfumistry. All rights reserved.<br>',
-    '<a href="https://parfumistry.net" style="color: #888; text-decoration: none;">parfumistry.net</a></p>',
+    '<p style="color: #c9a96e; font-size: 14px; letter-spacing: 3px; margin: 0 0 8px 0; text-transform: uppercase;">Parfora</p>',
+    '<p style="color: #666; font-size: 11px; margin: 0; line-height: 1.8;">&copy; ' + year + ' Parfora. All rights reserved.<br>',
+    '<a href="https://www.parfora.net" style="color: #888; text-decoration: none;">parfora.net</a></p>',
     '</div>',
 
     '</div></body></html>',
@@ -458,7 +403,7 @@ function buildAdminInvoiceHtml(
   <div style="background:#1a1a1a;padding:32px 40px;display:flex;justify-content:space-between;">
     <table style="width:100%;"><tr>
       <td style="vertical-align:top;">
-        <h1 style="color:#c9a96e;font-size:24px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parfumistry</h1>
+        <h1 style="color:#c9a96e;font-size:24px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parfora</h1>
         <p style="color:#666;font-size:11px;letter-spacing:2px;margin:6px 0 0;text-transform:uppercase;">Premium Fragrances</p>
       </td>
       <td style="vertical-align:top;text-align:right;">
@@ -537,8 +482,8 @@ function buildAdminInvoiceHtml(
 
   <!-- Footer -->
   <div style="background:#1a1a1a;padding:24px 40px;text-align:center;">
-    <p style="color:#c9a96e;font-size:13px;letter-spacing:3px;margin:0 0 6px;text-transform:uppercase;">Parfumistry</p>
-    <p style="color:#666;font-size:11px;margin:0;line-height:1.6;">© ${year} Parfumistry. All rights reserved.<br>
+    <p style="color:#c9a96e;font-size:13px;letter-spacing:3px;margin:0 0 6px;text-transform:uppercase;">Parfora</p>
+    <p style="color:#666;font-size:11px;margin:0;line-height:1.6;">© ${year} Parfora. All rights reserved.<br>
     <a href="mailto:support@parfumistry.net" style="color:#888;text-decoration:none;">support@parfumistry.net</a></p>
   </div>
 
@@ -557,7 +502,7 @@ async function sendEmail(to: string, subject: string, htmlContent: string): Prom
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Parfumistry <orders@parfumistry.net>",
+      from: "Parfora <orders@parfumistry.net>",
       to: [to],
       subject,
       html: htmlContent,
@@ -614,13 +559,13 @@ serve(async (req) => {
 
     const paddingMap = await fetchPaddingOverrides(normalizedItems.map((i) => i.product_id || "").filter(Boolean));
 
-    const origin = "https://parfumistry.net";
+    const origin = "https://www.parfora.net";
     const itemsHtml = buildItemsHtml(normalizedItems, origin, paddingMap);
 
     const shippingMethod = (shippingAddress as any)?.shippingMethod || null;
     const html = buildEmailHtml(customerName || "Valued Customer", itemsHtml, calculatedTotal, shippingAddress || { line1: "", city: "", postalCode: "", country: "" }, orderNumber, discountCode, discountPercent, shippingMethod);
 
-    const emailSubject = orderNumber ? `Order #${orderNumber} Confirmed - Parfumistry` : "Order Confirmed - Parfumistry";
+    const emailSubject = orderNumber ? `Order #${orderNumber} Confirmed - Parfora` : "Order Confirmed - Parfora";
     await sendEmail(customerEmail, emailSubject, html);
 
     return new Response(JSON.stringify({ success: true }), {
