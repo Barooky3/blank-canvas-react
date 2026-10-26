@@ -18,7 +18,7 @@ export const Footer = () => {
       { label: t('footer.privacyPolicy'), href: '/privacy-policy' },
       { label: t('footer.returnsRefunds'), href: '/return-policy' },
       { label: t('footer.termsOfService'), href: '/terms-of-service' },
-      { label: t('footer.faq'), href: '/#faq' },
+      { label: t('footer.faq'), href: '/faq' },
     ],
   };
 
