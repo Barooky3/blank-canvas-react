@@ -732,12 +732,12 @@ const Checkout = () => {
                 preload="metadata"
                 className="w-full aspect-video bg-black"
               >
-                <source src="/videos/checkout-tutorial-original.mp4" type="video/mp4" />
+                <source src="/videos/checkout-tutorial-eneba.mp4" type="video/mp4" />
               </video>
             </div>
             <div className="px-4 py-2.5 border-t border-border">
               <p className="text-[11px] text-muted-foreground leading-relaxed">
-                Step-by-step: open G2A → choose your amount → pay with card, Apple Pay or Google Pay → paste the code here after purchase.
+                Step-by-step: open Eneba → pick the Rewarble value that covers your total → pay with card, Apple Pay or Google Pay → copy the code from your Eneba order and paste it here.
               </p>
             </div>
           </div>
