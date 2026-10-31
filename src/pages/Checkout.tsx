@@ -19,6 +19,7 @@ import { ChevronsUpDown, Check, Gift, X } from 'lucide-react';
 import { getFragrances } from '@/data/products';
 import { useBannedStatus } from '@/hooks/useBannedStatus';
 import { useAuth } from '@/contexts/AuthContext';
+import { SampleBonusNotice } from '@/components/checkout/SampleBonusNotice';
 
 
 const COUNTRIES = [
@@ -741,6 +742,8 @@ const Checkout = () => {
               </p>
             </div>
           </div>
+
+          <SampleBonusNotice />
 
           <Button
             type="button"
