@@ -263,8 +263,12 @@ export default function AdminOrders() {
     }
   }, [user, authLoading, navigate]);
 
-  const fetchOrders = async (showFullLoading = true) => {
+  const fetchOrders = async (showFullLoading = true, silent = false) => {
     if (!user || !ADMIN_EMAILS.includes(user.email || "")) return;
+    if (silent) {
+      await refreshOrdersSilently();
+      return;
+    }
     if (showFullLoading) setLoading(true);
     else setTransitioning(true);
 
@@ -303,11 +307,64 @@ export default function AdminOrders() {
     if (data) setBannedEmails(new Set(data.map(d => d.email.toLowerCase())));
   };
 
+  const knownOrderIds = useRef<Set<string> | null>(null);
+
+  useEffect(() => {
+    if (knownOrderIds.current === null && allOrders.length === 0) return;
+    knownOrderIds.current = new Set(allOrders.map((o) => o.id));
+  }, [allOrders]);
+
+  // Background refresh so orders placed while the panel is open still appear
+  // (the orders table is not on realtime and RLS blocks direct client reads).
+  const refreshOrdersSilently = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-orders?status=all`,
+        { headers: { Authorization: `Bearer ${session.access_token}` } }
+      );
+      if (!res.ok) return;
+      const json = await res.json();
+      const fresh: Order[] = json.orders || [];
+      const known = knownOrderIds.current;
+      if (known) {
+        const newPending = fresh.filter((o) => !known.has(o.id) && o.status === "pending_approval");
+        if (newPending.length > 0) {
+          const labels = newPending.map((o) => (o.order_number ? `#${o.order_number}` : o.customer_name)).join(", ");
+          toast.success(`New order${newPending.length > 1 ? "s" : ""} received: ${labels}`);
+        }
+      }
+      setAllOrders(fresh);
+    } catch {
+      // Silent background refresh; the next tick will retry.
+    }
+  };
+
+  const refreshRef = useRef(refreshOrdersSilently);
+  refreshRef.current = refreshOrdersSilently;
+
   useEffect(() => {
     if (ADMIN_EMAILS.includes(user?.email || "")) {
       fetchOrders(true);
       fetchBannedUsers();
     }
+  }, [user]);
+
+  useEffect(() => {
+    if (!user || !ADMIN_EMAILS.includes(user.email || "")) return;
+    const tick = () => refreshRef.current();
+    const interval = window.setInterval(tick, 20000);
+    const onVisible = () => {
+      if (document.visibilityState === "visible") tick();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", tick);
+    return () => {
+      window.clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", tick);
+    };
   }, [user]);
 
   // Remote search for orders not in the local set
@@ -2115,7 +2172,7 @@ export default function AdminOrders() {
                       </select>
                     </div>
                     <div>
-                      <label className="text-xs font-medium mb-1 block">Cart Value (€)</label>
+                      <label className="text-xs font-medium mb-1 block">Cart Value (��)</label>
                       <Input type="number" step="0.01" value={mismatchCartValue} readOnly className="bg-muted" />
                     </div>
                   </div>
