@@ -11,6 +11,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { SampleBonusNotice } from '@/components/checkout/SampleBonusNotice';
 const REWARBLE_ENEBA_URL = 'https://www.eneba.com/rewarble-rewarble-bank-transfer-15-eur-voucher-global?enb_campaign=Main%20Search&enb_content=search%20dropdown%20-%20products&enb_medium=product%20card&enb_source=https%3A%2F%2Fwww.eneba.com%2Frewarble-rewarble-venmo-20-usd-voucher-global&enb_term=3';
 
 const Rewarble = () => {
@@ -330,6 +331,8 @@ const Rewarble = () => {
             <img src="/images/paysafecard.png" alt="Paysafecard" className="h-full w-full object-contain" />
           </div>
         </div>
+
+        <SampleBonusNotice className="mb-6" />
 
         {/* Code Inputs */}
         <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden mb-6">
