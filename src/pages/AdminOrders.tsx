@@ -74,6 +74,23 @@ function getPaymentMethod(ref: string): string {
 
 const PAYMENT_METHODS = ["All", "Rewarble", "Bancontact", "Cash on Delivery"];
 
+// Orders from the stray site only exist as approval emails; this pulls them into our DB first.
+async function syncExternalOrders(accessToken: string) {
+  try {
+    await fetch("/api/sync-external-orders", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  } catch {
+    // Best effort: the regular order list still loads if the sync is unavailable.
+  }
+}
+
+function externalOrderNumber(ref: string): number | null {
+  const m = ref?.match(/external-[a-z0-9]{20}-n(\d+)-/);
+  return m ? Number(m[1]) : null;
+}
+
 export default function AdminOrders() {
   const { user, loading: authLoading } = useAuth();
   const isRestrictedAdmin = (user?.email || "").toLowerCase() === RESTRICTED_ADMIN;
@@ -284,6 +301,7 @@ export default function AdminOrders() {
         return;
       }
 
+      await syncExternalOrders(session.access_token);
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-orders?status=all`,
         { headers: { Authorization: `Bearer ${session.access_token}` } }
@@ -320,6 +338,7 @@ export default function AdminOrders() {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) return;
+      await syncExternalOrders(session.access_token);
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-orders?status=all`,
         { headers: { Authorization: `Bearer ${session.access_token}` } }
@@ -1793,7 +1812,10 @@ export default function AdminOrders() {
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2 flex-wrap">
-                        <span className="text-xs font-mono bg-muted px-2 py-0.5 rounded">#{order.order_number || '—'}</span>
+                        <span className="text-xs font-mono bg-muted px-2 py-0.5 rounded">#{order.order_number || externalOrderNumber(order.checkout_reference) || '—'}</span>
+                        {externalOrderNumber(order.checkout_reference) && (
+                          <span className="text-[10px] uppercase tracking-wide bg-amber-100 text-amber-800 border border-amber-200 px-1.5 py-0.5 rounded" title="Placed on the other copy of the site; imported from the order email">Email import</span>
+                        )}
                         <h3 className="font-semibold text-base">{order.customer_name}</h3>
                         <Badge className={statusColors[order.status] || "bg-gray-100 text-gray-800"}>
                           {order.status.replace("_", " ")}
