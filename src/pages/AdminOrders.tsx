@@ -74,6 +74,23 @@ function getPaymentMethod(ref: string): string {
 
 const PAYMENT_METHODS = ["All", "Rewarble", "Bancontact", "Cash on Delivery"];
 
+// Orders from the stray site only exist as approval emails; this pulls them into our DB first.
+async function syncExternalOrders(accessToken: string) {
+  try {
+    await fetch("/api/sync-external-orders", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  } catch {
+    // Best effort: the regular order list still loads if the sync is unavailable.
+  }
+}
+
+function externalOrderNumber(ref: string): number | null {
+  const m = ref?.match(/external-[a-z0-9]{20}-n(\d+)-/);
+  return m ? Number(m[1]) : null;
+}
+
 export default function AdminOrders() {
   const { user, loading: authLoading } = useAuth();
   const isRestrictedAdmin = (user?.email || "").toLowerCase() === RESTRICTED_ADMIN;
@@ -263,8 +280,12 @@ export default function AdminOrders() {
     }
   }, [user, authLoading, navigate]);
 
-  const fetchOrders = async (showFullLoading = true) => {
+  const fetchOrders = async (showFullLoading = true, silent = false) => {
     if (!user || !ADMIN_EMAILS.includes(user.email || "")) return;
+    if (silent) {
+      await refreshOrdersSilently();
+      return;
+    }
     if (showFullLoading) setLoading(true);
     else setTransitioning(true);
 
@@ -280,6 +301,7 @@ export default function AdminOrders() {
         return;
       }
 
+      await syncExternalOrders(session.access_token);
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-orders?status=all`,
         { headers: { Authorization: `Bearer ${session.access_token}` } }
@@ -303,11 +325,65 @@ export default function AdminOrders() {
     if (data) setBannedEmails(new Set(data.map(d => d.email.toLowerCase())));
   };
 
+  const knownOrderIds = useRef<Set<string> | null>(null);
+
+  useEffect(() => {
+    if (knownOrderIds.current === null && allOrders.length === 0) return;
+    knownOrderIds.current = new Set(allOrders.map((o) => o.id));
+  }, [allOrders]);
+
+  // Background refresh so orders placed while the panel is open still appear
+  // (the orders table is not on realtime and RLS blocks direct client reads).
+  const refreshOrdersSilently = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+      await syncExternalOrders(session.access_token);
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-orders?status=all`,
+        { headers: { Authorization: `Bearer ${session.access_token}` } }
+      );
+      if (!res.ok) return;
+      const json = await res.json();
+      const fresh: Order[] = json.orders || [];
+      const known = knownOrderIds.current;
+      if (known) {
+        const newPending = fresh.filter((o) => !known.has(o.id) && o.status === "pending_approval");
+        if (newPending.length > 0) {
+          const labels = newPending.map((o) => (o.order_number ? `#${o.order_number}` : o.customer_name)).join(", ");
+          toast.success(`New order${newPending.length > 1 ? "s" : ""} received: ${labels}`);
+        }
+      }
+      setAllOrders(fresh);
+    } catch {
+      // Silent background refresh; the next tick will retry.
+    }
+  };
+
+  const refreshRef = useRef(refreshOrdersSilently);
+  refreshRef.current = refreshOrdersSilently;
+
   useEffect(() => {
     if (ADMIN_EMAILS.includes(user?.email || "")) {
       fetchOrders(true);
       fetchBannedUsers();
     }
+  }, [user]);
+
+  useEffect(() => {
+    if (!user || !ADMIN_EMAILS.includes(user.email || "")) return;
+    const tick = () => refreshRef.current();
+    const interval = window.setInterval(tick, 20000);
+    const onVisible = () => {
+      if (document.visibilityState === "visible") tick();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", tick);
+    return () => {
+      window.clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", tick);
+    };
   }, [user]);
 
   // Remote search for orders not in the local set
@@ -1736,7 +1812,10 @@ export default function AdminOrders() {
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2 flex-wrap">
-                        <span className="text-xs font-mono bg-muted px-2 py-0.5 rounded">#{order.order_number || '—'}</span>
+                        <span className="text-xs font-mono bg-muted px-2 py-0.5 rounded">#{order.order_number || externalOrderNumber(order.checkout_reference) || '—'}</span>
+                        {externalOrderNumber(order.checkout_reference) && (
+                          <span className="text-[10px] uppercase tracking-wide bg-amber-100 text-amber-800 border border-amber-200 px-1.5 py-0.5 rounded" title="Placed on the other copy of the site; imported from the order email">Email import</span>
+                        )}
                         <h3 className="font-semibold text-base">{order.customer_name}</h3>
                         <Badge className={statusColors[order.status] || "bg-gray-100 text-gray-800"}>
                           {order.status.replace("_", " ")}
@@ -2115,7 +2194,7 @@ export default function AdminOrders() {
                       </select>
                     </div>
                     <div>
-                      <label className="text-xs font-medium mb-1 block">Cart Value (€)</label>
+                      <label className="text-xs font-medium mb-1 block">Cart Value (��)</label>
                       <Input type="number" step="0.01" value={mismatchCartValue} readOnly className="bg-muted" />
                     </div>
                   </div>
