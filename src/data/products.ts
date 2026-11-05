@@ -2492,10 +2492,10 @@ export const products: Product[] = [
     accentColor: '#D97706',
     image: '/images/products/le-sablier-zeus.png',
   affiliateUrl: '/product/le-sablier-zeus',
-  inStock: false,
+  inStock: true,
   featured: true,
   variants: [
-  { ml: 100, price: 37.99, inStock: false },
+  { ml: 100, price: 37.99, inStock: true },
     ],
   },
   {
@@ -2529,10 +2529,10 @@ export const products: Product[] = [
   accentColor: '#1E3A8A',
     image: '/images/products/le-sablier-pharaon.png',
   affiliateUrl: '/product/le-sablier-pharaon',
-  inStock: true,
+  inStock: false,
   featured: true,
   variants: [
-  { ml: 100, price: 42.99, inStock: true },
+  { ml: 100, price: 42.99, inStock: false },
     ],
   },
 ];
