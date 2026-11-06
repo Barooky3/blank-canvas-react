@@ -75,6 +75,7 @@ import creedVirginIslandWater from '@/assets/products/creed-virgin-island-water.
 import shlGodOfFire from '@/assets/products/shl-god-of-fire.png.asset.json';
 import exNihiloBlueTalismanImage from '@/assets/products/ex-nihilo-blue-talisman.png.asset.json';
 import lvCityOfStarsImage from '@/assets/products/lv-city-of-stars.png.asset.json';
+import jpgUltraMaleImage from '@/assets/products/jpg-ultra-male.png.asset.json';
 
 
 // Bestseller IDs matching profparfums.store homepage order
@@ -2462,6 +2463,43 @@ export const products: Product[] = [
     variants: [
       { ml: 100, price: 149.99, inStock: true },
       { ml: 200, price: 229.99, inStock: true },
+    ],
+  },
+  {
+    id: 'jpg-ultra-male',
+    addedAt: '2026-11-06',
+    name: 'Ultra Male',
+    brand: 'Jean Paul Gaultier',
+    price: 26.99,
+    category: 'men',
+    description: 'Ultra Male by Jean Paul Gaultier is a Oriental Fougere fragrance for men. Ultra Male was launched in 2015. The nose behind this fragrance is Francis Kurkdjian. Top notes are Pear, Lavender, Mint, Bergamot and Lemon; middle notes are Cinnamon, Clary Sage and Caraway; base notes are Black Vanilla Husk, Amber, Patchouli and Cedar.',
+    scentNotes: {
+      top: ['Pear', 'Lavender', 'Mint', 'Bergamot', 'Lemon'],
+      heart: ['Cinnamon', 'Clary Sage', 'Caraway'],
+      base: ['Black Vanilla Husk', 'Amber', 'Patchouli', 'Cedar'],
+    },
+    scentNoteImages: {
+      'Pear': '/scent-notes/pear.png',
+      'Lavender': '/scent-notes/lavender.png',
+      'Mint': '/scent-notes/mint.png',
+      'Bergamot': '/scent-notes/bergamot.png',
+      'Lemon': '/scent-notes/lemon.png',
+      'Cinnamon': '/scent-notes/cinnamon.png',
+      'Clary Sage': '/scent-notes/clary-sage.png',
+      'Caraway': '/scent-notes/caraway.png',
+      'Black Vanilla Husk': '/scent-notes/black-vanilla-husk.png',
+      'Amber': '/scent-notes/amber.png',
+      'Patchouli': '/scent-notes/patchouli.png',
+      'Cedar': '/scent-notes/cedar.png',
+    },
+    accentColor: '#1E3A8A',
+    image: jpgUltraMaleImage.url,
+    affiliateUrl: '/product/jpg-ultra-male',
+    inStock: true,
+    featured: true,
+    variants: [
+      { ml: 75, price: 26.99, inStock: true },
+      { ml: 125, price: 33.99, inStock: true },
     ],
   },
   {

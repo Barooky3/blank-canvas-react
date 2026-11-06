@@ -25,7 +25,7 @@ const Index = () => {
   const { isPortlaoise } = useGeoCity();
   const navigate = useNavigate();
   const newArrivals = [
-    getProductById('lv-city-of-stars'),
+    getProductById('jpg-ultra-male'),
     getProductById('le-sablier-zeus'),
     getProductById('le-sablier-pharaon'),
   ].filter(Boolean);

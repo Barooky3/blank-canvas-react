@@ -4,31 +4,27 @@ import { Trophy, Check } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
-import lvCityOfStarsImg from '@/assets/products/lv-city-of-stars.png.asset.json';
 import ultraMaleImg from '@/assets/products/jpg-ultra-male.png.asset.json';
-import acquaDiGioImg from '@/assets/products/acqua-di-gio-parfum.png.asset.json';
 
-const POLL_ID = 'next-arrival-2026-12-i';
-const ADMIN_EMAILS = ['ewhz3384@gmail.com'];
-// Non-admins can only see the live results once the poll reaches this many total votes.
-const REVEAL_THRESHOLD = 50;
+const POLL_ID = 'next-arrival-2026-11-ii';
+const ADMIN_EMAILS = ['ewhz3384@gmail.com', 'elkhabirmalik@gmail.com'];
 
 const OPTIONS = [
   {
-    key: 'jpg-ultra-male',
-    label: 'Jean Paul Gaultier Ultra Male',
-    image: ultraMaleImg.url,
+    key: 'giardini-bianco-latte',
+    label: 'Giardini di Toscana Bianco Latte',
+    image: '/images/products/giardini-bianco-latte.png',
   },
   {
-    key: 'acqua-di-gio-parfum',
-    label: 'Giorgio Armani Acqua di Giò Parfum',
-    image: acquaDiGioImg.url,
+    key: 'bts-drunk-lovers',
+    label: 'Borntostandout Drunk Lovers',
+    image: '/images/products/bts-drunk-lovers.png',
   },
 ] as const;
 
 const LAST_WINNER = {
-  name: 'Louis Vuitton City of Stars',
-  image: lvCityOfStarsImg.url,
+  name: 'Jean Paul Gaultier Ultra Male',
+  image: ultraMaleImg.url,
 };
 
 function getFingerprint(): string {
@@ -50,12 +46,8 @@ const NextFragrancePoll = () => {
   );
   const [loading, setLoading] = useState(false);
 
-  // Results (the per-choice breakdown / percentages) are only revealed to
-  // non-admins once the poll has reached REVEAL_THRESHOLD total votes.
-  const canSeeResults = isAdmin || total >= REVEAL_THRESHOLD;
-  const votesRemaining = Math.max(0, REVEAL_THRESHOLD - total);
+  const canSeeResults = isAdmin;
 
-  // Total votes is safe to load for everyone — it never exposes the breakdown.
   const loadTotal = async () => {
     const { data } = await (supabase as any).rpc('get_poll_total', { _poll_id: POLL_ID });
     if (data != null) setTotal(Number(data) || 0);
@@ -74,11 +66,10 @@ const NextFragrancePoll = () => {
   };
 
   useEffect(() => {
-    loadTotal();
-  }, []);
-
-  useEffect(() => {
-    if (canSeeResults) loadCounts();
+    if (canSeeResults) {
+      loadTotal();
+      loadCounts();
+    }
   }, [canSeeResults]);
 
   const vote = async (key: string) => {
@@ -114,12 +105,10 @@ const NextFragrancePoll = () => {
         </h2>
         <p className="text-[10px] md:text-xs text-muted-foreground text-center mb-4 md:mb-5">
           {canSeeResults
-            ? voted
-              ? 'Thanks for voting — here are the live results'
-              : 'Live results so far'
+            ? 'Admin view · live results'
             : voted
-              ? `Thanks for voting! Results unlock at ${REVEAL_THRESHOLD} votes${votesRemaining > 0 ? ` — ${votesRemaining} to go` : ''}`
-              : `Tap your pick to vote — results unlock at ${REVEAL_THRESHOLD} votes`}
+              ? 'Thanks for voting! The winner will be announced soon.'
+              : 'Tap your pick to vote'}
         </p>
 
         <div className="relative flex items-center justify-center gap-2.5 md:gap-4 mb-5 md:mb-8">
@@ -213,24 +202,10 @@ const NextFragrancePoll = () => {
           </div>
         </div>
 
-        {canSeeResults ? (
+        {canSeeResults && (
           <p className="text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-4">
-            {isAdmin ? 'Admin · ' : ''}{total} total vote{total === 1 ? '' : 's'}
+            Admin · {total} total vote{total === 1 ? '' : 's'}
           </p>
-        ) : (
-          voted && (
-            <div className="mt-4 max-w-[240px] mx-auto">
-              <div className="h-1 rounded-full bg-secondary overflow-hidden">
-                <div
-                  className="h-full bg-accent transition-all duration-500"
-                  style={{ width: `${Math.min(100, Math.round((total / REVEAL_THRESHOLD) * 100))}%` }}
-                />
-              </div>
-              <p className="text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-2">
-                {total} / {REVEAL_THRESHOLD} votes · {votesRemaining} until results
-              </p>
-            </div>
-          )
         )}
       </div>
     </section>
