@@ -167,12 +167,52 @@ interface OrderCardProps {
   statusColor: (status: string) => string;
 }
 
+const fallbackReason = (order: Order) => {
+  const ref = order.checkout_reference || '';
+  if (ref.startsWith('rewarble')) {
+    return 'Unfortunately, the Rewarble code you provided could not be verified. Please make sure you sent the actual gift card code — it is 16 characters long and contains letters and numbers (e.g. 9YVMBH7H4CXHCX7J). The Rewarble order number (only digits, starting with #) is not the gift card code. Your order has been cancelled.';
+  }
+  if (ref.startsWith('revolut-app')) return 'Unfortunately, your Revolut payment could not be verified. Your order has been cancelled.';
+  if (ref.startsWith('bank-transfer')) {
+    return "Unfortunately, your bank transfer could not be verified or was bounced back by the receiving bank. Your order has been cancelled. If you did send the payment, don't worry — your money is already on its way back to your account.";
+  }
+  return 'Unfortunately, your payment could not be verified. No money has been taken from your account.';
+};
+
+const EMAIL_HTML_CLASSES =
+  'text-sm leading-relaxed text-muted-foreground [&_*]:!text-current [&_strong]:!text-foreground [&_div]:!bg-secondary [&_div]:!border-border [&_p]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1';
+
 const OrderCard = ({ order, items, mismatchData, formatPrice, statusColor }: OrderCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [emailHtml, setEmailHtml] = useState<string | null | undefined>(undefined);
+  const [emailLoading, setEmailLoading] = useState(false);
   const isRejected = order.status === 'rejected';
   const isApproved = order.status === 'approved';
   const isValueMismatch = !!mismatchData;
-  const hasRejectionInfo = isRejected && order.rejection_notes;
+
+  const toggleDetails = async () => {
+    const next = !showDetails;
+    setShowDetails(next);
+    if (!next || emailHtml !== undefined || emailLoading) return;
+    setEmailLoading(true);
+    try {
+      const { data } = await supabase.auth.getSession();
+      const res = await fetch('/api/rejection-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${data.session?.access_token || ''}`,
+        },
+        body: JSON.stringify({ orderId: order.id }),
+      });
+      const body = res.ok ? await res.json() : null;
+      setEmailHtml(typeof body?.html === 'string' ? body.html : null);
+    } catch {
+      setEmailHtml(null);
+    } finally {
+      setEmailLoading(false);
+    }
+  };
 
   return (
     <div className="border border-border bg-background p-5">
@@ -223,33 +263,38 @@ const OrderCard = ({ order, items, mismatchData, formatPrice, statusColor }: Ord
               <AlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
               <div className="flex-1 text-xs text-red-800 dark:text-red-300">
                 <p className="font-semibold">Order Rejected</p>
-                <p className="mt-0.5">
-                  {isValueMismatch
-                    ? 'The gift card value did not match your cart total.'
-                    : (order.rejection_notes?.trim() || 'Your payment could not be verified. Please try again or contact us.')}
+                <p className="mt-0.5 leading-relaxed">
+                  {order.order_number ? `Your order #${order.order_number}` : 'Your order'} was rejected and has been cancelled. We sent you an email explaining why — you can read the same reason below.
                 </p>
               </div>
             </div>
 
-            {hasRejectionInfo && (
-              <button
-                onClick={() => setShowDetails(!showDetails)}
-                className="mt-2 flex items-center gap-1 text-xs font-medium text-red-700 dark:text-red-400 hover:underline w-full"
-              >
-                <Mail className="h-3.5 w-3.5" />
-                {showDetails ? 'Hide' : 'View'} rejection details
-                {showDetails ? <ChevronUp className="h-3.5 w-3.5 ml-auto" /> : <ChevronDown className="h-3.5 w-3.5 ml-auto" />}
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={toggleDetails}
+              aria-expanded={showDetails}
+              aria-controls={`rejection-reason-${order.id}`}
+              className="mt-3 flex w-full items-center gap-2 rounded-md border border-red-300 dark:border-red-800/60 px-3 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/20 transition-colors"
+            >
+              <Mail className="h-3.5 w-3.5" />
+              {showDetails ? 'Hide reason' : 'Read why'}
+              {showDetails ? <ChevronUp className="h-3.5 w-3.5 ml-auto" /> : <ChevronDown className="h-3.5 w-3.5 ml-auto" />}
+            </button>
           </div>
 
-          {showDetails && hasRejectionInfo && (
-            <div className="mt-2 border border-border rounded-lg p-4 bg-muted/30 space-y-3">
+          {showDetails && (
+            <div id={`rejection-reason-${order.id}`} className="mt-2 border border-border rounded-lg p-4 bg-muted/30 flex flex-col gap-3">
               <p className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                <Mail className="h-3.5 w-3.5" /> Email you received:
+                <Mail className="h-3.5 w-3.5" /> The reason from your email:
               </p>
 
-              {isValueMismatch && mismatchData ? (
+              {emailLoading ? (
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" /> Loading the reason…
+                </div>
+              ) : emailHtml ? (
+                <div className={EMAIL_HTML_CLASSES} dangerouslySetInnerHTML={{ __html: emailHtml }} />
+              ) : isValueMismatch && mismatchData ? (
                 <>
                   <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/30 rounded-lg p-3">
                     <div className="space-y-1 text-xs">
@@ -277,8 +322,8 @@ const OrderCard = ({ order, items, mismatchData, formatPrice, statusColor }: Ord
                   </div>
                 </>
               ) : (
-                <div className="text-xs text-muted-foreground whitespace-pre-wrap leading-relaxed">
-                  {order.rejection_notes}
+                <div className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">
+                  {order.rejection_notes?.trim() || fallbackReason(order)}
                 </div>
               )}
             </div>
