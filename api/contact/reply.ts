@@ -59,7 +59,8 @@ async function handler(req: Request): Promise<Response> {
       .update({ admin_unread: true, last_message_at: now })
       .eq("id", convo.id);
 
-    void sendEmail({
+    // Must be awaited: serverless functions are frozen once the response is returned.
+    await sendEmail({
       to: ADMIN_EMAIL,
       subject: `Reply from ${convo.customer_name}: ${convo.subject || "conversation"}`,
       replyTo: convo.customer_email,
