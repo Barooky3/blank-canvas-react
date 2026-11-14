@@ -31,8 +31,8 @@ async function handler(req: Request): Promise<Response> {
     .insert({ conversation_id: convo.id, sender: "customer", body: message });
   if (mErr) return json({ error: "Could not save your message" }, 500);
 
-  // Best-effort admin heads-up; never blocks the customer.
-  void sendEmail({
+  // Must be awaited: serverless functions are frozen once the response is returned.
+  await sendEmail({
     to: ADMIN_EMAIL,
     subject: `New contact message: ${subject || name}`,
     replyTo: email,
