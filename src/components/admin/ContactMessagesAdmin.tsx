@@ -4,6 +4,7 @@ import { Inbox, MessagesSquare, Trash2, Send, ChevronLeft, Mail, RefreshCw, Load
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
   AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
@@ -30,9 +31,16 @@ export function ContactMessagesAdmin() {
     refetchInterval: 30_000,
   });
 
-  const conversations = data ?? [];
+  const conversations = useMemo(
+    () =>
+      [...(data ?? [])].sort(
+        (a, b) => new Date(b.last_message_at).getTime() - new Date(a.last_message_at).getTime(),
+      ),
+    [data],
+  );
   const newOnes = useMemo(() => conversations.filter((c) => c.status === 'new'), [conversations]);
   const active = useMemo(() => conversations.filter((c) => c.status === 'active'), [conversations]);
+  const [tab, setTab] = useState<'new' | 'active'>('new');
   const selected = conversations.find((c) => c.id === selectedId) ?? null;
 
   const markRead = useMutation({
@@ -159,16 +167,25 @@ export function ContactMessagesAdmin() {
 
   // ---------- list view ----------
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">
-          {conversations.length === 0 ? 'No messages yet.' : `${newOnes.length} new · ${active.length} active`}
-        </p>
+    <Tabs value={tab} onValueChange={(v) => setTab(v as 'new' | 'active')} className="flex flex-col gap-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <TabsList className="rounded-none">
+          <TabsTrigger value="new" className="rounded-none gap-2">
+            <Inbox className="h-4 w-4" /> New
+            <span className="text-xs text-muted-foreground">({newOnes.length})</span>
+          </TabsTrigger>
+          <TabsTrigger value="active" className="rounded-none gap-2">
+            <MessagesSquare className="h-4 w-4" /> Active conversations
+            <span className="text-xs text-muted-foreground">({active.length})</span>
+            {active.some((c) => c.admin_unread) && <span className="h-2 w-2 rounded-full bg-accent" aria-label="Unread replies" />}
+          </TabsTrigger>
+        </TabsList>
         <Button variant="ghost" size="sm" onClick={() => refetch()} disabled={isFetching} className="gap-2 text-xs">
           <RefreshCw className={`h-3.5 w-3.5 ${isFetching ? 'animate-spin' : ''}`} /> Refresh
         </Button>
       </div>
 
+      <TabsContent value="new" className="mt-0">
       <Section
         icon={<Inbox className="h-4 w-4" />}
         title="New messages"
@@ -179,18 +196,21 @@ export function ContactMessagesAdmin() {
         onDelete={(id) => del.mutate(id)}
         deleting={del.isPending}
       />
+      </TabsContent>
 
+      <TabsContent value="active" className="mt-0">
       <Section
         icon={<MessagesSquare className="h-4 w-4" />}
         title="Active conversations"
-        subtitle="Conversations you've replied to — customers can keep replying by email"
+        subtitle="Conversations you've replied to, newest activity first — customers can keep replying by email"
         items={active}
         empty="No active conversations yet. Reply to a new message to start one."
         onOpen={open}
         onDelete={(id) => del.mutate(id)}
         deleting={del.isPending}
       />
-    </div>
+      </TabsContent>
+    </Tabs>
   );
 }
 
