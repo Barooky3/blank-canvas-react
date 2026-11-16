@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { HelpCircle, ChevronDown, ChevronUp, Info } from 'lucide-react';
 
 const PaymentMethodExplainer = () => {
   const [open, setOpen] = useState(false);
 
   return (
+    <div className="flex flex-col gap-2">
     <div className="rounded-xl border border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20 overflow-hidden transition-all">
       <button
         type="button"
@@ -38,6 +39,13 @@ const PaymentMethodExplainer = () => {
           </div>
         </div>
       )}
+      </div>
+      <p className="flex items-start gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2.5 text-xs leading-relaxed text-muted-foreground">
+        <Info className="h-4 w-4 shrink-0 mt-0.5" aria-hidden="true" />
+        <span>
+          <strong className="text-foreground">Disclaimer:</strong> If you don&apos;t want to pay using the current payment methods, you can wait until <strong className="text-foreground">22 August 2027</strong>. That&apos;s when normal payment methods and cash on delivery to other countries will be available.
+        </span>
+      </p>
     </div>
   );
 };
