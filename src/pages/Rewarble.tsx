@@ -140,33 +140,13 @@ const Rewarble = () => {
           <h1 className="font-display text-2xl font-semibold text-foreground">Pay with Rewarble</h1>
         </div>
 
-        {/* Buyer protection / escrow banner */}
-        <div className="rounded-xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 p-4 mb-6">
-          <div className="flex items-start gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/15 shrink-0">
-              <Shield className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-200">How Rewarble Buyer Protection works</p>
-              <p className="text-xs text-emerald-800/80 dark:text-emerald-300/80 mt-0.5 leading-relaxed">
-                When you enter your code into the slot below, it's sent straight to Rewarble. Rewarble then <strong>holds the funds</strong> until proof of delivery is provided — only then are the funds released. Proof of delivery includes the tracking on your order showing it as delivered.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-3 pt-3 border-t border-emerald-500/20">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Lock className="h-3 w-3" /> Code sent to Rewarble</span>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><Shield className="h-3 w-3" /> Funds held until delivery</span>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-800 dark:text-emerald-300"><CheckCircle className="h-3 w-3" /> Released on proof of delivery</span>
-          </div>
-        </div>
-
         {/* Trust badge */}
         <div className="mb-6">
           <div className="rounded-xl border border-border bg-card px-4 py-4 flex items-center gap-3">
             <Truck className="h-5 w-5 text-[#7C3AED] shrink-0" aria-hidden="true" />
             <div className="min-w-0">
               <p className="text-sm font-semibold text-foreground leading-tight">Tracked EU shipping</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">Your tracking number is sent to your email after purchase.</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">Your tracking number is sent to your email after purchase, DHL for EU and Royal Mail for UK</p>
             </div>
           </div>
         </div>
