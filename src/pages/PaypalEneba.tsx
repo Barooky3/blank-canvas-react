@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getFirstVisitAt } from '@/utils/firstVisit';
+import { getVisaRewarbleCard } from '@/utils/cardRecommendation';
 import PaymentMethodExplainer from '@/components/PaymentMethodExplainer';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock } from 'lucide-react';
@@ -19,6 +20,7 @@ const PaypalEneba = () => {
   const orderTotal = searchParams.get('total') || '';
   const { currency, formatPrice } = useCurrency();
   const orderTotalNum = orderTotal ? parseFloat(orderTotal) : 0;
+  const g2aCard = getVisaRewarbleCard(orderTotalNum || 5);
   const [codes, setCodes] = useState<string[]>(() => {
     const saved = sessionStorage.getItem('paypalEnebaCodes');
     return saved ? JSON.parse(saved) : [''];
@@ -150,13 +152,14 @@ const PaypalEneba = () => {
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Purchase a Rewarble voucher on Eneba</p>
+                <p className="text-sm font-medium text-foreground">Purchase a Rewarble voucher on G2A</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Buy a voucher closest to your cart total. At Eneba checkout, select <strong>PayPal</strong> as your payment method.
+                  {orderTotalNum > 0 ? <>We recommend the <strong>{g2aCard.label}</strong> card, the closest to your cart total. </> : <>Buy a voucher closest to your cart total. </>}
+                  At G2A checkout, select <strong>PayPal</strong> as your payment method.
                 </p>
                 <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
-                  onClick={() => window.open('https://www.eneba.com/rewarble-rewarble-revolut-5-gbp-voucher-global', '_blank')}>
-                  <ExternalLink className="h-3 w-3 mr-1.5" />Buy on Eneba with PayPal
+                  onClick={() => window.open(g2aCard.url, '_blank', 'noopener,noreferrer')}>
+                  <ExternalLink className="h-3 w-3 mr-1.5" />Buy {orderTotalNum > 0 ? `${g2aCard.label} card ` : ''}on G2A with PayPal
                 </Button>
               </div>
             </div>
@@ -164,7 +167,7 @@ const PaypalEneba = () => {
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">2</span>
               <div>
                 <p className="text-sm font-medium text-foreground">Paste your code below</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Enter the Rewarble code you received after purchasing on Eneba.</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Enter the Rewarble code you received after purchasing on G2A.</p>
               </div>
             </div>
             <div className="flex gap-3">
