@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { getFirstVisitAt } from '@/utils/firstVisit';
-import { getVisaRewarbleCard } from '@/utils/cardRecommendation';
 import PaymentMethodExplainer from '@/components/PaymentMethodExplainer';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock } from 'lucide-react';
@@ -13,6 +12,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
+const G2A_SEARCH_URL = 'https://www.g2a.com/search?query=paypal%20gift%20card%20rewarble';
+
 const PaypalEneba = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -20,7 +21,6 @@ const PaypalEneba = () => {
   const orderTotal = searchParams.get('total') || '';
   const { currency, formatPrice } = useCurrency();
   const orderTotalNum = orderTotal ? parseFloat(orderTotal) : 0;
-  const g2aCard = getVisaRewarbleCard(orderTotalNum || 5);
   const [codes, setCodes] = useState<string[]>(() => {
     const saved = sessionStorage.getItem('paypalEnebaCodes');
     return saved ? JSON.parse(saved) : [''];
@@ -152,26 +152,32 @@ const PaypalEneba = () => {
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Purchase a Rewarble voucher on G2A</p>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {orderTotalNum > 0 ? <>We recommend the <strong>{g2aCard.label}</strong> card, the closest to your cart total. </> : <>Buy a voucher closest to your cart total. </>}
-                  At G2A checkout, select <strong>PayPal</strong> as your payment method.
+                <p className="text-sm font-medium text-foreground">Buy a PayPal Rewarble gift card on G2A</p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                  Open G2A and search for <strong>PayPal Gift Card by Rewarble</strong> (EUR). Choose card value(s) that add up to <strong>at least your order amount</strong>{orderTotal ? <> (<strong>€{orderTotal}</strong>)</> : null}. You can combine several cards if needed.
                 </p>
                 <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
-                  onClick={() => window.open(g2aCard.url, '_blank', 'noopener,noreferrer')}>
-                  <ExternalLink className="h-3 w-3 mr-1.5" />Buy {orderTotalNum > 0 ? `${g2aCard.label} card ` : ''}on G2A with PayPal
+                  onClick={() => window.open(G2A_SEARCH_URL, '_blank', 'noopener,noreferrer')}>
+                  <ExternalLink className="h-3 w-3 mr-1.5" />Open G2A
                 </Button>
               </div>
             </div>
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">2</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Paste your code below</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Enter the Rewarble code you received after purchasing on G2A.</p>
+                <p className="text-sm font-medium text-foreground">Pay with PayPal on G2A</p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">At G2A checkout, select <strong>PayPal</strong> as your payment method and complete the purchase. Your code will appear in your G2A account (My orders / Keys) and in your G2A confirmation email.</p>
               </div>
             </div>
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">3</span>
+              <div>
+                <p className="text-sm font-medium text-foreground">Paste your code below</p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">Copy the Rewarble gift card code (letters and numbers) and paste it below. If you bought more than one card, tap <strong>Add another code</strong> for each one.</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">4</span>
               <div>
                 <p className="text-sm font-medium text-foreground">Confirm your payment</p>
                 <p className="text-xs text-muted-foreground mt-0.5">Your code is sent to Rewarble for validation. Funds are only released once delivery to your address is complete.</p>
