@@ -152,6 +152,17 @@ const Checkout = () => {
     } catch {}
   };
 
+  const cardVideoRef = useRef<HTMLVideoElement>(null);
+  const handleCardFullscreen = () => {
+    const v = cardVideoRef.current as any;
+    if (!v) return;
+    try {
+      if (v.webkitEnterFullscreen) { v.webkitEnterFullscreen(); return; }
+      if (v.requestFullscreen) { v.requestFullscreen(); return; }
+      if (v.webkitRequestFullscreen) { v.webkitRequestFullscreen(); return; }
+    } catch {}
+  };
+
   const updateFormData = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (field === 'email' && value.includes('@')) {
@@ -711,10 +722,48 @@ const Checkout = () => {
           )}
 
 
-          {/* Card / Apple Pay / Google Pay */}
+          {/* Card (Skine) */}
           <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
             <div className="px-4 py-3 border-b border-border bg-muted/30 flex items-center justify-between">
-              <h3 className="text-xs font-semibold tracking-wide text-foreground">Watch how to pay with card or Apple Pay</h3>
+              <h3 className="text-xs font-semibold tracking-wide text-foreground">Watch how to pay with card</h3>
+              <button
+                type="button"
+                onClick={handleCardFullscreen}
+                aria-label="Fullscreen"
+                className="rounded-md bg-black/60 hover:bg-black/80 text-white p-1.5 backdrop-blur-sm transition-colors"
+              >
+                <Maximize2 className="h-3.5 w-3.5" />
+              </button>
+            </div>
+            <video
+              ref={cardVideoRef}
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full aspect-video bg-black"
+            >
+              <source src="/videos/checkout-tutorial-skine.mp4" type="video/mp4" />
+            </video>
+            <div className="px-4 py-2.5 border-t border-border">
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Step-by-step: open Skine → Buy Now on the Rewarble value that covers your total → choose Mastercard / Visa → pay with your card → copy the code from the Skine email and paste it here.
+              </p>
+            </div>
+          </div>
+
+          <Button
+            type="button"
+            disabled={!isFormValid() || isProcessing}
+            className="w-full h-12 rounded-lg text-sm font-bold tracking-wide bg-[#1A1F71] hover:bg-[#12164F] text-white"
+            onClick={() => handlePayment('card')}
+          >
+            💳 Pay with Card (Visa / Mastercard)
+          </Button>
+
+          {/* Apple Pay / Google Pay (Eneba) */}
+          <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
+            <div className="px-4 py-3 border-b border-border bg-muted/30 flex items-center justify-between">
+              <h3 className="text-xs font-semibold tracking-wide text-foreground">Watch how to pay with Apple Pay</h3>
               <button
                 type="button"
                 onClick={handleRewarbleFullscreen}
@@ -737,7 +786,7 @@ const Checkout = () => {
             </div>
             <div className="px-4 py-2.5 border-t border-border">
               <p className="text-[11px] text-muted-foreground leading-relaxed">
-                Step-by-step: open Eneba → pick the Rewarble value that covers your total → pay with card, Apple Pay or Google Pay → copy the code from your Eneba order and paste it here.
+                Step-by-step: open Eneba → pick the Rewarble value that covers your total → pay with Apple Pay or Google Pay → copy the code from your Eneba order and paste it here.
               </p>
             </div>
           </div>
@@ -748,7 +797,7 @@ const Checkout = () => {
             className="w-full h-12 rounded-lg text-sm font-bold tracking-wide bg-[#7C3AED] hover:bg-[#6D28D9] text-white"
             onClick={() => handlePayment('rewarble')}
           >
-            💳 Pay with Card / Apple Pay / Google Pay
+ Pay with Apple Pay / Google Pay
           </Button>
           {/* Small payment logos - clearly just decorative icons */}
           <div className="flex items-center justify-center gap-1.5 opacity-50">

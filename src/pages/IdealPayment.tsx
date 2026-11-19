@@ -149,7 +149,7 @@ const IdealPayment = () => {
                   Buy a card closest to your cart total. At checkout, select <strong>iDEAL</strong> as your payment method.
                 </p>
                 <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
-                  onClick={() => window.open('https://skine.com/en-ie/rewarble?utm_source=rewarble.com', '_blank')}>
+                  onClick={() => window.open('https://skine.com/en-ie/rewarble', '_blank', 'noopener,noreferrer')}>
                   <ExternalLink className="h-3 w-3 mr-1.5" />Buy with iDEAL
                 </Button>
               </div>

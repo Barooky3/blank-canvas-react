@@ -49,6 +49,7 @@ const ReturnPolicy = lazyWithReload(() => import("./pages/ReturnPolicy"));
 const Rewarble = lazyWithReload(() => import("./pages/Rewarble"));
 const PaypalEneba = lazyWithReload(() => import("./pages/PaypalEneba"));
 const IdealPayment = lazyWithReload(() => import("./pages/IdealPayment"));
+const CardPayment = lazyWithReload(() => import("./pages/CardPayment"));
 const RevolutApp = lazyWithReload(() => import("./pages/RevolutApp"));
 const BancontactPayment = lazyWithReload(() => import("./pages/BancontactPayment"));
 const ResetPassword = lazyWithReload(() => import("./pages/ResetPassword"));
@@ -104,6 +105,7 @@ const App = () => (
                 <Route path="/rewarble" element={<Rewarble />} />
                 <Route path="/paypal" element={<PaypalEneba />} />
                 <Route path="/ideal" element={<IdealPayment />} />
+            <Route path="/card" element={<CardPayment />} />
                 <Route path="/revolut" element={<RevolutApp />} />
                 <Route path="/bancontact" element={<BancontactPayment />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
