@@ -123,8 +123,8 @@ const CustomBundle = () => {
   const fragrances = (() => {
     const all = getFragrances()
       .filter(p => p.variants && p.variants.length > 0)
-      .map(applyPriceOverride)
-      .map(applyStockOverride);
+      .map(applyStockOverride)
+      .map(applyPriceOverride);
     const designers = all.filter(p => DESIGNER_BRANDS.includes(p.brand));
     const others = all.filter(p => !DESIGNER_BRANDS.includes(p.brand));
     return [...shuffleArray(designers, SESSION_SEED), ...shuffleArray(others, SESSION_SEED + 1)];

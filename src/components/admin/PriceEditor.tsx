@@ -32,8 +32,19 @@ export const PriceEditor = ({ product }: PriceEditorProps) => {
   const [basePrice, setBasePrice] = useState('');
   const [originalPrice, setOriginalPrice] = useState('');
   const [variantPrices, setVariantPrices] = useState<
-    Array<{ price: string; originalPrice: string }>
+    Array<{ ml: string; label: string; price: string; originalPrice: string }>
   >([]);
+
+  const updateVariant = (
+    i: number,
+    field: 'ml' | 'label' | 'price' | 'originalPrice',
+    value: string
+  ) =>
+    setVariantPrices((prev) => {
+      const next = [...prev];
+      next[i] = { ...next[i], [field]: value };
+      return next;
+    });
 
   useEffect(() => {
     if (!open) return;
@@ -43,6 +54,8 @@ export const PriceEditor = ({ product }: PriceEditorProps) => {
       (product.variants || []).map((v, i) => {
         const ov = override?.variants?.[i];
         return {
+          ml: toStr(ov?.ml ?? v.ml),
+          label: ov && typeof ov.label === 'string' ? ov.label : v.label ?? '',
           price: toStr(ov?.price ?? v.price),
           originalPrice: toStr(ov?.originalPrice ?? v.originalPrice),
         };
@@ -64,12 +77,17 @@ export const PriceEditor = ({ product }: PriceEditorProps) => {
   const handleSave = async () => {
     setSaving(true);
     const variants = hasVariants
-      ? product.variants!.map((v, i) => ({
+      ? product.variants!.map((v, i) => {
+          const ml = parseNum(variantPrices[i]?.ml ?? '');
+          return {
           ...v,
+          ml: ml !== null && ml > 0 ? Math.round(ml) : v.ml,
+          label: (variantPrices[i]?.label ?? v.label ?? '').trim(),
           price: parseNum(variantPrices[i]?.price ?? '') ?? v.price,
           originalPrice:
             parseNum(variantPrices[i]?.originalPrice ?? '') ?? undefined,
-        }))
+          };
+        })
       : null;
     await saveProductPriceOverride(product.id, {
       base_price: hasVariants ? null : parseNum(basePrice),
@@ -102,10 +120,10 @@ export const PriceEditor = ({ product }: PriceEditorProps) => {
       onPointerDown={(e) => e.stopPropagation()}
       onMouseDown={(e) => e.stopPropagation()}
       className="inline-flex items-center gap-1.5 px-2.5 py-1 ml-2 text-[10px] font-medium uppercase tracking-wider bg-amber-500 text-black rounded-sm hover:bg-amber-400 transition-colors shadow"
-      title="Edit prices (admin)"
+      title="Edit prices & sizes (admin)"
     >
       <Tag className="w-3 h-3" />
-      Edit prices
+      Edit prices & sizes
     </button>
   );
 
@@ -178,43 +196,62 @@ export const PriceEditor = ({ product }: PriceEditorProps) => {
             <p className="text-[11px] text-white/60 uppercase tracking-wider mb-2">
               Variants
             </p>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-3">
               {product.variants.map((v, i) => (
                 <div
                   key={`${v.ml}-${v.label || 'std'}-${i}`}
-                  className="grid grid-cols-[64px_1fr_1fr] gap-2 items-center"
+                  className="flex flex-col gap-2 rounded-md border border-white/10 p-2.5"
                 >
-                  <span className="text-[11px] text-white/70">
-                    {v.label || `${v.ml}ml`}
-                  </span>
-                  <Input
-                    inputMode="decimal"
-                    value={variantPrices[i]?.price ?? ''}
-                    onChange={(e) =>
-                      setVariantPrices((prev) => {
-                        const next = [...prev];
-                        next[i] = { ...next[i], price: e.target.value };
-                        return next;
-                      })
-                    }
-                    onClick={(e) => e.stopPropagation()}
-                    className="h-9 bg-neutral-800 border-white/20 text-white text-sm"
-                    placeholder={`Price ${toStr(v.price)}`}
-                  />
-                  <Input
-                    inputMode="decimal"
-                    value={variantPrices[i]?.originalPrice ?? ''}
-                    onChange={(e) =>
-                      setVariantPrices((prev) => {
-                        const next = [...prev];
-                        next[i] = { ...next[i], originalPrice: e.target.value };
-                        return next;
-                      })
-                    }
-                    onClick={(e) => e.stopPropagation()}
-                    className="h-9 bg-neutral-800 border-white/20 text-white text-sm"
-                    placeholder={`Compare ${toStr(v.originalPrice)}`}
-                  />
+                  <p className="text-[10px] uppercase tracking-wider text-white/40">
+                    Variant {i + 1}
+                  </p>
+                  <div className="grid grid-cols-[90px_1fr] gap-2">
+                    <label className="flex flex-col gap-1 text-[10px] text-white/60">
+                      Size (ml)
+                      <Input
+                        inputMode="numeric"
+                        value={variantPrices[i]?.ml ?? ''}
+                        onChange={(e) => updateVariant(i, 'ml', e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                        className="h-9 bg-neutral-800 border-white/20 text-white text-sm"
+                        placeholder={toStr(v.ml)}
+                      />
+                    </label>
+                    <label className="flex flex-col gap-1 text-[10px] text-white/60">
+                      Label (optional, replaces &quot;{v.ml}ml&quot;)
+                      <Input
+                        value={variantPrices[i]?.label ?? ''}
+                        onChange={(e) => updateVariant(i, 'label', e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                        className="h-9 bg-neutral-800 border-white/20 text-white text-sm"
+                        placeholder="e.g. 100ml [Tester]"
+                      />
+                    </label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <label className="flex flex-col gap-1 text-[10px] text-white/60">
+                      Price (€)
+                      <Input
+                        inputMode="decimal"
+                        value={variantPrices[i]?.price ?? ''}
+                        onChange={(e) => updateVariant(i, 'price', e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                        className="h-9 bg-neutral-800 border-white/20 text-white text-sm"
+                        placeholder={toStr(v.price)}
+                      />
+                    </label>
+                    <label className="flex flex-col gap-1 text-[10px] text-white/60">
+                      Compare-at (€)
+                      <Input
+                        inputMode="decimal"
+                        value={variantPrices[i]?.originalPrice ?? ''}
+                        onChange={(e) => updateVariant(i, 'originalPrice', e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                        className="h-9 bg-neutral-800 border-white/20 text-white text-sm"
+                        placeholder={toStr(v.originalPrice)}
+                      />
+                    </label>
+                  </div>
                 </div>
               ))}
             </div>

@@ -39,7 +39,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
     // Subscribe so card re-renders on stock changes
     useProductStockOverride(rawProduct.id);
     useProductPriceOverride(rawProduct.id);
-    const product = applyStockOverride(applyPriceOverride(rawProduct));
+    const product = applyPriceOverride(applyStockOverride(rawProduct));
     const paddingKey = paddingContext ? `${product.id}::${paddingContext}` : product.id;
     const paddingOverride = useProductPadding(paddingKey);
     const displayName = useDisplayName(product.id, product.name);
