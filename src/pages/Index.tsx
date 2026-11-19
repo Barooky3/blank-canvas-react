@@ -26,8 +26,10 @@ const Index = () => {
   const navigate = useNavigate();
   const newArrivals = [
     getProductById('jpg-ultra-male'),
-    getProductById('le-sablier-zeus'),
-    getProductById('le-sablier-pharaon'),
+    getProductById('giardini-bianco-latte'),
+    getProductById('baccarat-rouge-540-extrait'),
+    getProductById('sospiro-vibrato'),
+    getProductById('pdm-greenley'),
   ].filter(Boolean);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -185,9 +187,9 @@ const Index = () => {
             <h2 className="font-display text-2xl md:text-3xl lg:text-4xl text-foreground text-center mb-6 md:mb-8">
               New Arrivals
             </h2>
-            <div className="grid grid-cols-3 gap-2 md:gap-4 max-w-[680px] mx-auto">
+            <div className="flex flex-wrap justify-center gap-x-2 gap-y-5 md:gap-x-4 md:gap-y-6 max-w-[680px] mx-auto">
               {newArrivals.map((product) => (
-                <div key={product.id} className="relative bg-secondary/30 border border-border/25 rounded-xl p-3 md:p-4">
+                <div key={product.id} className="relative w-[calc((100%-1rem)/3)] md:w-[calc((100%-2rem)/3)] bg-secondary/30 border border-border/25 rounded-xl p-3 md:p-4">
                   <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10 bg-accent text-accent-foreground text-[8px] font-semibold tracking-[0.15em] uppercase px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
                     <Sparkles className="h-2 w-2" />
                     New
