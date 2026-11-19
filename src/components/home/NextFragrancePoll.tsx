@@ -4,27 +4,26 @@ import { Trophy, Check } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
-import ultraMaleImg from '@/assets/products/jpg-ultra-male.png.asset.json';
 
-const POLL_ID = 'next-arrival-2026-11-ii';
+const POLL_ID = 'next-arrival-2026-11-iii';
 const ADMIN_EMAILS = ['ewhz3384@gmail.com', 'elkhabirmalik@gmail.com'];
 
 const OPTIONS = [
   {
-    key: 'giardini-bianco-latte',
-    label: 'Giardini di Toscana Bianco Latte',
-    image: '/images/products/giardini-bianco-latte.png',
+    key: 'sospiro-vibrato',
+    label: 'Sospiro Vibrato',
+    image: '/images/products/sospiro-vibrato.png',
   },
   {
-    key: 'bts-drunk-lovers',
-    label: 'Borntostandout Drunk Lovers',
-    image: '/images/products/bts-drunk-lovers.png',
+    key: 'pdm-greenley',
+    label: 'Parfums de Marly Greenley',
+    image: '/images/products/pdm-greenley.png',
   },
 ] as const;
 
 const LAST_WINNER = {
-  name: 'Jean Paul Gaultier Ultra Male',
-  image: ultraMaleImg.url,
+  name: 'Giardini di Toscana Bianco Latte',
+  image: '/images/products/giardini-bianco-latte.png',
 };
 
 function getFingerprint(): string {

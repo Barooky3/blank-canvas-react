@@ -2604,6 +2604,35 @@ export const products: Product[] = [
   { ml: 100, price: 42.99, inStock: false },
     ],
   },
+  {
+    id: 'giardini-bianco-latte',
+    addedAt: '2026-11-20',
+    name: 'Bianco Latte',
+    brand: 'Giardini di Toscana',
+    price: 49.99,
+    category: 'unisex',
+    description: 'A creamy gourmand of warm caramel, honey and coumarin melting into soft vanilla and white musk, like a cup of sweetened milk.',
+    scentNotes: {
+      top: ['Caramel'],
+      heart: ['Coumarin', 'Honey'],
+      base: ['Vanilla', 'White Musk'],
+    },
+    scentNoteImages: {
+      'Caramel': '/scent-notes/caramel.png',
+      'Coumarin': '/scent-notes/tonka-bean.png',
+      'Honey': '/scent-notes/honey.png',
+      'Vanilla': '/scent-notes/vanilla.png',
+      'White Musk': '/scent-notes/white-musk.png',
+    },
+    accentColor: '#C8A27A',
+    image: '/images/products/giardini-bianco-latte.png',
+    affiliateUrl: '/product/giardini-bianco-latte',
+    inStock: true,
+    featured: true,
+    variants: [
+      { ml: 100, price: 49.99, inStock: true },
+    ],
+  },
 ];
 
 

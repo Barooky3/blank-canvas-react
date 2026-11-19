@@ -26,8 +26,8 @@ const Index = () => {
   const navigate = useNavigate();
   const newArrivals = [
     getProductById('jpg-ultra-male'),
-    getProductById('le-sablier-zeus'),
-    getProductById('le-sablier-pharaon'),
+    getProductById('giardini-bianco-latte'),
+    getProductById('baccarat-rouge-540-extrait'),
   ].filter(Boolean);
   const [searchQuery, setSearchQuery] = useState('');
 
