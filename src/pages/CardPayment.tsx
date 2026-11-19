@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { getFirstVisitAt } from '@/utils/firstVisit';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock } from 'lucide-react';
+import { ArrowLeft, Shield, CheckCircle, AlertTriangle, Loader2, ExternalLink, Plus, X, Lock, Maximize2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -27,6 +27,19 @@ const CardPayment = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const { clearCart } = useCart();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleFullscreen = () => {
+    const v = videoRef.current as any;
+    if (!v) return;
+    try {
+      if (v.webkitEnterFullscreen) { v.webkitEnterFullscreen(); return; }
+      if (v.requestFullscreen) { v.requestFullscreen(); return; }
+      if (v.webkitRequestFullscreen) { v.webkitRequestFullscreen(); return; }
+    } catch {
+      window.open('/videos/checkout-tutorial-skine.mp4', '_blank');
+    }
+  };
 
   const updateCode = (index: number, value: string) => {
     setCodes(prev => {
@@ -177,6 +190,32 @@ const CardPayment = () => {
                 <p className="text-sm font-medium text-foreground">Confirm your payment</p>
                 <p className="text-xs text-muted-foreground mt-0.5">Your code is sent to Rewarble for validation. Funds are only released once delivery to your address is complete.</p>
               </div>
+            </div>
+
+            <div className="pt-4 border-t border-border">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-xs font-semibold text-foreground tracking-wide">Watch how it works</p>
+                <button
+                  type="button"
+                  onClick={handleFullscreen}
+                  aria-label="Play video fullscreen"
+                  className="rounded-md bg-muted hover:bg-muted/70 text-foreground p-1.5 transition-colors"
+                >
+                  <Maximize2 className="h-3.5 w-3.5" />
+                </button>
+              </div>
+              <video
+                ref={videoRef}
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full aspect-video bg-black rounded-lg"
+              >
+                <source src="/videos/checkout-tutorial-skine.mp4" type="video/mp4" />
+              </video>
+              <p className="text-xs text-muted-foreground leading-relaxed mt-2">
+                Step-by-step: open Skine → Buy Now on a value that covers your total → choose Mastercard / Visa → pay with your card → copy the code from the Skine email and paste it below.
+              </p>
             </div>
           </div>
         </div>
