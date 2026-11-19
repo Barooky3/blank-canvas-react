@@ -12,7 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
-const G2A_SEARCH_URL = 'https://www.g2a.com/search?query=paypal%20gift%20card%20rewarble';
+const SKINE_URL = 'https://skine.com/en-ie/rewarble';
 
 const PaypalEneba = () => {
   const { toast } = useToast();
@@ -152,21 +152,21 @@ const PaypalEneba = () => {
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Buy a PayPal Rewarble gift card on G2A</p>
+                <p className="text-sm font-medium text-foreground">Buy a Rewarble gift card on Skine</p>
                 <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                  Open G2A and search for <strong>PayPal Gift Card by Rewarble</strong> (EUR). Choose card value(s) that add up to <strong>at least your order amount</strong>{orderTotal ? <> (<strong>€{orderTotal}</strong>)</> : null}. You can combine several cards if needed.
+                  Open Skine and press <strong>Buy Now</strong> on card value(s) that add up to <strong>at least your order amount</strong>{orderTotal ? <> (<strong>€{orderTotal}</strong>)</> : null}. You can combine several cards if needed.
                 </p>
                 <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
-                  onClick={() => window.open(G2A_SEARCH_URL, '_blank', 'noopener,noreferrer')}>
-                  <ExternalLink className="h-3 w-3 mr-1.5" />Open G2A
+                  onClick={() => window.open(SKINE_URL, '_blank', 'noopener,noreferrer')}>
+                  <ExternalLink className="h-3 w-3 mr-1.5" />Open Skine
                 </Button>
               </div>
             </div>
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">2</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Pay with PayPal on G2A</p>
-                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">At G2A checkout, select <strong>PayPal</strong> as your payment method and complete the purchase. Your code will appear in your G2A account (My orders / Keys) and in your G2A confirmation email.</p>
+                <p className="text-sm font-medium text-foreground">Pay with PayPal on Skine</p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">At Skine checkout select <strong>PayPal</strong>, enter your email, tick the captcha and press <strong>Checkout</strong>. Your Rewarble code is emailed to you instantly.</p>
               </div>
             </div>
             <div className="flex gap-3">
