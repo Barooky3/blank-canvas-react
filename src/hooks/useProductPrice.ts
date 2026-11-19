@@ -91,6 +91,8 @@ export const applyPriceOverride = <T extends Product>(product: T): T => {
         if (!o) return v;
         return {
           ...v,
+          ml: typeof o.ml === 'number' && o.ml > 0 ? o.ml : v.ml,
+          label: typeof o.label === 'string' ? o.label.trim() || undefined : v.label,
           price: typeof o.price === 'number' ? o.price : v.price,
           originalPrice:
             typeof o.originalPrice === 'number' ? o.originalPrice : v.originalPrice,

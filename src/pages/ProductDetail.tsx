@@ -41,7 +41,7 @@ const ProductDetail = forwardRef<HTMLDivElement>((_, ref) => {
   // Subscribe to price + stock overrides so the page re-renders when admin saves
   useProductPriceOverride(id || '');
   useProductStockOverride(id || '');
-  const product = rawProduct ? applyStockOverride(applyPriceOverride(rawProduct)) : undefined;
+  const product = rawProduct ? applyPriceOverride(applyStockOverride(rawProduct)) : undefined;
   const paddingOverride = useProductPadding(id || '');
   const displayName = useDisplayName(id || '', product?.name || '');
   const displayDescription = useDisplayDescription(id || '', product?.description || '');
