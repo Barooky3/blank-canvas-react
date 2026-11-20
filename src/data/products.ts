@@ -223,11 +223,11 @@ export const products: Product[] = [
     image: '/product-images/amore-caffe.png',
     additionalImages: [amoreCaffeGallery.url],
     affiliateUrl: '/product/amore-caffe',
-    inStock: true,
+    inStock: false,
     featured: true,
     variants: [
-      { ml: 60, price: 26.99, inStock: true },
-      { ml: 120, price: 34.99, inStock: true },
+      { ml: 60, price: 26.99, inStock: false },
+      { ml: 120, price: 34.99, inStock: false },
     ],
   },
   {
@@ -1323,12 +1323,12 @@ export const products: Product[] = [
     image: '/product-images/the-most-wanted-parfum.png',
     additionalImages: [theMostWantedParfumLifestyle],
     affiliateUrl: '/product/the-most-wanted-parfum',
-    inStock: false,
+    inStock: true,
     featured: true,
     variants: [
-      { ml: 50, price: 25.99, inStock: false },
-      { ml: 100, price: 33.99, inStock: false },
-      { ml: 100, price: 29.99, inStock: false, label: '100ml [Tester]', note: 'Comes without its original packaging but has never been opened or used.' },
+      { ml: 50, price: 25.99, inStock: true },
+      { ml: 100, price: 33.99, inStock: true },
+      { ml: 100, price: 29.99, inStock: true, label: '100ml [Tester]', note: 'Comes without its original packaging but has never been opened or used.' },
     ],
 
   },
@@ -2123,10 +2123,10 @@ export const products: Product[] = [
     image: '/product-images/the-most-wanted-edp-intense.png',
     additionalImages: [theMostWantedEdpIntenseGallery.url],
     affiliateUrl: '/product/the-most-wanted-edp-intense',
-    inStock: true,
+    inStock: false,
     variants: [
-      { ml: 50, price: 25.99, inStock: true },
-      { ml: 100, price: 34.99, inStock: true },
+      { ml: 50, price: 25.99, inStock: false },
+      { ml: 100, price: 34.99, inStock: false },
     ],
   },
   {
