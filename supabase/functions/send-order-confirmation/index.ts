@@ -18,7 +18,7 @@ function escapeHtml(text: string): string {
 
 const DEFAULT_SELLER_LINK = "https://litbuy.shop/lit/I2wvc0a2";
 
-const SITE_URL = "https://www.parfora.net";
+const SITE_URL = "https://www.parforium.net";
 
 // Strip accents for matching (é→e, ô→o, etc.)
 function stripAccents(str: string): string {
@@ -350,7 +350,7 @@ function buildEmailHtml(
     '<div style="background-color: #1a1a1a; padding: 28px 32px; text-align: center;">',
     '<p style="color: #c9a96e; font-size: 14px; letter-spacing: 3px; margin: 0 0 8px 0; text-transform: uppercase;">Parforium</p>',
     '<p style="color: #666; font-size: 11px; margin: 0; line-height: 1.8;">&copy; ' + year + ' Parforium. All rights reserved.<br>',
-    '<a href="https://www.parfora.net" style="color: #888; text-decoration: none;">parfora.net</a></p>',
+    '<a href="https://www.parforium.net" style="color: #888; text-decoration: none;">parforium.net</a></p>',
     '</div>',
 
     '</div></body></html>',
@@ -559,7 +559,7 @@ serve(async (req) => {
 
     const paddingMap = await fetchPaddingOverrides(normalizedItems.map((i) => i.product_id || "").filter(Boolean));
 
-    const origin = "https://www.parfora.net";
+    const origin = "https://www.parforium.net";
     const itemsHtml = buildItemsHtml(normalizedItems, origin, paddingMap);
 
     const shippingMethod = (shippingAddress as any)?.shippingMethod || null;

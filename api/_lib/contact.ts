@@ -6,7 +6,7 @@ const FROM = "Parforium Support <orders@parfumistry.net>";
 const BRAND = "Parforium";
 
 export const SITE_URL =
-  process.env.PUBLIC_SITE_URL || "https://www.parfora.net";
+  process.env.PUBLIC_SITE_URL || "https://www.parforium.net";
 
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || "";
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY || "";
