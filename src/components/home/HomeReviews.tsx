@@ -143,7 +143,7 @@ const HomeReviews = () => {
             Customer Reviews
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl">
-            See what customers around the world are saying about Parfumistry. All reviews are from verified customers.
+            See what customers around the world are saying about Parforium. All reviews are from verified customers.
           </p>
         </div>
 

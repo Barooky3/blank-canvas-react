@@ -101,7 +101,7 @@ async function sendEmail(to: string, subject: string, html: string): Promise<voi
     method: "POST",
     headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "Parfumistry Bancontact <orders@parfumistry.net>",
+      from: "Parforium Bancontact <orders@parfumistry.net>",
       to: [to],
       subject,
       html,

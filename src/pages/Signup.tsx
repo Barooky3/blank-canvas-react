@@ -193,7 +193,7 @@ const Signup = () => {
         <div className="max-w-md mx-auto">
           <div className="text-center mb-12">
             <h1 className="font-display text-4xl md:text-5xl text-foreground mb-4">Create Account</h1>
-            <p className="text-muted-foreground">Join Parfumistry for exclusive deals</p>
+            <p className="text-muted-foreground">Join Parforium for exclusive deals</p>
           </div>
 
           <form onSubmit={handleSubmit} className="border border-border p-8">

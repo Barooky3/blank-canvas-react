@@ -79,7 +79,7 @@ const warnIcon = (bg = '#f59e0b') =>
 const numCircle = (n) =>
   h({ width: 38, height: 38, borderRadius: 19, background: '#7C3AED', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20, fontWeight: 700, flexShrink: 0 }, String(n))
 
-// ---------- Parfora site (dark) ----------
+// ---------- Parforium site (dark) ----------
 function sitePayPage({ hover }) {
   return [
     abs(560, 176, 800, 60, { justifyContent: 'center', color: '#f5f5f5', fontSize: 44, fontWeight: 700 }, 'Pay with Rewarble'),

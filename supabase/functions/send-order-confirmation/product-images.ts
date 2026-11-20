@@ -7,9 +7,9 @@ export interface EmailProductImage {
 }
 
 export const EMAIL_PRODUCT_IMAGES: EmailProductImage[] = [
-  { id: "evening-sweetheart-bundle", name: "Fragrance Bundle \"Evening Sweetheart\"", brand: "Parfumistry", path: "/email/products/evening-sweetheart-bundle.png" },
-  { id: "young-playboy-bundle", name: "Fragrance Bundle \"Young Playboy\"", brand: "Parfumistry", path: "/email/products/young-playboy-bundle.png" },
-  { id: "sleek-and-clean-bundle", name: "Fragrance Bundle \"Sleek and Clean\"", brand: "Parfumistry", path: "/email/products/sleek-and-clean-bundle.png" },
+  { id: "evening-sweetheart-bundle", name: "Fragrance Bundle \"Evening Sweetheart\"", brand: "Parforium", path: "/email/products/evening-sweetheart-bundle.png" },
+  { id: "young-playboy-bundle", name: "Fragrance Bundle \"Young Playboy\"", brand: "Parforium", path: "/email/products/young-playboy-bundle.png" },
+  { id: "sleek-and-clean-bundle", name: "Fragrance Bundle \"Sleek and Clean\"", brand: "Parforium", path: "/email/products/sleek-and-clean-bundle.png" },
   { id: "amore-caffe", name: "Amore Caffé", brand: "Mancera", path: "/email/products/amore-caffe.png" },
   { id: "althair", name: "Althair", brand: "Parfums de Marly", path: "/email/products/althair.png" },
   { id: "aoud-lemon-mint", name: "Aoud Lemon Mint", brand: "Mancera", path: "/email/products/aoud-lemon-mint.png" },

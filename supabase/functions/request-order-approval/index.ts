@@ -193,7 +193,7 @@ function buildProofRequestEmailHtml(customerName: string, totalAmount: string, o
 <body style="margin:0;padding:0;background:#f4f3ef;font-family:Helvetica Neue,Arial,sans-serif;">
 <div style="max-width:600px;margin:0 auto;background:#fff;">
   <div style="background:#1a1a1a;padding:36px 32px;text-align:center;">
-    <h1 style="color:#c9a96e;font-size:26px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parfumistry</h1>
+    <h1 style="color:#c9a96e;font-size:26px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parforium</h1>
     <p style="color:#666;font-size:12px;letter-spacing:2px;margin:8px 0 0;text-transform:uppercase;">Premium Fragrances</p>
   </div>
   <div style="padding:32px;">
@@ -208,8 +208,8 @@ function buildProofRequestEmailHtml(customerName: string, totalAmount: string, o
     <p style="font-size:13px;color:#999;line-height:1.6;margin:0;">Once you send your proof of payment, we'll verify it and send you the order confirmation email right away.${orderNumber ? ' Please reference order <strong>#' + orderNumber + '</strong> in your reply.' : ''}</p>
   </div>
   <div style="background:#1a1a1a;padding:28px 32px;text-align:center;">
-    <p style="color:#c9a96e;font-size:14px;letter-spacing:3px;margin:0 0 8px;text-transform:uppercase;">Parfumistry</p>
-    <p style="color:#666;font-size:11px;margin:0;">&copy; ${year} Parfumistry. All rights reserved.</p>
+    <p style="color:#c9a96e;font-size:14px;letter-spacing:3px;margin:0 0 8px;text-transform:uppercase;">Parforium</p>
+    <p style="color:#666;font-size:11px;margin:0;">&copy; ${year} Parforium. All rights reserved.</p>
   </div>
 </div>
 </body></html>`;
@@ -220,7 +220,7 @@ async function sendEmail(to: string | string[], subject: string, htmlContent: st
   if (!apiKey) throw new Error("RESEND_API_KEY not configured");
 
   const emailPayload: any = {
-    from: "Parfumistry Orders <orders@parfumistry.net>",
+    from: "Parforium Orders <orders@parfumistry.net>",
     to: Array.isArray(to) ? to : [to],
     subject,
     html: htmlContent,

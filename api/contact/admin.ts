@@ -98,7 +98,7 @@ async function handler(req: Request): Promise<Response> {
       const replyUrl = `${SITE_URL}/reply/${convo.reply_token}`;
       const mail = await sendEmail({
         to: convo.customer_email,
-        subject: `Re: ${convo.subject || "Your message to Parfumistry"}`,
+        subject: `Re: ${convo.subject || "Your message to Parforium"}`,
         html: replyEmailHtml({
           customerName: convo.customer_name,
           subject: convo.subject,

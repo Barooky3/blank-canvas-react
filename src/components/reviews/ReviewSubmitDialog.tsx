@@ -182,7 +182,7 @@ export const ReviewSubmitDialog = ({ open, onOpenChange, onSubmitted }: ReviewSu
             <Textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="Share your experience with Parfumistry..."
+              placeholder="Share your experience with Parforium..."
               rows={5}
               maxLength={1000}
               className="rounded-none resize-none bg-background/40 border-border/60 focus-visible:border-accent"

@@ -14,7 +14,7 @@ const PrivacyPolicy = () => {
             <section>
               <h2 className="font-display text-2xl mb-4">1. Information We Collect</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                When you make a purchase on Parfumistry, we collect the following information:
+                When you make a purchase on Parforium, we collect the following information:
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li>Email address (for order confirmation and shipping updates)</li>

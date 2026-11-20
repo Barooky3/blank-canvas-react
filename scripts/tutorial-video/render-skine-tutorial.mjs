@@ -79,7 +79,7 @@ const warnIcon = (bg = '#f59e0b') =>
 const numCircle = (n) =>
   h({ width: 38, height: 38, borderRadius: 19, background: '#7C3AED', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20, fontWeight: 700, flexShrink: 0 }, String(n))
 
-// ---------- Parfora site (dark) ----------
+// ---------- Parforium site (dark) ----------
 function sitePayPage({ hover }) {
   return [
     abs(560, 176, 800, 60, { justifyContent: 'center', color: '#f5f5f5', fontSize: 44, fontWeight: 700 }, 'Pay with Card'),
@@ -330,7 +330,7 @@ function skineProduct({ hoverVal }) {
       150,
       { flexDirection: 'column', gap: 10, padding: '20px 24px', borderRadius: 10, border: '2px solid rgba(14,165,233,0.45)', background: 'rgba(14,165,233,0.12)' },
       T('Tip', { color: '#7dd3fc', fontSize: 20, fontWeight: 700 }),
-      T('Pick the card value that covers your Parfora total.', { color: '#bae6fd', fontSize: 18, lineHeight: 1.4 }),
+      T('Pick the card value that covers your Parforium total.', { color: '#bae6fd', fontSize: 18, lineHeight: 1.4 }),
     ),
   ]
 }

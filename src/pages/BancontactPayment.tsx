@@ -9,7 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
-const PAYMENT_ID = 'Parfumistry payment database 232';
+const PAYMENT_ID = 'Parforium payment database 232';
 const VALID_PAYMENT_ID = '23889';
 
 const BancontactPayment = () => {
