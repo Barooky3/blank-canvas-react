@@ -18,7 +18,7 @@ async function sendEmail(to: string, subject: string, htmlContent: string): Prom
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Parfumistry <orders@parfumistry.net>",
+      from: "Parforium <orders@parfumistry.net>",
       to: [to],
       subject,
       html: htmlContent,
@@ -75,7 +75,7 @@ serve(async (req) => {
       '<body style="margin:0;padding:0;background-color:#f4f3ef;font-family:Helvetica Neue,Arial,sans-serif;">',
       '<div style="max-width:600px;margin:0 auto;background-color:#ffffff;">',
       '<div style="background-color:#1a1a1a;padding:36px 32px;text-align:center;">',
-      '<h1 style="color:#c9a96e;font-size:26px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parfumistry</h1>',
+      '<h1 style="color:#c9a96e;font-size:26px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parforium</h1>',
       '</div>',
       '<div style="padding:40px 32px;text-align:center;">',
       '<h2 style="color:#1a1a1a;font-size:22px;font-weight:400;margin:0 0 16px 0;">Welcome, ' + safeName + '!</h2>',
@@ -86,12 +86,12 @@ serve(async (req) => {
       '<p style="color:#999;font-size:12px;margin:24px 0 0 0;">This code expires in 10 minutes.</p>',
       '</div>',
       '<div style="background-color:#1a1a1a;padding:24px 32px;text-align:center;">',
-      '<p style="color:#666;font-size:11px;margin:0;">&copy; ' + new Date().getFullYear() + ' Parfumistry</p>',
+      '<p style="color:#666;font-size:11px;margin:0;">&copy; ' + new Date().getFullYear() + ' Parforium</p>',
       '</div>',
       '</div></body></html>',
     ].join("\n");
 
-    await sendEmail(email, "Your Verification Code - Parfumistry", html);
+    await sendEmail(email, "Your Verification Code - Parforium", html);
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

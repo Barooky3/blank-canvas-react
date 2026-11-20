@@ -172,7 +172,7 @@ const CustomBundle = () => {
     const bundleProduct: Product = {
       id,
       name: (bundleName.trim() || 'Custom Bundle') + ' (' + selections.map(s => displayName(s.product)).join(', ') + ')',
-      brand: 'Parfumistry',
+      brand: 'Parforium',
       price: totalPrice,
       category: 'bundle',
       description: `Custom bundle: ${selections.map(s => `${displayName(s.product)} ${s.variant.ml}ml`).join(', ')}`,

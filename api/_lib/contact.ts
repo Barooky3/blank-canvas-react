@@ -2,8 +2,8 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 // ---------- config ----------
 export const ADMIN_EMAIL = "ewhz3384@gmail.com";
-const FROM = "Parfumistry Support <orders@parfumistry.net>";
-const BRAND = "Parfumistry";
+const FROM = "Parforium Support <orders@parfumistry.net>";
+const BRAND = "Parforium";
 
 export const SITE_URL =
   process.env.PUBLIC_SITE_URL || "https://www.parfora.net";

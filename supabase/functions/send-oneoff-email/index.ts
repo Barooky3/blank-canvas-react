@@ -40,7 +40,7 @@ serve(async (req) => {
 
     const body = await req.json().catch(() => ({}));
     const rawTo = typeof body.to === "string" ? body.to.trim() : "";
-    const rawSubject = typeof body.subject === "string" ? body.subject : "How to Redo Your Order — Parfumistry";
+    const rawSubject = typeof body.subject === "string" ? body.subject : "How to Redo Your Order — Parforium";
     const rawMessage = typeof body.message === "string" ? body.message : "";
 
     if (!rawTo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawTo) || rawTo.length > 254) {
@@ -55,7 +55,7 @@ serve(async (req) => {
 You're only required to pay for the €120 that was used at the start.`).slice(0, 5000);
 
     const year = new Date().getFullYear();
-    const safeSubject = escapeHtml(subject.replace(" — Parfumistry", ""));
+    const safeSubject = escapeHtml(subject.replace(" — Parforium", ""));
     const safeMessage = escapeHtml(message);
     const html = `<!DOCTYPE html><html><body style="margin:0;padding:20px;background:#f4f3ef;font-family:Arial,sans-serif;">
 <div style="max-width:600px;margin:0 auto;background:#fff;">
@@ -71,7 +71,7 @@ You're only required to pay for the €120 that was used at the start.`).slice(0
     </div>
   </div>
   <div style="background:#1a1a1a;padding:20px 32px;text-align:center;">
-    <p style="color:#666;font-size:11px;margin:0;">&copy; ${year} Parfumistry. All rights reserved.</p>
+    <p style="color:#666;font-size:11px;margin:0;">&copy; ${year} Parforium. All rights reserved.</p>
   </div>
 </div></body></html>`;
 
@@ -79,7 +79,7 @@ You're only required to pay for the €120 that was used at the start.`).slice(0
       method: "POST",
       headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: "Parfumistry <orders@parfumistry.net>",
+        from: "Parforium <orders@parfumistry.net>",
         to: [rawTo],
         subject,
         text: message,

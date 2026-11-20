@@ -69,7 +69,7 @@ serve(async (req) => {
 <div style="max-width:600px;margin:0 auto;background:#fff;">
 
   <div style="background:#1a1a1a;padding:36px 32px;text-align:center;">
-    <h1 style="color:#c9a96e;font-size:26px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parfumistry</h1>
+    <h1 style="color:#c9a96e;font-size:26px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parforium</h1>
     <p style="color:#666;font-size:12px;letter-spacing:2px;margin:8px 0 0;text-transform:uppercase;">Premium Fragrances</p>
   </div>
 
@@ -103,8 +103,8 @@ serve(async (req) => {
   </div>
 
   <div style="background:#1a1a1a;padding:28px 32px;text-align:center;">
-    <p style="color:#c9a96e;font-size:14px;letter-spacing:3px;margin:0 0 8px;text-transform:uppercase;">Parfumistry</p>
-    <p style="color:#666;font-size:11px;margin:0;">&copy; ${year} Parfumistry. All rights reserved.</p>
+    <p style="color:#c9a96e;font-size:14px;letter-spacing:3px;margin:0 0 8px;text-transform:uppercase;">Parforium</p>
+    <p style="color:#666;font-size:11px;margin:0;">&copy; ${year} Parforium. All rights reserved.</p>
   </div>
 
 </div>
@@ -117,9 +117,9 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Parfumistry <orders@parfumistry.net>",
+        from: "Parforium <orders@parfumistry.net>",
         to: [email],
-        subject: "Welcome to Parfumistry — Here's 15% Off Your First Order",
+        subject: "Welcome to Parforium — Here's 15% Off Your First Order",
         html,
       }),
     });

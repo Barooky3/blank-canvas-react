@@ -14,14 +14,14 @@ const TermsOfService = () => {
             <section>
               <h2 className="font-display text-2xl mb-4">1. Acceptance of Terms</h2>
               <p className="text-muted-foreground leading-relaxed">
-                By accessing and using Parfumistry, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.
+                By accessing and using Parforium, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.
               </p>
             </section>
 
             <section>
               <h2 className="font-display text-2xl mb-4">2. Nature of Products</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Parfumistry offers a curated selection of premium fragrances. When you make a purchase:
+                Parforium offers a curated selection of premium fragrances. When you make a purchase:
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li>You are purchasing fragrances from our collection</li>
@@ -48,7 +48,7 @@ const TermsOfService = () => {
             <section>
               <h2 className="font-display text-2xl mb-4">4. Shipping & Delivery</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Delivery times vary depending on your location. We aim to process and dispatch all orders within 1-3 business days. Parfumistry is not liable for delays caused by postal or courier services, customs, or other factors outside our control.
+                Delivery times vary depending on your location. We aim to process and dispatch all orders within 1-3 business days. Parforium is not liable for delays caused by postal or courier services, customs, or other factors outside our control.
               </p>
             </section>
 
@@ -68,14 +68,14 @@ const TermsOfService = () => {
             <section>
               <h2 className="font-display text-2xl mb-4">6. Intellectual Property</h2>
               <p className="text-muted-foreground leading-relaxed">
-                All content on Parfumistry, including but not limited to text, graphics, logos, images, and software, is the property of Parfumistry or its content suppliers and is protected by international copyright laws. You may not reproduce, distribute, or create derivative works without our express written permission.
+                All content on Parforium, including but not limited to text, graphics, logos, images, and software, is the property of Parforium or its content suppliers and is protected by international copyright laws. You may not reproduce, distribute, or create derivative works without our express written permission.
               </p>
             </section>
 
             <section>
               <h2 className="font-display text-2xl mb-4">7. Limitation of Liability</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Parfumistry shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service. This includes damages for loss of profits, data, or other intangible losses.
+                Parforium shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service. This includes damages for loss of profits, data, or other intangible losses.
               </p>
             </section>
 

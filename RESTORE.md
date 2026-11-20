@@ -1,6 +1,6 @@
 # RESTORE — Reinstate this site anywhere with nothing missing
 
-This repository is a **complete, self-contained snapshot** of the Parfora / Parfumitry
+This repository is a **complete, self-contained snapshot** of the Parforium / Parfumitry
 storefront. Everything needed to stand the site back up — on Vercel, Lovable, or any
 other host — lives in this repo. Follow this guide top to bottom on a fresh machine or a
 fresh Supabase project and you get the exact same site.

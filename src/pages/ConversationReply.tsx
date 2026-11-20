@@ -40,7 +40,7 @@ const ConversationReply = () => {
           <div className="text-center mb-10">
             <p className="text-xs tracking-[0.3em] text-muted-foreground font-medium mb-4 uppercase">Your conversation</p>
             <h1 className="font-display text-3xl md:text-4xl text-foreground text-balance">
-              {isLoading ? 'Loading…' : data?.conversation.subject || 'Your message to Parfumistry'}
+              {isLoading ? 'Loading…' : data?.conversation.subject || 'Your message to Parforium'}
             </h1>
             {data && (
               <p className="text-sm text-muted-foreground mt-3">
@@ -77,7 +77,7 @@ const ConversationReply = () => {
                         mine ? 'bg-foreground text-background border-foreground' : 'bg-background text-foreground border-border'
                       }`}>
                         <div className={`text-[10px] uppercase tracking-[0.15em] mb-1.5 ${mine ? 'text-background/60' : 'text-accent'}`}>
-                          {mine ? 'You' : 'Parfumistry'} · {fmt(m.created_at)}
+                          {mine ? 'You' : 'Parforium'} · {fmt(m.created_at)}
                         </div>
                         {m.body}
                       </div>

@@ -31,7 +31,7 @@ function normalizeName(str: string): string {
 
 // The JPG bundle has no single cover image on the site, so its email thumbnail is a hand-built composite.
 const EXTRA_EMAIL_IMAGES: EmailProductImage[] = [
-  { id: "jpg-bundle", name: 'Fragrance Bundle "The JPG Collection"', brand: "Parfora", path: "/email/products/jpg-bundle.png" },
+  { id: "jpg-bundle", name: 'Fragrance Bundle "The JPG Collection"', brand: "Parforium", path: "/email/products/jpg-bundle.png" },
 ];
 
 const ALL_EMAIL_IMAGES = [...EMAIL_PRODUCT_IMAGES, ...EXTRA_EMAIL_IMAGES];
@@ -293,7 +293,7 @@ function buildEmailHtml(
 
     '<div style="background-color: #1a1a1a; padding: 36px 32px; text-align: center;">',
     '<a href="' + SITE_URL + '" style="text-decoration: none;"><img src="' + SITE_URL + '/email/parfora-mark.png" alt="" width="36" height="60" style="display: block; margin: 0 auto 14px auto; width: 36px; height: 60px; border: 0;" />',
-    '<h1 style="color: #c9a96e; font-size: 26px; font-weight: 300; letter-spacing: 8px; margin: 0; text-transform: uppercase;">Parfora</h1></a>',
+    '<h1 style="color: #c9a96e; font-size: 26px; font-weight: 300; letter-spacing: 8px; margin: 0; text-transform: uppercase;">Parforium</h1></a>',
     '<p style="color: #666; font-size: 12px; letter-spacing: 2px; margin: 8px 0 0 0; text-transform: uppercase;">Premium Fragrances</p>',
     '</div>',
 
@@ -348,8 +348,8 @@ function buildEmailHtml(
     '</div></div>',
 
     '<div style="background-color: #1a1a1a; padding: 28px 32px; text-align: center;">',
-    '<p style="color: #c9a96e; font-size: 14px; letter-spacing: 3px; margin: 0 0 8px 0; text-transform: uppercase;">Parfora</p>',
-    '<p style="color: #666; font-size: 11px; margin: 0; line-height: 1.8;">&copy; ' + year + ' Parfora. All rights reserved.<br>',
+    '<p style="color: #c9a96e; font-size: 14px; letter-spacing: 3px; margin: 0 0 8px 0; text-transform: uppercase;">Parforium</p>',
+    '<p style="color: #666; font-size: 11px; margin: 0; line-height: 1.8;">&copy; ' + year + ' Parforium. All rights reserved.<br>',
     '<a href="https://www.parfora.net" style="color: #888; text-decoration: none;">parfora.net</a></p>',
     '</div>',
 
@@ -403,7 +403,7 @@ function buildAdminInvoiceHtml(
   <div style="background:#1a1a1a;padding:32px 40px;display:flex;justify-content:space-between;">
     <table style="width:100%;"><tr>
       <td style="vertical-align:top;">
-        <h1 style="color:#c9a96e;font-size:24px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parfora</h1>
+        <h1 style="color:#c9a96e;font-size:24px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parforium</h1>
         <p style="color:#666;font-size:11px;letter-spacing:2px;margin:6px 0 0;text-transform:uppercase;">Premium Fragrances</p>
       </td>
       <td style="vertical-align:top;text-align:right;">
@@ -482,8 +482,8 @@ function buildAdminInvoiceHtml(
 
   <!-- Footer -->
   <div style="background:#1a1a1a;padding:24px 40px;text-align:center;">
-    <p style="color:#c9a96e;font-size:13px;letter-spacing:3px;margin:0 0 6px;text-transform:uppercase;">Parfora</p>
-    <p style="color:#666;font-size:11px;margin:0;line-height:1.6;">© ${year} Parfora. All rights reserved.<br>
+    <p style="color:#c9a96e;font-size:13px;letter-spacing:3px;margin:0 0 6px;text-transform:uppercase;">Parforium</p>
+    <p style="color:#666;font-size:11px;margin:0;line-height:1.6;">© ${year} Parforium. All rights reserved.<br>
     <a href="mailto:support@parfumistry.net" style="color:#888;text-decoration:none;">support@parfumistry.net</a></p>
   </div>
 
@@ -502,7 +502,7 @@ async function sendEmail(to: string, subject: string, htmlContent: string): Prom
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Parfora <orders@parfumistry.net>",
+      from: "Parforium <orders@parfumistry.net>",
       to: [to],
       subject,
       html: htmlContent,
@@ -565,7 +565,7 @@ serve(async (req) => {
     const shippingMethod = (shippingAddress as any)?.shippingMethod || null;
     const html = buildEmailHtml(customerName || "Valued Customer", itemsHtml, calculatedTotal, shippingAddress || { line1: "", city: "", postalCode: "", country: "" }, orderNumber, discountCode, discountPercent, shippingMethod);
 
-    const emailSubject = orderNumber ? `Order #${orderNumber} Confirmed - Parfora` : "Order Confirmed - Parfora";
+    const emailSubject = orderNumber ? `Order #${orderNumber} Confirmed - Parforium` : "Order Confirmed - Parforium";
     await sendEmail(customerEmail, emailSubject, html);
 
     return new Response(JSON.stringify({ success: true }), {

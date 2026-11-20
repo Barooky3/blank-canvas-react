@@ -58,7 +58,7 @@ function buildBancontactInvoiceHtml(order: any): string {
 <body style="margin:0;padding:0;background:#f4f3ef;font-family:Helvetica Neue,Arial,sans-serif;">
 <div style="max-width:600px;margin:0 auto;background:#fff;">
   <div style="background:#1a1a1a;padding:36px 32px;text-align:center;">
-    <h1 style="color:#c9a96e;font-size:26px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parfumistry</h1>
+    <h1 style="color:#c9a96e;font-size:26px;font-weight:300;letter-spacing:5px;margin:0;text-transform:uppercase;">Parforium</h1>
     <p style="color:#666;font-size:12px;letter-spacing:2px;margin:8px 0 0;text-transform:uppercase;">Bancontact Invoice</p>
   </div>
   <div style="padding:32px;">
@@ -96,8 +96,8 @@ function buildBancontactInvoiceHtml(order: any): string {
     </div>
   </div>
   <div style="background:#1a1a1a;padding:28px 32px;text-align:center;">
-    <p style="color:#c9a96e;font-size:14px;letter-spacing:3px;margin:0 0 8px;text-transform:uppercase;">Parfumistry</p>
-    <p style="color:#666;font-size:11px;margin:0;">&copy; ${year} Parfumistry. All rights reserved.</p>
+    <p style="color:#c9a96e;font-size:14px;letter-spacing:3px;margin:0 0 8px;text-transform:uppercase;">Parforium</p>
+    <p style="color:#666;font-size:11px;margin:0;">&copy; ${year} Parforium. All rights reserved.</p>
   </div>
 </div>
 </body></html>`;
@@ -110,7 +110,7 @@ async function sendInvoiceEmail(to: string, subject: string, html: string): Prom
     method: "POST",
     headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "Parfumistry Orders <orders@parfumistry.net>",
+      from: "Parforium Orders <orders@parfumistry.net>",
       to: [to],
       subject,
       html,
