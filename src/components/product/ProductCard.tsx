@@ -196,21 +196,52 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
             </p>
           )}
 
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-sm font-semibold text-foreground">
-              {formatPrice(product.price)}
-            </span>
-            {product.variants && product.variants.length > 0 && (
-              <span className="text-[10px] text-muted-foreground">
-                / {product.variants[0].ml}ml
+          {product.variants && product.variants.length > 1 ? (
+            <ul className="flex flex-col gap-1 pt-0.5" aria-label="Available sizes and prices">
+              {product.variants.map((variant) => {
+                const variantDiscount = variant.originalPrice && variant.originalPrice > variant.price;
+                return (
+                  <li
+                    key={`${variant.ml}-${variant.label ?? ''}`}
+                    className={cn(
+                      'flex items-baseline gap-1.5',
+                      !variant.inStock && 'opacity-50'
+                    )}
+                  >
+                    <span className="text-[10px] font-medium uppercase tracking-[0.06em] text-muted-foreground whitespace-nowrap">
+                      {variant.label || `${variant.ml}ml`}
+                    </span>
+                    <span aria-hidden="true" className="flex-1 min-w-2 border-b border-dotted border-border translate-y-[-3px]" />
+                    {variantDiscount && (
+                      <span className="text-[10px] text-muted-foreground line-through">
+                        {formatPrice(variant.originalPrice!)}
+                      </span>
+                    )}
+                    <span className={cn('text-xs font-semibold text-foreground whitespace-nowrap', !variant.inStock && 'line-through')}>
+                      {formatPrice(variant.price)}
+                    </span>
+                    {!variant.inStock && <span className="sr-only">{t('product.soldOut')}</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-sm font-semibold text-foreground">
+                {formatPrice(product.variants?.[0]?.price ?? product.price)}
               </span>
-            )}
-            {hasDiscount && (
-              <span className="text-xs text-muted-foreground line-through">
-                {formatPrice(product.originalPrice!)}
-              </span>
-            )}
-          </div>
+              {product.variants && product.variants.length > 0 && (
+                <span className="text-[10px] text-muted-foreground">
+                  / {product.variants[0].label || `${product.variants[0].ml}ml`}
+                </span>
+              )}
+              {hasDiscount && (
+                <span className="text-xs text-muted-foreground line-through">
+                  {formatPrice(product.originalPrice!)}
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </motion.div>
     );
