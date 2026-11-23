@@ -7,12 +7,14 @@ export const VOUCHER_BRANDS = {
     route: 'rewarble',
     iconUrl: '/images/rewarble-icon.svg',
     enebaUrl: 'https://www.eneba.com/rewarble-rewarble-bank-transfer-15-eur-voucher-global',
+    videoUrl: '/videos/checkout-tutorial-eneba.mp4',
   },
   rewup: {
     name: 'Rewup',
     route: 'rewup',
     iconUrl: '/images/rewup-icon.png',
     enebaUrl: 'https://www.eneba.com/rewup-rewup-paypal-20-gbp-voucher-global',
+    videoUrl: '/videos/checkout-tutorial-rewup.mp4',
   },
 } as const;
 

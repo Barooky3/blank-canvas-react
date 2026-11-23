@@ -41,7 +41,7 @@ const Rewarble = () => {
       if (v.msRequestFullscreen) { v.msRequestFullscreen(); return; }
     } catch (e) {
       // Fallback: open the video file in a new tab
-      window.open('/videos/checkout-tutorial-eneba.mp4', '_blank');
+      window.open(VOUCHER.videoUrl, '_blank');
     }
   };
 
@@ -236,7 +236,7 @@ const Rewarble = () => {
                     preload="metadata"
                     className="w-full aspect-video bg-black rounded-lg"
                   >
-                    <source src="/videos/checkout-tutorial-eneba.mp4" type="video/mp4" />
+                    <source src={VOUCHER.videoUrl} type="video/mp4" />
                   </video>
                   <button
                     type="button"
@@ -270,7 +270,7 @@ const Rewarble = () => {
                 preload="metadata"
                 className="w-full h-full min-h-[200px] aspect-video bg-black"
               >
-                <source src="/videos/checkout-tutorial-eneba.mp4" type="video/mp4" />
+                <source src={VOUCHER.videoUrl} type="video/mp4" />
               </video>
               <button
                 type="button"
