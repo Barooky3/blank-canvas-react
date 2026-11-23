@@ -178,7 +178,7 @@ function buildApprovalEmailHtml(
       <table style="width:100%;">${itemRows}</table>
     </div>
     ${paymentMethod === "rewarble" && giftCardCode ? `<div style="background:#fef3c7;border:2px solid #f59e0b;padding:16px 20px;border-radius:8px;margin-bottom:16px;">
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#92400e;margin-bottom:6px;font-weight:600;">Rewarble Code</div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#92400e;margin-bottom:6px;font-weight:600;">Rewup Code</div>
       <div style="font-size:18px;font-weight:700;color:#92400e;letter-spacing:2px;font-family:monospace;">${giftCardCode}</div>
     </div>` : ""}
   </div>
@@ -367,7 +367,7 @@ serve(async (req) => {
         order.order_number,
       );
       const methodLabels: Record<string, string> = {
-        rewarble: "Rewarble Order",
+        rewarble: "Rewup Order",
         revolut_app: "Revolut Order",
         bank_transfer: "Bank Transfer Order",
         paypal_eneba: "PayPal/Eneba Order",

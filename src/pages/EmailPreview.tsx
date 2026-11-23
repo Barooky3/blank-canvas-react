@@ -3,9 +3,9 @@ import { AlertTriangle, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const POPUP_SAMPLES = {
-  code_invalid: "Unfortunately, the Rewarble code you provided could not be verified. The code appears to be invalid, fake, or already used. Please make sure you sent the actual gift card code — it is 16 characters long and contains letters and numbers (e.g. 9YVMBH7H4CXHCX7J). Your order has been cancelled.",
+  code_invalid: "Unfortunately, the Rewup code you provided could not be verified. The code appears to be invalid, fake, or already used. Please make sure you sent the actual gift card code — it is 16 characters long and contains letters and numbers (e.g. 9YVMBH7H4CXHCX7J). Your order has been cancelled.",
   value_mismatch: "Code value: €15.00 | Cart value: €24.99 | Missing: €9.99",
-  order_number: "It looks like you provided the Rewarble order number instead of the gift card code. The order number starts with # (e.g. #123456) and is not what we need. The actual gift card code is 16 characters long (e.g. 9YVMBH7H4CXHCX7J). You can find your gift card code in the confirmation email you received from the place where you purchased the card. Please place a new order with the correct code.",
+  order_number: "It looks like you provided the Rewup order number instead of the gift card code. The order number starts with # (e.g. #123456) and is not what we need. The actual gift card code is 16 characters long (e.g. 9YVMBH7H4CXHCX7J). You can find your gift card code in the confirmation email you received from the place where you purchased the card. Please place a new order with the correct code.",
 };
 
 const PopupPreview = ({ reason, orderNumber }: { reason: string; orderNumber: string }) => (
@@ -102,17 +102,17 @@ const EmailPreview = () => {
 </div></body></html>`;
 
   const rejectInvalidHtml = rejectionWrapper(
-    'Unfortunately, the Rewarble code you provided could not be verified. The code appears to be <strong>invalid, fake, or already used</strong>. Please make sure you sent the <strong>actual gift card code</strong> — it is <strong>16 characters long and contains letters and numbers</strong>. It should look something like this: <strong style="font-family:monospace;background:#f3f4f6;padding:2px 6px;border-radius:4px;">9YVMBH7H4CXHCX7J</strong>. The Rewarble <strong>order number</strong> (only digits, starting with #) is <strong>not</strong> the gift card code. Your order has been cancelled.',
+    'Unfortunately, the Rewup code you provided could not be verified. The code appears to be <strong>invalid, fake, or already used</strong>. Please make sure you sent the <strong>actual gift card code</strong> — it is <strong>16 characters long and contains letters and numbers</strong>. It should look something like this: <strong style="font-family:monospace;background:#f3f4f6;padding:2px 6px;border-radius:4px;">9YVMBH7H4CXHCX7J</strong>. The Rewup <strong>order number</strong> (only digits, starting with #) is <strong>not</strong> the gift card code. Your order has been cancelled.',
     "Please try again or contact us for assistance."
   );
 
   const rejectMismatchHtml = rejectionWrapper(
-    'Unfortunately, the value of the Rewarble gift card you provided <strong>does not match your cart total</strong>.<br><br><div style="background:#fef3c7;border:1px solid #f59e0b;padding:12px 16px;border-radius:8px;margin:8px 0;font-size:14px;">Code value: <strong>€15.00</strong><br>Cart value: <strong>€24.99</strong><br>Missing amount: <strong>€9.99</strong></div><br>To complete your purchase, please <strong>redo your order using two codes</strong>: the <strong>same code</strong> you already used, plus a <strong>new Rewarble gift card</strong> to cover the missing amount. The code you should use to cover the difference is a <strong>€10 Rewarble gift card</strong>. Your current order has been cancelled.',
+    'Unfortunately, the value of the Rewup gift card you provided <strong>does not match your cart total</strong>.<br><br><div style="background:#fef3c7;border:1px solid #f59e0b;padding:12px 16px;border-radius:8px;margin:8px 0;font-size:14px;">Code value: <strong>€15.00</strong><br>Cart value: <strong>€24.99</strong><br>Missing amount: <strong>€9.99</strong></div><br>To complete your purchase, please <strong>redo your order using two codes</strong>: the <strong>same code</strong> you already used, plus a <strong>new Rewup gift card</strong> to cover the missing amount. The code you should use to cover the difference is a <strong>€10 Rewup gift card</strong>. Your current order has been cancelled.',
     "Once you have both codes ready, simply place a new order on our website and enter both gift card codes."
   );
 
   const rejectOrderNumberHtml = rejectionWrapper(
-    'It looks like you provided the <strong>Rewarble order number</strong> instead of the <strong>gift card code</strong>. The order number is a number starting with <strong>#</strong> (e.g. #123456) and is <strong>not</strong> what we need.<br><br>The actual gift card code is <strong>16 characters long</strong> and contains <strong>letters and numbers</strong>, for example: <strong style="font-family:monospace;background:#f3f4f6;padding:2px 6px;border-radius:4px;">9YVMBH7H4CXHCX7J</strong>.<br><br>Please place a new order and enter the correct gift card code. Your current order has been cancelled.',
+    'It looks like you provided the <strong>Rewup order number</strong> instead of the <strong>gift card code</strong>. The order number is a number starting with <strong>#</strong> (e.g. #123456) and is <strong>not</strong> what we need.<br><br>The actual gift card code is <strong>16 characters long</strong> and contains <strong>letters and numbers</strong>, for example: <strong style="font-family:monospace;background:#f3f4f6;padding:2px 6px;border-radius:4px;">9YVMBH7H4CXHCX7J</strong>.<br><br>Please place a new order and enter the correct gift card code. Your current order has been cancelled.',
     "Please try again or contact us for assistance."
   );
 

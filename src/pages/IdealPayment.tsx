@@ -10,6 +10,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { VOUCHER } from '@/config/voucher';
 
 const IdealPayment = () => {
   const { toast } = useToast();
@@ -144,12 +145,12 @@ const IdealPayment = () => {
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#CC0066] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Buy a Rewarble voucher on Eneba</p>
+                <p className="text-sm font-medium text-foreground">Buy a Rewup voucher on Eneba</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   Under <em>Value</em> pick a card amount that covers your cart total, press <strong>Buy now</strong> and select <strong>iDEAL</strong> at Eneba checkout.
                 </p>
                 <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
-                  onClick={() => window.open('https://www.eneba.com/rewarble-rewarble-bank-transfer-15-eur-voucher-global', '_blank', 'noopener,noreferrer')}>
+                  onClick={() => window.open(VOUCHER.enebaUrl, '_blank', 'noopener,noreferrer')}>
                   <ExternalLink className="h-3 w-3 mr-1.5" />Buy with iDEAL
                 </Button>
               </div>
@@ -158,14 +159,14 @@ const IdealPayment = () => {
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#CC0066] text-white text-xs font-bold shrink-0 mt-0.5">2</span>
               <div>
                 <p className="text-sm font-medium text-foreground">Paste your code below</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Enter the Rewarble code you received after purchasing.</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Enter the Rewup code you received after purchasing.</p>
               </div>
             </div>
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#CC0066] text-white text-xs font-bold shrink-0 mt-0.5">3</span>
               <div>
                 <p className="text-sm font-medium text-foreground">Confirm your payment</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Your code is sent to Rewarble for validation. Funds are only released once delivery to your address is complete.</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Your code is sent to Rewup for validation. Funds are only released once delivery to your address is complete.</p>
               </div>
             </div>
           </div>
@@ -180,12 +181,12 @@ const IdealPayment = () => {
             {codes.map((code, i) => (
               <div key={i}>
                 <Label className="text-xs font-medium tracking-wider text-foreground">
-                  REWARBLE CODE {codes.length > 1 ? `#${i + 1}` : ''}
+                  REWUP CODE {codes.length > 1 ? `#${i + 1}` : ''}
                 </Label>
                 <div className="flex gap-2 mt-1">
                   <Input
                     type="text"
-                    placeholder="Paste your Rewarble code here..."
+                    placeholder="Paste your Rewup code here..."
                     value={code}
                     onChange={(e) => updateCode(i, e.target.value)}
                     className="h-12 bg-background border-border rounded-md font-mono flex-1"
@@ -208,20 +209,20 @@ const IdealPayment = () => {
               Add another code
             </Button>
             <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3.5 py-2.5 mt-1.5">
-              <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-0.5">⚠ Send the Rewarble code, not the order number</p>
-              <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">The Rewarble code contains <strong>letters and numbers</strong> and should look something like this: <strong className="font-mono">9YVMBH7H4CXHCX7J</strong>. The Rewarble order number (digits only, starting with # e.g. <strong className="font-mono">#92000148383033</strong>) cannot be used.</p>
+              <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-0.5">⚠ Send the Rewup code, not the order number</p>
+              <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">The Rewup code contains <strong>letters and numbers</strong> and should look something like this: <strong className="font-mono">9YVMBH7H4CXHCX7J</strong>. The Rewup order number (digits only, starting with # e.g. <strong className="font-mono">#92000148383033</strong>) cannot be used.</p>
             </div>
             <div className="flex items-center gap-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 px-3.5 py-3 mt-2">
               <Lock className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <p className="text-xs font-medium text-emerald-800 dark:text-emerald-300 leading-relaxed">
-                Once you paste your code and confirm, it is sent to Rewarble for validation. The code is only released after you have received your delivery.
+                Once you paste your code and confirm, it is sent to Rewup for validation. The code is only released after you have received your delivery.
               </p>
             </div>
             <div className="flex items-center justify-center gap-2 pt-4 mt-4 border-t border-border/60">
               <Shield className="h-3.5 w-3.5 text-[#CC0066]" />
               <span className="text-xs text-muted-foreground">Secure verification powered by</span>
-              <img src="/images/rewarble-icon.svg" alt="Rewarble" className="h-5 w-5" />
-              <span className="text-sm font-semibold text-foreground">Rewarble</span>
+              <img src={VOUCHER.iconUrl} alt={VOUCHER.name} className="h-5 w-5" />
+              <span className="text-sm font-semibold text-foreground">Rewup</span>
             </div>
           </div>
         </div>
@@ -245,9 +246,9 @@ const IdealPayment = () => {
               </AlertDialogTitle>
               <AlertDialogDescription className="text-sm leading-relaxed">
                 <span className="font-semibold text-red-500 block mb-2">
-                  Orders confirmed with invalid Rewarble codes will be rejected upon review.
+                  Orders confirmed with invalid Rewup codes will be rejected upon review.
                 </span>
-                Your Rewarble code{allCodes.length > 1 ? 's' : ''} will be verified before your order is processed. If any code is invalid or has already been used, your order will be rejected.
+                Your Rewup code{allCodes.length > 1 ? 's' : ''} will be verified before your order is processed. If any code is invalid or has already been used, your order will be rejected.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

@@ -12,7 +12,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { SampleBonusNotice } from '@/components/checkout/SampleBonusNotice';
-const REWARBLE_ENEBA_URL = 'https://www.eneba.com/rewarble-rewarble-bank-transfer-15-eur-voucher-global?enb_campaign=Main%20Search&enb_content=search%20dropdown%20-%20products&enb_medium=product%20card&enb_source=https%3A%2F%2Fwww.eneba.com%2Frewarble-rewarble-venmo-20-usd-voucher-global&enb_term=3';
+import { VOUCHER } from '@/config/voucher';
+const REWARBLE_ENEBA_URL = VOUCHER.enebaUrl;
 
 const Rewarble = () => {
   const { toast } = useToast();
@@ -116,7 +117,7 @@ const Rewarble = () => {
       const orderNum = data?.orderNumber ? `&order=${data.orderNumber}` : '';
       navigate(`/checkout?completed=rewarble${orderNum}`);
     } catch (err: any) {
-      console.error('Rewarble order error:', err);
+      console.error('Rewup order error:', err);
       toast({ title: 'Order error', description: 'Could not complete your order. Please contact support.', variant: 'destructive' });
     } finally {
       setIsProcessing(false);
@@ -137,7 +138,7 @@ const Rewarble = () => {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#7C3AED]/10 mb-4">
             <Gift className="h-7 w-7 text-[#7C3AED]" />
           </div>
-          <h1 className="font-display text-2xl font-semibold text-foreground">Pay with Rewarble</h1>
+          <h1 className="font-display text-2xl font-semibold text-foreground">Pay with Rewup</h1>
         </div>
 
         {/* Trust badge */}
@@ -177,12 +178,12 @@ const Rewarble = () => {
               <div className="flex gap-3">
                 <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#7C3AED] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
                 <div>
-                  <p className="text-sm font-medium text-foreground">Buy a Rewarble voucher on Eneba</p>
+                  <p className="text-sm font-medium text-foreground">Buy a Rewup voucher on Eneba</p>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                     {orderTotalNum > 0 ? (
-                      <>Your cart total is <strong>€{orderTotal}</strong>. Tap the button below to open the Rewarble voucher on Eneba, then under <em>Value</em> pick any card amount that covers your total (options range from €5 up to €100). Press <strong>"Buy now"</strong> and check out on Eneba using whichever method you prefer (Visa, Mastercard, Apple Pay, Google Pay, and more).</>
+                      <>Your cart total is <strong>€{orderTotal}</strong>. Tap the button below to open the Rewup voucher on Eneba, then under <em>Value</em> pick any card amount that covers your total (options range from €5 up to €100). Press <strong>"Buy now"</strong> and check out on Eneba using whichever method you prefer (Visa, Mastercard, Apple Pay, Google Pay, and more).</>
                     ) : (
-                      <>Tap the button below to open the Rewarble voucher on Eneba, then under <em>Value</em> pick any card amount that covers your cart total (options range from €5 up to €100). Press <strong>"Buy now"</strong> and check out with your preferred method.</>
+                      <>Tap the button below to open the Rewup voucher on Eneba, then under <em>Value</em> pick any card amount that covers your cart total (options range from €5 up to €100). Press <strong>"Buy now"</strong> and check out with your preferred method.</>
                     )}
                   </p>
                   <div className="flex flex-wrap items-center gap-2 mt-2">
@@ -201,16 +202,16 @@ const Rewarble = () => {
                   <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
                     onClick={() => window.open(REWARBLE_ENEBA_URL, '_blank')}>
                     <ExternalLink className="h-3 w-3 mr-1.5" />
-                    Open Rewarble on Eneba
+                    Open Rewup on Eneba
                   </Button>
                 </div>
               </div>
               <div className="flex gap-3">
                 <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#7C3AED] text-white text-xs font-bold shrink-0 mt-0.5">2</span>
                 <div>
-                  <p className="text-sm font-medium text-foreground">Get your Rewarble code by email</p>
+                  <p className="text-sm font-medium text-foreground">Get your Rewup code by email</p>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                    Eneba delivers the voucher instantly. Right after purchase, the Rewarble code is sent to the email you used at Eneba checkout (and also shown on your Eneba order page) — usually within a minute. Open it, copy the code (letters and numbers — <strong>not</strong> the Eneba order number), come back to this page, and paste it into the field below.
+                    Eneba delivers the voucher instantly. Right after purchase, the Rewup code is sent to the email you used at Eneba checkout (and also shown on your Eneba order page) — usually within a minute. Open it, copy the code (letters and numbers — <strong>not</strong> the Eneba order number), come back to this page, and paste it into the field below.
                   </p>
                 </div>
               </div>
@@ -219,7 +220,7 @@ const Rewarble = () => {
                 <div>
                   <p className="text-sm font-medium text-foreground">Confirm your payment</p>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                    Press the green "Confirm Payment" button at the bottom. Your code is sent to Rewarble for validation, your order is placed as pending, and you'll get a confirmation email. Funds are only released to me once your delivery has arrived safely.
+                    Press the green "Confirm Payment" button at the bottom. Your code is sent to Rewup for validation, your order is placed as pending, and you'll get a confirmation email. Funds are only released to me once your delivery has arrived safely.
                   </p>
                 </div>
               </div>
@@ -247,7 +248,7 @@ const Rewarble = () => {
                   </button>
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed mt-2">
-                  Step-by-step: open the Rewarble voucher on Eneba → pick a Value that covers your total → tap "Buy now" and pay with your preferred method → receive your code by email → paste it here and confirm.
+                  Step-by-step: open the Rewup voucher on Eneba → pick a Value that covers your total → tap "Buy now" and pay with your preferred method → receive your code by email → paste it here and confirm.
                 </p>
               </div>
 
@@ -282,7 +283,7 @@ const Rewarble = () => {
             </div>
             <div className="px-5 py-3 border-t border-border">
               <p className="text-xs text-muted-foreground leading-relaxed">
-              Step-by-step: open the Rewarble voucher on Eneba → pick a Value that covers your total → tap "Buy now" and pay with your preferred method → receive your code by email → paste it here and confirm.
+              Step-by-step: open the Rewup voucher on Eneba → pick a Value that covers your total → tap "Buy now" and pay with your preferred method → receive your code by email → paste it here and confirm.
               </p>
             </div>
           </div>
@@ -323,12 +324,12 @@ const Rewarble = () => {
             {codes.map((code, i) => (
               <div key={i}>
                 <Label className="text-xs font-medium tracking-wider text-foreground">
-                  REWARBLE CODE {codes.length > 1 ? `#${i + 1}` : ''}
+                  REWUP CODE {codes.length > 1 ? `#${i + 1}` : ''}
                 </Label>
                 <div className="flex gap-2 mt-1">
                   <Input
                     type="text"
-                    placeholder="Paste your Rewarble code here..."
+                    placeholder="Paste your Rewup code here..."
                     value={code}
                     onChange={(e) => updateCode(i, e.target.value)}
                     className="h-12 bg-background border-border rounded-md font-mono flex-1"
@@ -351,20 +352,20 @@ const Rewarble = () => {
               Add another code
             </Button>
             <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3.5 py-2.5 mt-1.5">
-              <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-0.5">⚠ Send the Rewarble code, not the order number</p>
-              <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">The Rewarble code contains <strong>letters and numbers</strong> and should look something like this: <strong className="font-mono">9YVMBH7H4CXHCX7J</strong>. The Rewarble order number (digits only, starting with # e.g. <strong className="font-mono">#92000148383033</strong>) cannot be used.</p>
+              <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-0.5">⚠ Send the Rewup code, not the order number</p>
+              <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">The Rewup code contains <strong>letters and numbers</strong> and should look something like this: <strong className="font-mono">9YVMBH7H4CXHCX7J</strong>. The Rewup order number (digits only, starting with # e.g. <strong className="font-mono">#92000148383033</strong>) cannot be used.</p>
             </div>
             <div className="flex items-center gap-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 px-3.5 py-3 mt-2">
               <Lock className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <p className="text-xs font-medium text-emerald-800 dark:text-emerald-300 leading-relaxed">
-                Once you paste your code and confirm, it is sent to Rewarble for validation. The code is only released after you have received your delivery.
+                Once you paste your code and confirm, it is sent to Rewup for validation. The code is only released after you have received your delivery.
               </p>
             </div>
             <div className="flex items-center justify-center gap-2 pt-4 mt-4 border-t border-border/60">
               <Shield className="h-3.5 w-3.5 text-[#7C3AED]" />
               <span className="text-xs text-muted-foreground">Secure verification powered by</span>
-              <img src="/images/rewarble-icon.svg" alt="Rewarble" className="h-5 w-5" />
-              <span className="text-sm font-semibold text-foreground">Rewarble</span>
+              <img src={VOUCHER.iconUrl} alt={VOUCHER.name} className="h-5 w-5" />
+              <span className="text-sm font-semibold text-foreground">Rewup</span>
             </div>
           </div>
         </div>
@@ -388,9 +389,9 @@ const Rewarble = () => {
               </AlertDialogTitle>
               <AlertDialogDescription className="text-sm leading-relaxed">
                 <span className="font-semibold text-red-500 block mb-2">
-                  Orders confirmed with invalid Rewarble codes will be rejected upon review.
+                  Orders confirmed with invalid Rewup codes will be rejected upon review.
                 </span>
-                Your Rewarble code{allCodes.length > 1 ? 's' : ''} will be verified before your order is processed. If any code is invalid or has already been used, your order will be rejected.
+                Your Rewup code{allCodes.length > 1 ? 's' : ''} will be verified before your order is processed. If any code is invalid or has already been used, your order will be rejected.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

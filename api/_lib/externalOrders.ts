@@ -55,7 +55,7 @@ function parseApprovalEmail(html: string): ParsedOrder | null {
   const postalCode = parts.length >= 3 ? parts.pop()! : "";
   const city = parts.length >= 2 ? parts.pop()! : "";
 
-  const itemsSection = text.split(/Order Items/)[1]?.split(/Rewarble Code|Gift Card Code|Payment/i)[0] || "";
+  const itemsSection = text.split(/Order Items/)[1]?.split(/(?:Rewarble|Rewup) Code|Gift Card Code|Payment/i)[0] || "";
   const items: ParsedOrder["items"] = [];
   const itemRe = /\s*(.+?)\s+—\s+(.+?)(?:\s+—\s+(\d+)\s*ml)?\s+Qty:\s*(\d+)\s*·\s*€\s*([\d.,]+)/g;
   for (const m of itemsSection.matchAll(itemRe)) {
@@ -70,7 +70,7 @@ function parseApprovalEmail(html: string): ParsedOrder | null {
     });
   }
 
-  const gift = text.match(/Rewarble Code\s+(.+)$/);
+  const gift = text.match(/(?:Rewarble|Rewup) Code\s+(.+)$/);
 
   return {
     extRef: link[1],

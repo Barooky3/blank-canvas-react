@@ -11,8 +11,9 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { VOUCHER } from '@/config/voucher';
 
-const ENEBA_URL = 'https://www.eneba.com/rewarble-rewarble-bank-transfer-15-eur-voucher-global';
+const ENEBA_URL = VOUCHER.enebaUrl;
 
 const PaypalEneba = () => {
   const { toast } = useToast();
@@ -152,13 +153,13 @@ const PaypalEneba = () => {
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Buy a Rewarble voucher on Eneba</p>
+                <p className="text-sm font-medium text-foreground">Buy a Rewup voucher on Eneba</p>
                 <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                  Open the Rewarble voucher on Eneba and under <em>Value</em> pick card amount(s) that add up to <strong>at least your order amount</strong>{orderTotal ? <> (<strong>€{orderTotal}</strong>)</> : null}. You can combine several cards if needed.
+                  Open the Rewup voucher on Eneba and under <em>Value</em> pick card amount(s) that add up to <strong>at least your order amount</strong>{orderTotal ? <> (<strong>€{orderTotal}</strong>)</> : null}. You can combine several cards if needed.
                 </p>
                 <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
                   onClick={() => window.open(ENEBA_URL, '_blank', 'noopener,noreferrer')}>
-                  <ExternalLink className="h-3 w-3 mr-1.5" />Open Rewarble on Eneba
+                  <ExternalLink className="h-3 w-3 mr-1.5" />Open Rewup on Eneba
                 </Button>
               </div>
             </div>
@@ -166,21 +167,21 @@ const PaypalEneba = () => {
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">2</span>
               <div>
                 <p className="text-sm font-medium text-foreground">Pay with PayPal on Eneba</p>
-                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">Press <strong>Buy now</strong> and select <strong>PayPal</strong> at Eneba checkout. Your Rewarble code is emailed to you instantly (also shown on your Eneba order page).</p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">Press <strong>Buy now</strong> and select <strong>PayPal</strong> at Eneba checkout. Your Rewup code is emailed to you instantly (also shown on your Eneba order page).</p>
               </div>
             </div>
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">3</span>
               <div>
                 <p className="text-sm font-medium text-foreground">Paste your code below</p>
-                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">Copy the Rewarble gift card code (letters and numbers) and paste it below. If you bought more than one card, tap <strong>Add another code</strong> for each one.</p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">Copy the Rewup gift card code (letters and numbers) and paste it below. If you bought more than one card, tap <strong>Add another code</strong> for each one.</p>
               </div>
             </div>
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">4</span>
               <div>
                 <p className="text-sm font-medium text-foreground">Confirm your payment</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Your code is sent to Rewarble for validation. Funds are only released once delivery to your address is complete.</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Your code is sent to Rewup for validation. Funds are only released once delivery to your address is complete.</p>
               </div>
             </div>
             <div className="mt-2 pt-3 border-t border-border">
@@ -198,12 +199,12 @@ const PaypalEneba = () => {
             {codes.map((code, i) => (
               <div key={i}>
                 <Label className="text-xs font-medium tracking-wider text-foreground">
-                  REWARBLE CODE {codes.length > 1 ? `#${i + 1}` : ''}
+                  REWUP CODE {codes.length > 1 ? `#${i + 1}` : ''}
                 </Label>
                 <div className="flex gap-2 mt-1">
                   <Input
                     type="text"
-                    placeholder="Paste your Rewarble code here..."
+                    placeholder="Paste your Rewup code here..."
                     value={code}
                     onChange={(e) => updateCode(i, e.target.value)}
                     className="h-12 bg-background border-border rounded-md font-mono flex-1"
@@ -227,19 +228,19 @@ const PaypalEneba = () => {
             </Button>
             <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3.5 py-2.5 mt-1.5">
               <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-0.5">⚠ Send the gift card code, not the order number</p>
-              <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">The gift card code contains <strong>letters and numbers</strong> and should look something like this: <strong className="font-mono">9YVMBH7H4CXHCX7J</strong>. The Rewarble order number (digits only, starting with #) cannot be used.</p>
+              <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">The gift card code contains <strong>letters and numbers</strong> and should look something like this: <strong className="font-mono">9YVMBH7H4CXHCX7J</strong>. The Rewup order number (digits only, starting with #) cannot be used.</p>
             </div>
             <div className="flex items-center gap-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 px-3.5 py-3 mt-2">
               <Lock className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <p className="text-xs font-medium text-emerald-800 dark:text-emerald-300 leading-relaxed">
-                Once you paste your code and confirm, it is sent to Rewarble for validation. The code is only released after you have received your delivery.
+                Once you paste your code and confirm, it is sent to Rewup for validation. The code is only released after you have received your delivery.
               </p>
             </div>
             <div className="flex items-center justify-center gap-2 pt-4 mt-4 border-t border-border/60">
               <Shield className="h-3.5 w-3.5 text-[#0070BA]" />
               <span className="text-xs text-muted-foreground">Secure verification powered by</span>
-              <img src="/images/rewarble-icon.svg" alt="Rewarble" className="h-5 w-5" />
-              <span className="text-sm font-semibold text-foreground">Rewarble</span>
+              <img src={VOUCHER.iconUrl} alt={VOUCHER.name} className="h-5 w-5" />
+              <span className="text-sm font-semibold text-foreground">Rewup</span>
             </div>
           </div>
         </div>
@@ -263,9 +264,9 @@ const PaypalEneba = () => {
               </AlertDialogTitle>
               <AlertDialogDescription className="text-sm leading-relaxed">
                 <span className="font-semibold text-red-500 block mb-2">
-                  Orders confirmed with invalid Rewarble codes will be rejected upon review.
+                  Orders confirmed with invalid Rewup codes will be rejected upon review.
                 </span>
-                Your Rewarble code{allCodes.length > 1 ? 's' : ''} will be verified before your order is processed. If any code is invalid or has already been used, your order will be rejected.
+                Your Rewup code{allCodes.length > 1 ? 's' : ''} will be verified before your order is processed. If any code is invalid or has already been used, your order will be rejected.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

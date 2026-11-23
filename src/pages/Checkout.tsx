@@ -19,6 +19,7 @@ import { ChevronsUpDown, Check, Gift, X } from 'lucide-react';
 import { getFragrances } from '@/data/products';
 import { useBannedStatus } from '@/hooks/useBannedStatus';
 import { useAuth } from '@/contexts/AuthContext';
+import { VOUCHER } from '@/config/voucher';
 
 
 const COUNTRIES = [
@@ -712,7 +713,7 @@ const Checkout = () => {
             type="button"
             disabled={!isFormValid() || isProcessing}
             className="w-full h-12 rounded-lg text-sm font-bold tracking-wide bg-[#7C3AED] hover:bg-[#6D28D9] text-white"
-            onClick={() => handlePayment('rewarble')}
+            onClick={() => handlePayment(VOUCHER.route)}
           >
  Pay with Apple Pay / Google Pay
           </Button>

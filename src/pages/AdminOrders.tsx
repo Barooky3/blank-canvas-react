@@ -68,11 +68,11 @@ interface Order {
 function getPaymentMethod(ref: string): string {
   if (ref?.startsWith("bancontact")) return "Bancontact";
   if (ref?.startsWith("cod")) return "Cash on Delivery";
-  if (ref?.startsWith("rewarble") || ref?.startsWith("paypal") || ref?.startsWith("ideal")) return "Rewarble";
+  if (ref?.startsWith("rewarble") || ref?.startsWith("paypal") || ref?.startsWith("ideal")) return "Rewup";
   return "Other";
 }
 
-const PAYMENT_METHODS = ["All", "Rewarble", "Bancontact", "Cash on Delivery"];
+const PAYMENT_METHODS = ["All", "Rewup", "Bancontact", "Cash on Delivery"];
 
 // Orders from the stray site only exist as approval emails; this pulls them into our DB first.
 async function syncExternalOrders(accessToken: string) {
@@ -139,7 +139,7 @@ export default function AdminOrders() {
   const [customFrom, setCustomFrom] = useState<Date | undefined>();
   const [customTo, setCustomTo] = useState<Date | undefined>();
 
-  // Live counter (Rewarble/iDEAL/PayPal) — synced across admins via
+  // Live counter (Rewup/iDEAL/PayPal) — synced across admins via
   // public.admin_live_counter (single row id=1). Never auto-resets; only the
   // "Reset Day" button changes the anchor. Defaults to a far-past anchor so
   // all approved orders count until manually reset.
@@ -987,7 +987,7 @@ export default function AdminOrders() {
   };
 
   const pmColors: Record<string, string> = {
-    "Rewarble": "bg-purple-100 text-purple-800",
+    "Rewup": "bg-purple-100 text-purple-800",
     "Bancontact": "bg-amber-100 text-amber-800",
     "Cash on Delivery": "bg-emerald-100 text-emerald-800",
     "Other": "bg-gray-100 text-gray-800",
@@ -1216,12 +1216,12 @@ export default function AdminOrders() {
           </div>
         )}
 
-        {/* Live Counter — Rewarble / iDEAL / PayPal */}
+        {/* Live Counter — Rewup / iDEAL / PayPal */}
         <div className="mb-6 border rounded-lg p-4 bg-card">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
             <div>
               <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                Live Counter — Rewarble / iDEAL / PayPal
+                Live Counter — Rewup / iDEAL / PayPal
               </p>
               {!isRestrictedAdmin && (
                 <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -2128,7 +2128,7 @@ export default function AdminOrders() {
                 }`}
               >
                 <span className="font-medium text-sm">🔢 Order Number Provided Instead</span>
-                <p className="text-xs text-muted-foreground mt-1">Customer sent the Rewarble order number instead of the actual gift card code. Email includes step-by-step instructions (open email → Get Order → Display Key).</p>
+                <p className="text-xs text-muted-foreground mt-1">Customer sent the Rewup order number instead of the actual gift card code. Email includes step-by-step instructions (open email → Get Order → Display Key).</p>
               </button>
               {/* Option 3b: Eneba Order Number Provided */}
               <button
@@ -2171,7 +2171,7 @@ export default function AdminOrders() {
                 return (amount - lower) >= 4.99 ? lower + 5 : lower;
               };
               const recommendedCard = missing > 0 ? nearestCard(missing) : 0;
-              // Common Rewarble currencies
+              // Common Rewup currencies
               const commonCurrencies = ["EUR", "GBP", "USD", "CHF", "SEK", "DKK", "NOK", "PLN", "CZK", "TRY", "CAD", "AUD"];
               return (
                 <div className="mt-3 space-y-3">
@@ -2225,7 +2225,7 @@ export default function AdminOrders() {
                           onChange={(e) => setCustomRecommendedCard(e.target.value)}
                         />
                       </div>
-                      <p className="text-amber-700 text-xs">Customer will be told to use a <strong>{recommendedCardCurrency === "EUR" ? "€" : recommendedCardCurrency === "GBP" ? "£" : "$"}{customRecommendedCard || recommendedCard} {recommendedCardCurrency}</strong> Rewarble card.</p>
+                      <p className="text-amber-700 text-xs">Customer will be told to use a <strong>{recommendedCardCurrency === "EUR" ? "€" : recommendedCardCurrency === "GBP" ? "£" : "$"}{customRecommendedCard || recommendedCard} {recommendedCardCurrency}</strong> Rewup card.</p>
                     </div>
                   )}
                 </div>
