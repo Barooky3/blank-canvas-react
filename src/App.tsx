@@ -49,9 +49,10 @@ const ReturnPolicy = lazyWithReload(() => import("./pages/ReturnPolicy"));
 const Rewarble = lazyWithReload(() => import("./pages/Rewarble"));
 const PaypalEneba = lazyWithReload(() => import("./pages/PaypalEneba"));
 const IdealPayment = lazyWithReload(() => import("./pages/IdealPayment"));
+import { VOUCHER } from "./config/voucher";
 const CardToRewarbleRedirect = () => {
   const { search } = useLocation();
-  return <Navigate to={`/rewarble${search}`} replace />;
+  return <Navigate to={`/${VOUCHER.route}${search}`} replace />;
 };
 const RevolutApp = lazyWithReload(() => import("./pages/RevolutApp"));
 const BancontactPayment = lazyWithReload(() => import("./pages/BancontactPayment"));
@@ -106,6 +107,7 @@ const App = () => (
                 <Route path="/return-policy" element={<ReturnPolicy />} />
                 <Route path="/admin/orders" element={<AdminOrders />} />
                 <Route path="/rewarble" element={<Rewarble />} />
+                <Route path="/rewup" element={<Rewarble />} />
                 <Route path="/paypal" element={<PaypalEneba />} />
                 <Route path="/ideal" element={<IdealPayment />} />
                 <Route path="/card" element={<CardToRewarbleRedirect />} />

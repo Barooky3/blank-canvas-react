@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/integrations/supabase/client';
 import { useProductPadding, computePaddingAndScale } from '@/hooks/useProductPadding';
 import type { Product } from '@/types/product';
+import { VOUCHER } from '@/config/voucher';
 
 const ProofProductImage = ({ product }: { product: Product }) => {
   const override = useProductPadding(product.id);
@@ -59,7 +60,7 @@ const NAMES_BY_COUNTRY: Record<string, { male: string[]; female: string[]; last:
 
 const PAYMENT_METHODS = [
   { id: 'paypal', label: 'PayPal', icon: null, iconUrl: null, weight: 1.15, inlineSvg: true, bgColor: '#0070BA', textColor: '#fff' },
-  { id: 'rewarble', label: 'Rewarble', icon: null, iconUrl: '/images/rewarble-icon.svg', weight: 1.50 },
+  { id: 'rewarble', label: 'Rewup', icon: null, iconUrl: VOUCHER.iconUrl, weight: 1.50 },
 ];
 
 const ALL_COUNTRIES = Object.keys(NAMES_BY_COUNTRY);

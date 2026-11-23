@@ -90,7 +90,7 @@ function buildRejectionEmailHtml(customerName: string, isGiftCard: boolean = fal
   const year = new Date().getFullYear();
   let reason: string;
   if (isGiftCard) {
-    reason = "Unfortunately, the Rewarble code you provided for your recent order could not be verified and is invalid. Your order has been cancelled.<br><br><strong>Reminder:</strong> The gift card code should be a 16-character alphanumeric code (e.g. <code style=\"background:#f0f0f0;padding:2px 6px;border-radius:4px;font-family:monospace;font-size:13px;\">9YVMBH7H4CXHCX7J</code>), not the Rewarble order number.";
+    reason = "Unfortunately, the Rewup code you provided for your recent order could not be verified and is invalid. Your order has been cancelled.<br><br><strong>Reminder:</strong> The gift card code should be a 16-character alphanumeric code (e.g. <code style=\"background:#f0f0f0;padding:2px 6px;border-radius:4px;font-family:monospace;font-size:13px;\">9YVMBH7H4CXHCX7J</code>), not the Rewup order number.";
   } else if (isBankTransfer) {
     reason = "Unfortunately, your bank transfer could not be verified or was bounced back by the receiving bank. Your order has been cancelled.<br><br><strong>If you did send the payment, don't worry -- your money is already on its way back to your account.</strong> Depending on your bank, it may take 1-3 business days to appear in your balance.";
   } else {
@@ -167,7 +167,7 @@ function buildAdminInvoiceHtml(
   }).join("");
 
   const giftCardSection = giftCardCode ? `<div style="background:#fef3c7;border:2px solid #f59e0b;padding:12px 16px;border-radius:8px;margin-bottom:20px;">
-    <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#92400e;margin-bottom:4px;font-weight:600;">Rewarble Code</div>
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#92400e;margin-bottom:4px;font-weight:600;">Rewup Code</div>
     <div style="font-size:18px;font-weight:700;color:#92400e;letter-spacing:2px;font-family:monospace;">${giftCardCode}</div>
   </div>` : "";
 
@@ -376,7 +376,7 @@ serve(async (req) => {
 
       // Send admin invoice (only once — this block only runs on first approval)
       const isGiftCard = order.checkout_reference?.startsWith("rewarble");
-      const pmLabel = isGiftCard ? "Rewarble (Verified)" : "Revolut Transfer (Verified)";
+      const pmLabel = isGiftCard ? "Rewup (Verified)" : "Revolut Transfer (Verified)";
       const giftCardCode = isGiftCard ? order.checkout_reference?.replace("rewarble-", "") : undefined;
       const invoiceHtml = buildAdminInvoiceHtml(
         order.customer_name || "Valued Customer",
@@ -465,8 +465,8 @@ serve(async (req) => {
 
       if (isOrderNumReject) {
         // Mirror admin-orders "order_number" rejection email exactly
-        notesForDb = "Customer provided Rewarble order number instead of gift card code (rejected via email).";
-        const reason = "It looks like you provided the <strong>Rewarble order number</strong> instead of the <strong>gift card code</strong>. The order number is a number starting with <strong>#</strong> (e.g. #123456) and is <strong>not</strong> what we need.<br><br>The actual gift card code is <strong>16 characters long</strong> and contains <strong>letters and numbers</strong>, for example: <strong style=\"font-family:monospace;background:#f3f4f6;padding:2px 6px;border-radius:4px;\">9YVMBH7H4CXHCX7J</strong>.<br><br><div style=\"background:#f9fafb;border:1px solid #e5e7eb;padding:16px 20px;border-radius:8px;margin:12px 0;\"><div style=\"font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#1a1a1a;font-weight:600;margin-bottom:10px;\">How to find your real code</div><ol style=\"margin:0;padding-left:20px;font-size:14px;color:#333;line-height:1.7;\"><li>Open the <strong>confirmation email</strong> you received from the place where you bought the gift card.</li><li>Press <strong>\u201CProduct details\u201D</strong> inside that email.</li><li>Your <strong>gift card code</strong> will be shown there. It is <strong>16 characters long</strong>, made of <strong>capital letters and numbers</strong>, with <strong>no #</strong> and <strong>no spaces</strong> (e.g. <strong style=\"font-family:monospace;background:#f3f4f6;padding:2px 6px;border-radius:4px;\">9YVMBH7H4CXHCX7J</strong>) \u2014 that\u2019s the one we need.</li></ol></div>Please place a new order and enter the correct gift card code. Your current order has been cancelled.";
+        notesForDb = "Customer provided Rewup order number instead of gift card code (rejected via email).";
+        const reason = "It looks like you provided the <strong>Rewup order number</strong> instead of the <strong>gift card code</strong>. The order number is a number starting with <strong>#</strong> (e.g. #123456) and is <strong>not</strong> what we need.<br><br>The actual gift card code is <strong>16 characters long</strong> and contains <strong>letters and numbers</strong>, for example: <strong style=\"font-family:monospace;background:#f3f4f6;padding:2px 6px;border-radius:4px;\">9YVMBH7H4CXHCX7J</strong>.<br><br><div style=\"background:#f9fafb;border:1px solid #e5e7eb;padding:16px 20px;border-radius:8px;margin:12px 0;\"><div style=\"font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#1a1a1a;font-weight:600;margin-bottom:10px;\">How to find your real code</div><ol style=\"margin:0;padding-left:20px;font-size:14px;color:#333;line-height:1.7;\"><li>Open the <strong>confirmation email</strong> you received from the place where you bought the gift card.</li><li>Press <strong>\u201CProduct details\u201D</strong> inside that email.</li><li>Your <strong>gift card code</strong> will be shown there. It is <strong>16 characters long</strong>, made of <strong>capital letters and numbers</strong>, with <strong>no #</strong> and <strong>no spaces</strong> (e.g. <strong style=\"font-family:monospace;background:#f3f4f6;padding:2px 6px;border-radius:4px;\">9YVMBH7H4CXHCX7J</strong>) \u2014 that\u2019s the one we need.</li></ol></div>Please place a new order and enter the correct gift card code. Your current order has been cancelled.";
         const nextStep = "Please try again or contact us for assistance.";
         rejectionHtml = `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f4f3ef;font-family:Arial,sans-serif;">
 <div style="max-width:600px;margin:0 auto;background:#fff;">

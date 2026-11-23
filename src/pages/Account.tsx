@@ -170,7 +170,7 @@ interface OrderCardProps {
 const fallbackReason = (order: Order) => {
   const ref = order.checkout_reference || '';
   if (ref.startsWith('rewarble')) {
-    return 'Unfortunately, the Rewarble code you provided could not be verified. Please make sure you sent the actual gift card code — it is 16 characters long and contains letters and numbers (e.g. 9YVMBH7H4CXHCX7J). The Rewarble order number (only digits, starting with #) is not the gift card code. Your order has been cancelled.';
+    return 'Unfortunately, the Rewup code you provided could not be verified. Please make sure you sent the actual gift card code — it is 16 characters long and contains letters and numbers (e.g. 9YVMBH7H4CXHCX7J). The Rewup order number (only digits, starting with #) is not the gift card code. Your order has been cancelled.';
   }
   if (ref.startsWith('revolut-app')) return 'Unfortunately, your Revolut payment could not be verified. Your order has been cancelled.';
   if (ref.startsWith('bank-transfer')) {
