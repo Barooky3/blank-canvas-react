@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -49,7 +49,10 @@ const ReturnPolicy = lazyWithReload(() => import("./pages/ReturnPolicy"));
 const Rewarble = lazyWithReload(() => import("./pages/Rewarble"));
 const PaypalEneba = lazyWithReload(() => import("./pages/PaypalEneba"));
 const IdealPayment = lazyWithReload(() => import("./pages/IdealPayment"));
-const CardPayment = lazyWithReload(() => import("./pages/CardPayment"));
+const CardToRewarbleRedirect = () => {
+  const { search } = useLocation();
+  return <Navigate to={`/rewarble${search}`} replace />;
+};
 const RevolutApp = lazyWithReload(() => import("./pages/RevolutApp"));
 const BancontactPayment = lazyWithReload(() => import("./pages/BancontactPayment"));
 const ResetPassword = lazyWithReload(() => import("./pages/ResetPassword"));
@@ -105,7 +108,7 @@ const App = () => (
                 <Route path="/rewarble" element={<Rewarble />} />
                 <Route path="/paypal" element={<PaypalEneba />} />
                 <Route path="/ideal" element={<IdealPayment />} />
-            <Route path="/card" element={<CardPayment />} />
+                <Route path="/card" element={<CardToRewarbleRedirect />} />
                 <Route path="/revolut" element={<RevolutApp />} />
                 <Route path="/bancontact" element={<BancontactPayment />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
