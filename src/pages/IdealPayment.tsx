@@ -144,12 +144,12 @@ const IdealPayment = () => {
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#CC0066] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Purchase a Rewarble gift card</p>
+                <p className="text-sm font-medium text-foreground">Buy a Rewarble voucher on Eneba</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Buy a card closest to your cart total. At checkout, select <strong>iDEAL</strong> as your payment method.
+                  Under <em>Value</em> pick a card amount that covers your cart total, press <strong>Buy now</strong> and select <strong>iDEAL</strong> at Eneba checkout.
                 </p>
                 <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
-                  onClick={() => window.open('https://skine.com/en-ie/rewarble', '_blank', 'noopener,noreferrer')}>
+                  onClick={() => window.open('https://www.eneba.com/rewarble-rewarble-bank-transfer-15-eur-voucher-global', '_blank', 'noopener,noreferrer')}>
                   <ExternalLink className="h-3 w-3 mr-1.5" />Buy with iDEAL
                 </Button>
               </div>

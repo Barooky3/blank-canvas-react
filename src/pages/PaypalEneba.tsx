@@ -12,7 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
-const SKINE_URL = 'https://skine.com/en-ie/rewarble';
+const ENEBA_URL = 'https://www.eneba.com/rewarble-rewarble-bank-transfer-15-eur-voucher-global';
 
 const PaypalEneba = () => {
   const { toast } = useToast();
@@ -152,21 +152,21 @@ const PaypalEneba = () => {
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">1</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Buy a Rewarble gift card on Skine</p>
+                <p className="text-sm font-medium text-foreground">Buy a Rewarble voucher on Eneba</p>
                 <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                  Open Skine and press <strong>Buy Now</strong> on card value(s) that add up to <strong>at least your order amount</strong>{orderTotal ? <> (<strong>€{orderTotal}</strong>)</> : null}. You can combine several cards if needed.
+                  Open the Rewarble voucher on Eneba and under <em>Value</em> pick card amount(s) that add up to <strong>at least your order amount</strong>{orderTotal ? <> (<strong>€{orderTotal}</strong>)</> : null}. You can combine several cards if needed.
                 </p>
                 <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
-                  onClick={() => window.open(SKINE_URL, '_blank', 'noopener,noreferrer')}>
-                  <ExternalLink className="h-3 w-3 mr-1.5" />Open Skine
+                  onClick={() => window.open(ENEBA_URL, '_blank', 'noopener,noreferrer')}>
+                  <ExternalLink className="h-3 w-3 mr-1.5" />Open Rewarble on Eneba
                 </Button>
               </div>
             </div>
             <div className="flex gap-3">
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#0070BA] text-white text-xs font-bold shrink-0 mt-0.5">2</span>
               <div>
-                <p className="text-sm font-medium text-foreground">Pay with PayPal on Skine</p>
-                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">At Skine checkout select <strong>PayPal</strong>, enter your email, tick the captcha and press <strong>Checkout</strong>. Your Rewarble code is emailed to you instantly.</p>
+                <p className="text-sm font-medium text-foreground">Pay with PayPal on Eneba</p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">Press <strong>Buy now</strong> and select <strong>PayPal</strong> at Eneba checkout. Your Rewarble code is emailed to you instantly (also shown on your Eneba order page).</p>
               </div>
             </div>
             <div className="flex gap-3">
