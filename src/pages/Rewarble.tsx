@@ -12,7 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCart } from '@/contexts/CartContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { SampleBonusNotice } from '@/components/checkout/SampleBonusNotice';
-import { VOUCHER } from '@/config/voucher';
+import { VOUCHER, IS_REWARBLE } from '@/config/voucher';
 const REWARBLE_ENEBA_URL = VOUCHER.enebaUrl;
 
 const Rewarble = () => {
@@ -193,12 +193,14 @@ const Rewarble = () => {
                     <span className="text-[11px] text-muted-foreground/80 bg-muted/50 px-2 py-0.5 rounded">Google Pay</span>
                     <span className="text-[11px] text-muted-foreground/80 bg-muted/50 px-2 py-0.5 rounded">& more</span>
                   </div>
-                  <div className="rounded-md border border-sky-500/30 bg-sky-50 dark:bg-sky-950/20 px-3 py-2 mt-2 flex items-start gap-2">
-                    <Shield className="h-3.5 w-3.5 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
-                    <p className="text-[11px] font-medium text-sky-800 dark:text-sky-300 leading-relaxed">
-                      Despite the "Bank Transfer" name, you do <strong>not</strong> need to make a bank transfer — Eneba checkout accepts cards, Apple Pay, Google Pay and many other methods.
-                    </p>
-                  </div>
+                  {IS_REWARBLE && (
+                    <div className="rounded-md border border-sky-500/30 bg-sky-50 dark:bg-sky-950/20 px-3 py-2 mt-2 flex items-start gap-2">
+                      <Shield className="h-3.5 w-3.5 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
+                      <p className="text-[11px] font-medium text-sky-800 dark:text-sky-300 leading-relaxed">
+                        Despite the "Bank Transfer" name, you do <strong>not</strong> need to make a bank transfer — Eneba checkout accepts cards, Apple Pay, Google Pay and many other methods.
+                      </p>
+                    </div>
+                  )}
                   <Button type="button" variant="outline" size="sm" className="mt-2 text-xs"
                     onClick={() => window.open(REWARBLE_ENEBA_URL, '_blank')}>
                     <ExternalLink className="h-3 w-3 mr-1.5" />
@@ -211,7 +213,7 @@ const Rewarble = () => {
                 <div>
                   <p className="text-sm font-medium text-foreground">Get your Rewup code by email</p>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                    Eneba delivers the voucher instantly. Right after purchase, the Rewup code is sent to the email you used at Eneba checkout (and also shown on your Eneba order page) — usually within a minute. Open it, copy the code (letters and numbers — <strong>not</strong> the Eneba order number), come back to this page, and paste it into the field below.
+                    Eneba delivers the voucher instantly. Right after purchase, the Rewup code is sent to the email you used at Eneba checkout (and also shown on your Eneba order page) — usually within a minute. Open it, copy the code{IS_REWARBLE ? <> (letters and numbers — <strong>not</strong> the Eneba order number)</> : <> (<strong>not</strong> the Eneba order number)</>}, come back to this page, and paste it into the field below.
                   </p>
                 </div>
               </div>
@@ -351,10 +353,12 @@ const Rewarble = () => {
               <Plus className="h-4 w-4 mr-2" />
               Add another code
             </Button>
-            <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3.5 py-2.5 mt-1.5">
-              <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-0.5">⚠ Send the Rewup code, not the order number</p>
-              <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">The Rewup code contains <strong>letters and numbers</strong> and should look something like this: <strong className="font-mono">9YVMBH7H4CXHCX7J</strong>. The Rewup order number (digits only, starting with # e.g. <strong className="font-mono">#92000148383033</strong>) cannot be used.</p>
-            </div>
+            {IS_REWARBLE && (
+              <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3.5 py-2.5 mt-1.5">
+                <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-0.5">⚠ Send the Rewup code, not the order number</p>
+                <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">The Rewup code contains <strong>letters and numbers</strong> and should look something like this: <strong className="font-mono">9YVMBH7H4CXHCX7J</strong>. The Rewup order number (digits only, starting with # e.g. <strong className="font-mono">#92000148383033</strong>) cannot be used.</p>
+              </div>
+            )}
             <div className="flex items-center gap-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 px-3.5 py-3 mt-2">
               <Lock className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <p className="text-xs font-medium text-emerald-800 dark:text-emerald-300 leading-relaxed">
