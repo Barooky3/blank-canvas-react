@@ -198,15 +198,6 @@ function siteCodePage({ typed, focused, hover }) {
     ),
     abs(612, 528, 696, 56, { alignItems: 'center', justifyContent: 'center', borderRadius: 10, border: '2px solid #3a3a3a', color: '#a78bfa', fontSize: 20, fontWeight: 600 }, '+ Add another code'),
     abs(
-      612,
-      604,
-      696,
-      100,
-      { flexDirection: 'column', justifyContent: 'center', gap: 6, paddingLeft: 20, borderRadius: 10, border: '2px solid rgba(245,158,11,0.45)', background: 'rgba(245,158,11,0.10)' },
-      T('Send the Rewup code, not the order number', { fontSize: 19, fontWeight: 700, color: '#fcd34d' }),
-      T(`The code looks like ${CODE}`, { fontSize: 17, color: '#fde68a' }),
-    ),
-    abs(
       580,
       762,
       760,
@@ -447,7 +438,7 @@ function enebaKey({ copied }) {
       64,
       { alignItems: 'center', gap: 14, paddingLeft: 20, borderRadius: 12, border: '2px solid rgba(245,158,11,0.45)', background: 'rgba(245,158,11,0.10)', color: '#fcd34d', fontSize: 20 },
       warnIcon(),
-      'Copy the 16-character code above, not the order number.',
+      'Copy your Rewup code above, not the order number.',
     ),
   ]
 }

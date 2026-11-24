@@ -21,3 +21,7 @@ export const VOUCHER_BRANDS = {
 export const ACTIVE_VOUCHER: keyof typeof VOUCHER_BRANDS = 'rewup';
 
 export const VOUCHER = VOUCHER_BRANDS[ACTIVE_VOUCHER];
+
+// Rewarble-only notices (the "Bank Transfer" product name and its fixed 16-char code format)
+// are hidden for other brands and come back automatically when switching back to Rewarble.
+export const IS_REWARBLE = (ACTIVE_VOUCHER as string) === 'rewarble';
